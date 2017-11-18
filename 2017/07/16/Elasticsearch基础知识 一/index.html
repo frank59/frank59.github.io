@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="elasticsearch,es," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 安装ElasticsearchElasticsearch2.4.2下载地址123unzip elasticsearch-2.4.2.zipcd elasticsearch-2.4.2./bin/elasticsearch 在新的控制台访问：1curl &apos;http://localhost:9200/?pr">
+<meta name="keywords" content="elasticsearch,es">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch基础知识 一">
+<meta property="og:url" content="http://yoursite.com/2017/07/16/Elasticsearch基础知识 一/index.html">
+<meta property="og:site_name" content="GeeWaza">
+<meta property="og:description" content="1. 安装ElasticsearchElasticsearch2.4.2下载地址123unzip elasticsearch-2.4.2.zipcd elasticsearch-2.4.2./bin/elasticsearch 在新的控制台访问：1curl &apos;http://localhost:9200/?pretty&apos;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-18T16:56:42.014Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elasticsearch基础知识 一">
+<meta name="twitter:description" content="1. 安装ElasticsearchElasticsearch2.4.2下载地址123unzip elasticsearch-2.4.2.zipcd elasticsearch-2.4.2./bin/elasticsearch 在新的控制台访问：1curl &apos;http://localhost:9200/?pretty&apos;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/16/Elasticsearch基础知识 一/"/>
+
+
+
+
+
+  <title>Elasticsearch基础知识 一 | GeeWaza</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GeeWaza</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Geek's 技（わざ）</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/16/Elasticsearch基础知识 一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeeWaza">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeeWaza">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Elasticsearch基础知识 一</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-16T17:11:30+08:00">
+                2017-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/16/Elasticsearch基础知识 一/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/16/Elasticsearch基础知识 一/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-安装Elasticsearch"><a href="#1-安装Elasticsearch" class="headerlink" title="1. 安装Elasticsearch"></a>1. 安装Elasticsearch</h2><p><a href="https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/zip/elasticsearch/2.4.2/elasticsearch-2.4.2.zip" target="_blank" rel="noopener">Elasticsearch2.4.2下载地址</a><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">unzip elasticsearch-2.4.2.zip</span><br><span class="line">cd elasticsearch-2.4.2</span><br><span class="line">./bin/elasticsearch</span><br></pre></td></tr></table></figure></p>
+<p>在新的控制台访问：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl 'http://localhost:9200/?pretty'</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p><a href="https://download.elastic.co/kibana/kibana/kibana-4.5.4-darwin-x64.tar.gz" target="_blank" rel="noopener">下载Kibana4.5.4</a><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf kibana-4.5.4-darwin-x64.tar.gz</span><br><span class="line">cd kibana-4.5.4-darwin-x64</span><br><span class="line">./bin/kibana plugin --install elastic/sense</span><br><span class="line">./bin/kibana</span><br></pre></td></tr></table></figure></p>
+<p>在浏览器访问地址<br><a href="http://localhost:5601/app/sense" target="_blank" rel="noopener">http://localhost:5601/app/sense</a></p>
+<h2 id="2-测试elasticsearch"><a href="#2-测试elasticsearch" class="headerlink" title="2. 测试elasticsearch"></a>2. 测试elasticsearch</h2><p>在保持es和kibana都启动的情况下，访问es：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -i -XGET 'localhost:9200/_count?pretty' -d '</span><br><span class="line">&#123;</span><br><span class="line">    "query": &#123;</span><br><span class="line">        "match_all": &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;'</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-知识点"><a href="#3-知识点" class="headerlink" title="3. 知识点"></a>3. 知识点</h2><ol>
+<li>面向文档：对文档进行索引、检索、排序和过滤</li>
+<li>使用JSON格式化文档</li>
+<li>集群：一个 Elasticsearch 集群可以 包含多个 索引 ，相应的每个索引可以包含多个 类型</li>
+</ol>
+<h2 id="4-索引操作"><a href="#4-索引操作" class="headerlink" title="4. 索引操作"></a>4. 索引操作</h2><h3 id="4-1-插入文档"><a href="#4-1-插入文档" class="headerlink" title="4.1. 插入文档"></a>4.1. 插入文档</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">PUT /megacorp/employee/1</span><br><span class="line">&#123;</span><br><span class="line">    "first_name" : "John",</span><br><span class="line">    "last_name" :  "Smith",</span><br><span class="line">    "age" :        25,</span><br><span class="line">    "about" :      "I love to go rock climbing",</span><br><span class="line">    "interests": [ "sports", "music" ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>说明：<code>/megacorp/employee/1</code> –&gt; <code>索引名称\类型名称\该条doc的id</code></p>
+<h3 id="4-2-检索"><a href="#4-2-检索" class="headerlink" title="4.2. 检索"></a>4.2. 检索</h3><p>指定检索某个id的文档<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /megacorp/employee/1</span><br></pre></td></tr></table></figure></p>
+<p>获取全部记录文档<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /megacorp/employee/_search</span><br></pre></td></tr></table></figure></p>
+<p>条件检索：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /megacorp/employee/_search?q=last_name:Smith</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-3-其他操作"><a href="#4-3-其他操作" class="headerlink" title="4.3. 其他操作"></a>4.3. 其他操作</h3><p><code>DELETE</code> 删除<br><code>HEAD</code> 查看是否存在某条文档</p>
+<h2 id="5-查询表达式"><a href="#5-查询表达式" class="headerlink" title="5. 查询表达式"></a>5. 查询表达式</h2><h3 id="5-1-JSON格式的查询表达式"><a href="#5-1-JSON格式的查询表达式" class="headerlink" title="5.1. JSON格式的查询表达式"></a>5.1. JSON格式的查询表达式</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET /megacorp/employee/_search</span><br><span class="line">&#123;</span><br><span class="line">    "query" : &#123;</span><br><span class="line">        "match" : &#123;</span><br><span class="line">            "last_name" : "Smith"</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个查询与<code>GET /megacorp/employee/_search?q=last_name:Smith</code>查询效果一致。</p>
+<h3 id="5-2-复杂的查询语句："><a href="#5-2-复杂的查询语句：" class="headerlink" title="5.2. 复杂的查询语句："></a>5.2. 复杂的查询语句：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">GET /megacorp/employee/_search</span><br><span class="line">&#123;</span><br><span class="line">    "query" : &#123;</span><br><span class="line">        "bool": &#123;</span><br><span class="line">            "must": &#123;</span><br><span class="line">                "match" : &#123;</span><br><span class="line">                    "last_name" : "smith"</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            "filter": &#123;</span><br><span class="line">                "range" : &#123;</span><br><span class="line">                    "age" : &#123; "gt" : 30 &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这条语句翻译成sql：<code>select * from employee where last_name=&#39;smith&#39; and age &gt; 40</code></p>
+<h3 id="5-3-全文搜索"><a href="#5-3-全文搜索" class="headerlink" title="5.3. 全文搜索"></a>5.3. 全文搜索</h3><p>指定字段模糊查询（默认按照相关性得分排序）：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET /megacorp/employee/_search</span><br><span class="line">&#123;</span><br><span class="line">    "query" : &#123;</span><br><span class="line">        "match" : &#123;</span><br><span class="line">            "about" : "rock climbing"</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>将查询条件视为一个完整的短语进行模糊匹配（不再分词匹配）：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET /megacorp/employee/_search</span><br><span class="line">&#123;</span><br><span class="line">    "query" : &#123;</span><br><span class="line">        "match_phrase" : &#123;</span><br><span class="line">            "about" : "rock climbing"</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>增加高亮词的处理：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">GET /megacorp/employee/_search</span><br><span class="line">&#123;</span><br><span class="line">    "query" : &#123;</span><br><span class="line">        "match_phrase" : &#123;</span><br><span class="line">            "about" : "rock climbing"</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    "highlight": &#123;</span><br><span class="line">        "fields" : &#123;</span><br><span class="line">            "about" : &#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>查询结果会多一个数据块：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="string">"highlight"</span>: &#123;</span><br><span class="line">   <span class="string">"about"</span>: [</span><br><span class="line">      <span class="string">"I love to go &lt;em&gt;rock&lt;/em&gt; &lt;em&gt;climbing&lt;/em&gt;"</span></span><br><span class="line">   ]</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<h3 id="6-分析结果"><a href="#6-分析结果" class="headerlink" title="6. 分析结果"></a>6. 分析结果</h3><p>分析统计雇员的爱好（interests）字段的值：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET /megacorp/employee/_search</span><br><span class="line">&#123;</span><br><span class="line">  "aggs": &#123;</span><br><span class="line">    "all_interests": &#123;</span><br><span class="line">      "terms": &#123; "field": "interests" &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>分级汇总（查询特定兴趣爱好员工的平均年龄）<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">GET /megacorp/employee/_search</span><br><span class="line">&#123;</span><br><span class="line">    "aggs" : &#123;</span><br><span class="line">        "all_interests" : &#123;</span><br><span class="line">            "terms" : &#123; "field" : "interests" &#125;,</span><br><span class="line">            "aggs" : &#123;</span><br><span class="line">                "avg_age" : &#123;</span><br><span class="line">                    "avg" : &#123; "field" : "age" &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/elasticsearch/" rel="tag"># elasticsearch</a>
+          
+            <a href="/tags/es/" rel="tag"># es</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/03/使用Maven根据不同环境替换web.xml/" rel="next" title="使用Maven根据不同环境替换web.xml">
+                <i class="fa fa-chevron-left"></i> 使用Maven根据不同环境替换web.xml
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/16/Elasticsearch 基础知识 二/" rel="prev" title="Elasticsearch 基础知识 二">
+                Elasticsearch 基础知识 二 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2017/07/16/Elasticsearch基础知识 一/"
+           data-title="Elasticsearch基础知识 一" data-url="http://yoursite.com/2017/07/16/Elasticsearch基础知识 一/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">GeeWaza</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装Elasticsearch"><span class="nav-number">1.</span> <span class="nav-text">1. 安装Elasticsearch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-测试elasticsearch"><span class="nav-number">2.</span> <span class="nav-text">2. 测试elasticsearch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-知识点"><span class="nav-number">3.</span> <span class="nav-text">3. 知识点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-索引操作"><span class="nav-number">4.</span> <span class="nav-text">4. 索引操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-插入文档"><span class="nav-number">4.1.</span> <span class="nav-text">4.1. 插入文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-检索"><span class="nav-number">4.2.</span> <span class="nav-text">4.2. 检索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-其他操作"><span class="nav-number">4.3.</span> <span class="nav-text">4.3. 其他操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-查询表达式"><span class="nav-number">5.</span> <span class="nav-text">5. 查询表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-JSON格式的查询表达式"><span class="nav-number">5.1.</span> <span class="nav-text">5.1. JSON格式的查询表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-复杂的查询语句："><span class="nav-number">5.2.</span> <span class="nav-text">5.2. 复杂的查询语句：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-全文搜索"><span class="nav-number">5.3.</span> <span class="nav-text">5.3. 全文搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-分析结果"><span class="nav-number">5.4.</span> <span class="nav-text">6. 分析结果</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GeeWaza</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

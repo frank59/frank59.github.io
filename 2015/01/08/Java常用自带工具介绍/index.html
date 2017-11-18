@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,JVM," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="jpsjinfojmapjstackJConsoleVisual VM">
+<meta name="keywords" content="Java,JVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java常用自带工具介绍">
+<meta property="og:url" content="http://yoursite.com/2015/01/08/Java常用自带工具介绍/index.html">
+<meta property="og:site_name" content="GeeWaza">
+<meta property="og:description" content="jpsjinfojmapjstackJConsoleVisual VM">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1enyieq1osmj20bd01vaa3.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/3d6ce2f1jw1enyid8zv6qj205g01rwec.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1enyihb2g86j214003bq67.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/3d6ce2f1jw1enyj5li69dj20gq01jjrq.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1enyj71t6d6j20p001lt9f.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1enyq5b982tj20je0fpgnd.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1enypkcbjbtj209f01cdfw.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/3d6ce2f1jw1enyprermkvj20ah00s0sp.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/3d6ce2f1jw1enypyxsy50j20iq03f3zt.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1enyq5au199j20k503kdg2.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/3d6ce2f1jw1enzu9p6heoj20gg07uwid.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1enztov6ebtj20gx0dkn0u.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/3d6ce2f1jw1enztwyyfpzj20fh01djrs.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/3d6ce2f1jw1enzu51muwcj20ci02raar.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1enzu2wg77cj20an0kpafu.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/3d6ce2f1jw1enzujom5k3j20p50ieao8.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1eo00k23qu2j20pd0hqgyf.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1eo00ogtd0cj20m20cx0wo.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/3d6ce2f1jw1eo00r6coruj20fk0jtgtw.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1eo0staiyr3j20p00kumzt.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1eo0stayj6bj20p00kun0f.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/3d6ce2f1jw1eo0stbw00yj20p00kujuv.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1eo0stcatxoj20p00kuq5g.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/3d6ce2f1jw1eo0stco580j20p00kutfv.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1eo0std5fx3j20p00ku78b.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1enyqc7vr87j20bk0cxjt3.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1enyqc7z89sj20ol0juadt.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/3d6ce2f1jw1eo1xvxp74cj20p00ge0x1.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1eo1xvy6xenj20a104hjs8.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1eo1xvydtx5j20pb0fi795.jpg">
+<meta property="og:updated_time" content="2017-11-18T16:59:51.632Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java常用自带工具介绍">
+<meta name="twitter:description" content="jpsjinfojmapjstackJConsoleVisual VM">
+<meta name="twitter:image" content="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1enyieq1osmj20bd01vaa3.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/01/08/Java常用自带工具介绍/"/>
+
+
+
+
+
+  <title>Java常用自带工具介绍 | GeeWaza</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GeeWaza</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Geek's 技（わざ）</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/01/08/Java常用自带工具介绍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeeWaza">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeeWaza">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java常用自带工具介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-01-08T11:27:03+08:00">
+                2015-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/01/08/Java常用自带工具介绍/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/08/Java常用自带工具介绍/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>jps<br>jinfo<br>jmap<br>jstack<br>JConsole<br>Visual VM<br><a id="more"></a></p>
+<h2 id="一、jps"><a href="#一、jps" class="headerlink" title="一、jps"></a>一、jps</h2><p>jps(Java Virtual Machine Process Status Tool)是JDK 1.5提供的一个显示当前所有java进程pid的命令，简单实用，非常适合在linux/unix平台上简单察看当前java进程的一些简单情况。<br>jps存放在JAVA_HOME/bin/jps，使用时为了方便请将JAVA_HOME/bin/加入到Path。<br>基本使用方式：<br><img src="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1enyieq1osmj20bd01vaa3.jpg" alt=""><br><strong>不过，jps命令有个地方很不好，似乎只能显示当前用户的java进程，要显示其他用户的还是只能用unix/linux的ps命令。</strong></p>
+<h3 id="参数使用"><a href="#参数使用" class="headerlink" title="参数使用"></a>参数使用</h3><h4 id="q"><a href="#q" class="headerlink" title="-q"></a>-q</h4><p>只显示pid，不显示class名称,jar文件名和传递给main方法的参数<br><img src="http://ww1.sinaimg.cn/mw690/3d6ce2f1jw1enyid8zv6qj205g01rwec.jpg" alt=""></p>
+<h4 id="m"><a href="#m" class="headerlink" title="-m"></a>-m</h4><p>输出传递给main方法的参数，在嵌入式jvm上可能是null<br><img src="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1enyihb2g86j214003bq67.jpg" alt=""></p>
+<h4 id="l"><a href="#l" class="headerlink" title="-l"></a>-l</h4><p>输出应用程序main class的完整package名 或者 应用程序的jar文件完整路径名<br><img src="http://ww4.sinaimg.cn/mw690/3d6ce2f1jw1enyj5li69dj20gq01jjrq.jpg" alt=""></p>
+<h4 id="v"><a href="#v" class="headerlink" title="-v"></a>-v</h4><p>输出传递给JVM的参数<br><img src="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1enyj71t6d6j20p001lt9f.jpg" alt=""></p>
+<h2 id="二、jinfo"><a href="#二、jinfo" class="headerlink" title="二、jinfo"></a>二、jinfo</h2><p>jinfo可以输出并修改运行时的java进程的JVM参数。用处比较简单，用于输出JAVA系统参数及命令行参数。用法是jinfo -opt  pid<br><strong>另外，jinfo可能在未来的jvm中移除</strong><br><img src="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1enyq5b982tj20je0fpgnd.jpg" alt=""></p>
+<h4 id="flag-name"><a href="#flag-name" class="headerlink" title="-flag name"></a>-flag <em>name</em></h4><p><span class="lang:default decode:true  crayon-inline ">-flag &lt;name&gt;</span>  打印该Java进程的指定的JVM参数的值<br>如：查看13092的MaxPerm大小可以用<br><img src="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1enypkcbjbtj209f01cdfw.jpg" alt=""></p>
+<h4 id="flag-name-1"><a href="#flag-name-1" class="headerlink" title="-flag [+|-]name"></a>-flag [+|-]<em>name</em></h4><p><span class="lang:default decode:true  crayon-inline ">-flag [+|-]&lt;name&gt;</span>  控制生效或不生效某些JVM参数<br>如生效PrintGCDetails参数<br><img src="http://ww4.sinaimg.cn/mw690/3d6ce2f1jw1enyprermkvj20ah00s0sp.jpg" alt=""></p>
+<h4 id="flag-name-value"><a href="#flag-name-value" class="headerlink" title="-flag name=value"></a>-flag <em>name</em>=<em>value</em></h4><p><span class="lang:default decode:true  crayon-inline ">-flag &lt;name&gt;=&lt;value&gt;</span>  设定名为name的参数为指定值<br>如果出现下面这样的情况，说明参数不支持修改<br><img src="http://ww1.sinaimg.cn/mw690/3d6ce2f1jw1enypyxsy50j20iq03f3zt.jpg" alt=""></p>
+<h4 id="flags"><a href="#flags" class="headerlink" title="-flags"></a>-flags</h4><p>查看进程的所有JVM参数<br><img src="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1enyq5au199j20k503kdg2.jpg" alt=""></p>
+<h2 id="三、jmap"><a href="#三、jmap" class="headerlink" title="三、jmap"></a>三、jmap</h2><p>打印出某个Java进程（使用pid）内存内的，所有‘对象’的情况（如：产生那些对象，及其数量）。<br>使用方法：<br>jmap [ option ] pid<br>jmap [ option ] executable core<br>jmap [ option ] [server-id@]remote-hostname-or-IP</p>
+</blockquote>
+<p><img src="http://ww1.sinaimg.cn/mw690/3d6ce2f1jw1enzu9p6heoj20gg07uwid.jpg" alt=""></p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><h4 id="histo"><a href="#histo" class="headerlink" title="-histo"></a>-histo</h4><p>打印每个class的实例数目,内存占用,类全名信息。VM的内部类名字开头会加上前缀“*”。 如果live子参数加上后，只统计活的对象数量。<br><img src="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1enztov6ebtj20gx0dkn0u.jpg" alt=""></p>
+<h4 id="dump-live-format-b-file-filename"><a href="#dump-live-format-b-file-filename" class="headerlink" title="-dump:[live,]format=b,file=filename"></a>-dump:[live,]format=b,file=<em>filename</em></h4><p>使用hprof二进制形式,输出jvm的heap内容到文件。live子选项是可选的，假如指定live选项,那么只输出活的对象到文件。<br><img src="http://ww4.sinaimg.cn/mw690/3d6ce2f1jw1enztwyyfpzj20fh01djrs.jpg" alt=""></p>
+<h4 id="finalizerinfo"><a href="#finalizerinfo" class="headerlink" title="-finalizerinfo"></a>-finalizerinfo</h4><p>打印正等候回收的对象的信息。<br><img src="http://ww1.sinaimg.cn/mw690/3d6ce2f1jw1enzu51muwcj20ci02raar.jpg" alt=""></p>
+<h4 id="heap"><a href="#heap" class="headerlink" title="-heap"></a>-heap</h4><p>打印heap的概要信息，GC使用的算法，heap的配置及wise heap的使用情况。<br><img src="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1enzu2wg77cj20an0kpafu.jpg" alt=""></p>
+<h4 id="permstat"><a href="#permstat" class="headerlink" title="-permstat"></a>-permstat</h4><p>打印classload和jvm heap长久层的信息。包含每个classloader的名字，活泼性，地址，父classloader和加载的class数量。另外，内部String的数量和占用内存数也会打印出来。<br><img src="http://ww1.sinaimg.cn/mw690/3d6ce2f1jw1enzujom5k3j20p50ieao8.jpg" alt=""></p>
+<h4 id="J"><a href="#J" class="headerlink" title="-J"></a>-J</h4><p>传递参数给jmap启动的jvm。</p>
+<h4 id="F"><a href="#F" class="headerlink" title="-F"></a>-F</h4><p>强迫。在pid没有相应的时候使用-dump或者-histo参数。在这个模式下，live子参数无效。</p>
+<h2 id="四、jstack"><a href="#四、jstack" class="headerlink" title="四、jstack"></a>四、jstack</h2><p>jstack用于打印出给定的java进程ID或core file或远程调试服务的Java堆栈信息，如果是在64位机器上，需要指定选项”-J-d64”，Windows的jstack使用方式只支持以下的这种方式：</p>
+<blockquote>
+<p>jstack [-l] pid</p>
+</blockquote>
+<p>使用方法：</p>
+<blockquote>
+<p>jstack [-l] &lt;pid&gt;<br>jstack -F [-m] [-l] &lt;pid&gt;<br>jstack [-m] [-l] &lt;executable&gt; &lt;core&gt;<br>jstack [-m] [-l] [server_id@]&lt;remote server IP or hostname&gt;</p>
+</blockquote>
+<p><img src="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1eo00k23qu2j20pd0hqgyf.jpg" alt=""></p>
+<h3 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h3><h4 id="F-1"><a href="#F-1" class="headerlink" title="-F"></a>-F</h4><p>当’jstack [-l] pid’没有相应的时候强制打印栈信息</p>
+<h4 id="l-1"><a href="#l-1" class="headerlink" title="-l"></a>-l</h4><p>长列表。打印关于锁的附加信息，例如属于java.util.concurrent的ownable synchronizers列表。<br><img src="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1eo00ogtd0cj20m20cx0wo.jpg" alt=""></p>
+<h4 id="m-1"><a href="#m-1" class="headerlink" title="-m"></a>-m</h4><p>打印java和native c/c++框架的所有栈信息。<br><img src="http://ww1.sinaimg.cn/mw690/3d6ce2f1jw1eo00r6coruj20fk0jtgtw.jpg" alt=""></p>
+<h2 id="五、JConsole"><a href="#五、JConsole" class="headerlink" title="五、JConsole"></a>五、JConsole</h2><p>JConsole是一个基于JMX的GUI工具，用于连接正在运行的JVM，不过此JVM需要使用可管理的模式启动。如果要把一个应用以可管理的形式启动，可以在启动是设置<code>com.sun.management.jmxremote</code>。例如，启动一个可以在本地监控的J2SE的应用Java2Demo ，需输入以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JDK_HOME/bin/java -Dcom.sun.management.jmxremote -jar JDK_HOME/demo/jfc/Java2D/Java2Demo.jar</span><br></pre></td></tr></table></figure></p>
+<p>概述界面：<br><img src="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1eo0staiyr3j20p00kumzt.jpg" alt=""><br>内存界面：<br><img src="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1eo0stayj6bj20p00kun0f.jpg" alt=""><br>线程界面：<br><img src="http://ww4.sinaimg.cn/mw690/3d6ce2f1jw1eo0stbw00yj20p00kujuv.jpg" alt=""><br>类界面：<br><img src="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1eo0stcatxoj20p00kuq5g.jpg" alt=""><br>VM摘要界面：<br><img src="http://ww4.sinaimg.cn/mw690/3d6ce2f1jw1eo0stco580j20p00kutfv.jpg" alt=""><br>MBean界面：<br><img src="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1eo0std5fx3j20p00ku78b.jpg" alt=""></p>
+<h3 id="远程监控"><a href="#远程监控" class="headerlink" title="远程监控"></a>远程监控</h3><p>启动程序时加控制台参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Dcom.sun.management.jmxremote.port=9112 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false</span><br></pre></td></tr></table></figure></p>
+<p>注意参数<code>-Dcom.sun.management.jmxremote.port=9112</code>表示监控的端口<br>启动程序后，使用jdk路径下的bin下的jconsole.exe工具<br><img src="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1enyqc7vr87j20bk0cxjt3.jpg" alt=""><br>点击链接后就可以远程监控Java进程的运行状态了：<br><img src="http://ww2.sinaimg.cn/mw690/3d6ce2f1jw1enyqc7z89sj20ol0juadt.jpg" alt=""></p>
+<h2 id="六、Visual-VM"><a href="#六、Visual-VM" class="headerlink" title="六、Visual VM"></a>六、Visual VM</h2><p>VisualVM 是一款免费的性能分析工具。它通过 jvmstat、JMX、SA（Serviceability Agent）以及 Attach API 等多种方式从程序运行时获得实时数据，从而进行动态的性能分析。同时，它能自动选择更快更轻量级的技术尽量减少性能分析对应用程序造成的影响，提高性能分析的精度。<br><img src="http://ww4.sinaimg.cn/mw690/3d6ce2f1jw1eo1xvxp74cj20p00ge0x1.jpg" alt=""></p>
+<h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p><img src="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1eo1xvy6xenj20a104hjs8.jpg" alt=""><br><img src="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1eo1xvydtx5j20pb0fi795.jpg" alt=""><br><strong>参考：<a href="http://www.ibm.com/developerworks/cn/java/j-lo-visualvm/" target="_blank" rel="noopener">使用 VisualVM 进行性能分析及调优</a></strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/03/lucene-e7-b4-a2-e5-bc-95-e5-9f-ba-e7-a1-80-e7-9f-a5-e8-af-86-e5-ad-a6-e4-b9-a0lucene3-6/" rel="next" title="Lucene 索引基础知识学习(Lucene3.6)">
+                <i class="fa fa-chevron-left"></i> Lucene 索引基础知识学习(Lucene3.6)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/01/13/redis-e6-95-b0-e6-8d-ae-e7-bb-93-e6-9e-84/" rel="prev" title="Redis数据结构">
+                Redis数据结构 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2015/01/08/Java常用自带工具介绍/"
+           data-title="Java常用自带工具介绍" data-url="http://yoursite.com/2015/01/08/Java常用自带工具介绍/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">GeeWaza</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、jps"><span class="nav-number">1.</span> <span class="nav-text">一、jps</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数使用"><span class="nav-number">1.1.</span> <span class="nav-text">参数使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#q"><span class="nav-number">1.1.1.</span> <span class="nav-text">-q</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#m"><span class="nav-number">1.1.2.</span> <span class="nav-text">-m</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#l"><span class="nav-number">1.1.3.</span> <span class="nav-text">-l</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#v"><span class="nav-number">1.1.4.</span> <span class="nav-text">-v</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、jinfo"><span class="nav-number">2.</span> <span class="nav-text">二、jinfo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#flag-name"><span class="nav-number">2.0.1.</span> <span class="nav-text">-flag name</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flag-name-1"><span class="nav-number">2.0.2.</span> <span class="nav-text">-flag [+|-]name</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flag-name-value"><span class="nav-number">2.0.3.</span> <span class="nav-text">-flag name=value</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flags"><span class="nav-number">2.0.4.</span> <span class="nav-text">-flags</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、jmap"><span class="nav-number">3.</span> <span class="nav-text">三、jmap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">3.1.</span> <span class="nav-text">参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#histo"><span class="nav-number">3.1.1.</span> <span class="nav-text">-histo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dump-live-format-b-file-filename"><span class="nav-number">3.1.2.</span> <span class="nav-text">-dump:[live,]format=b,file=filename</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#finalizerinfo"><span class="nav-number">3.1.3.</span> <span class="nav-text">-finalizerinfo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#heap"><span class="nav-number">3.1.4.</span> <span class="nav-text">-heap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#permstat"><span class="nav-number">3.1.5.</span> <span class="nav-text">-permstat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#J"><span class="nav-number">3.1.6.</span> <span class="nav-text">-J</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#F"><span class="nav-number">3.1.7.</span> <span class="nav-text">-F</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、jstack"><span class="nav-number">4.</span> <span class="nav-text">四、jstack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数-1"><span class="nav-number">4.1.</span> <span class="nav-text">参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#F-1"><span class="nav-number">4.1.1.</span> <span class="nav-text">-F</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#l-1"><span class="nav-number">4.1.2.</span> <span class="nav-text">-l</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#m-1"><span class="nav-number">4.1.3.</span> <span class="nav-text">-m</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、JConsole"><span class="nav-number">5.</span> <span class="nav-text">五、JConsole</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#远程监控"><span class="nav-number">5.1.</span> <span class="nav-text">远程监控</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、Visual-VM"><span class="nav-number">6.</span> <span class="nav-text">六、Visual VM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装插件"><span class="nav-number">6.1.</span> <span class="nav-text">安装插件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GeeWaza</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
