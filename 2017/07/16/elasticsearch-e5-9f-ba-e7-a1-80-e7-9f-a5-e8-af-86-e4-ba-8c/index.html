@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="GeeWaza">
 <meta property="og:description" content="1. 概念 节点：一个运行中的 Elasticsearch 实例 主节点：选举产生的。它负责管理集群范围内的所有变更，例如增加、删除索引，或者增加、删除节点等。任何节点都可以成为主节点。 集群：由一个或者多个拥有相同 cluster.name 配置的节点组成。当有节点加入集群中或者从集群中移除节点时，集群将会重新平均分布所有的数据。 集群健康：status字段表示集群健康度，通过GET /_clu">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-18T15:56:30.622Z">
+<meta property="og:updated_time" content="2017-11-18T16:56:42.019Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Elasticsearch 基础知识 二">
 <meta name="twitter:description" content="1. 概念 节点：一个运行中的 Elasticsearch 实例 主节点：选举产生的。它负责管理集群范围内的所有变更，例如增加、删除索引，或者增加、删除节点等。任何节点都可以成为主节点。 集群：由一个或者多个拥有相同 cluster.name 配置的节点组成。当有节点加入集群中或者从集群中移除节点时，集群将会重新平均分布所有的数据。 集群健康：status字段表示集群健康度，通过GET /_clu">
@@ -344,159 +344,37 @@
 <li>元数据： 有关文档的信息。<code>_index</code>文档在哪存放,<code>_type</code>文档表示的对象类别,<code>_id</code>文档唯一标识<a id="more"></a>
 </li>
 </ul>
-<h2 id="2-操作"><a href="#2-操作" class="headerlink" title="2. 操作"></a>2. 操作</h2><h3 id="2-1-创建一个名为blogs的索引（索引在默认情况下会被分配5个主分片），该索引将分配3个主分片和1份副本："><a href="#2-1-创建一个名为blogs的索引（索引在默认情况下会被分配5个主分片），该索引将分配3个主分片和1份副本：" class="headerlink" title="2.1. 创建一个名为blogs的索引（索引在默认情况下会被分配5个主分片），该索引将分配3个主分片和1份副本："></a>2.1. 创建一个名为<code>blogs</code>的索引（索引在默认情况下会被分配5个主分片），该索引将分配3个主分片和1份副本：</h3><pre><code>PUT /blogs
-{
-   &quot;settings&quot; : {
-      &quot;number_of_shards&quot; : 3,
-      &quot;number_of_replicas&quot; : 1
-   }
-}
-`&lt;/pre&gt;
-
-### 2.2\. 修改`blogs`的默认副本数：
-
-&lt;pre&gt;`PUT /blogs/_settings
-{
-   &quot;number_of_replicas&quot; : 2
-}
-`&lt;/pre&gt;
-
-### 2.3\. 自定义ID
-
-&lt;pre&gt;`PUT /{index}/{type}/{id}
-{
-  &quot;field&quot;: &quot;value&quot;,
-  ...
-}
-`&lt;/pre&gt;
-
-### 2.4\. 自动生成ID
-
-&lt;pre&gt;`POST /website/blog/
-{
-  &quot;title&quot;: &quot;My second blog entry&quot;,
-  &quot;text&quot;:  &quot;Still trying this out...&quot;,
-  &quot;date&quot;:  &quot;2014/01/01&quot;
-}
-`&lt;/pre&gt;
-
-自动生成的唯一ID:`&quot;_id&quot;: &quot;AV1Kxv0cIHSGtXe9SZfO&quot;,`
-
-### 2.5\. 只返回文档的一部分
-
-`GET /website/blog/123?_source=title,text`
-
-### 2.6\. 只获取_source
-
-`GET /website/blog/123/_source`
-
-### 2.7\. 判断文档是否存在
-
-`curl -i -XHEAD http://localhost:9200/website/blog/123`
-如果文档存在， Elasticsearch 将返回一个 200 ok 的状态码
-若文档不存在， Elasticsearch 将返回一个 404 Not Found 的状态码
-
-### 2.8\. 更新文档
-
-在 Elasticsearch 中文档是 不可改变 的，不能修改它们。 相反，如果想要更新现有的文档，需要 重建索引 或者进行替换。
-实际上 Elasticsearch 按前述完全相同方式执行以下过程：
-1\. 从旧文档构建 JSON
-2\. 更改该 JSON
-3\. 删除旧文档
-4\. 索引一个新文档
-
-### 2.8\. PUT if absent
-
-&lt;pre&gt;`PUT /website/blog/123?op_type=create
-{ ... }
-`&lt;/pre&gt;
-
-&lt;pre&gt;`PUT /website/blog/123/_create
-{ ... }
-`&lt;/pre&gt;
-
-如果创建新文档的请求成功执行，Elasticsearch 会返回元数据和一个 201 Created 的 HTTP 响应码。
-
-### 2.9\. 删除文档
-
-`DELETE /website/blog/123`
-删除文档不会立即将文档从磁盘中删除，只是将文档标记为已删除状态。随着你不断的索引更多的数据，Elasticsearch 将会在后台清理标记为已删除的文档。
-
-### 2.10\. 指定版本号`_version`修改
-
-&lt;pre&gt;`PUT /website/blog/1?version=1
-{
-  &quot;title&quot;: &quot;My first blog entry&quot;,
-  &quot;text&quot;:  &quot;Starting to get the hang of this...&quot;
-}
-`&lt;/pre&gt;
-
-如果版本号已经变更，Elasticsearch 返回 409 Conflict HTTP 响应码
-
-### 2.11\. 使用外部版本号
-
-&lt;pre&gt;`PUT /website/blog/2?version=10&amp;amp;version_type=external
-{
-  &quot;title&quot;: &quot;My first external blog entry&quot;,
-  &quot;text&quot;:  &quot;This is a piece of cake...&quot;
-}
-`&lt;/pre&gt;
-
-### 2.12\. 更新指定字段
-
-&lt;pre&gt;`POST /website/blog/1/_update
-{
-   &quot;doc&quot; : {
-      &quot;tags&quot; : [ &quot;testing&quot; ],
-      &quot;views&quot;: 0
-   }
-}
-`&lt;/pre&gt;
-
-该操作的内部实现和`PUT`请求的内部实现是一样的，也是_检索-修改-重建索引_ 的处理过程，区别在于这个过程发生在分片内部，这样就避免了多次请求的网络开销。通过减少检索和重建索引步骤之间的时间，我们也减少了其他进程的变更带来冲突的可能性。
-
-### 2.13\. 使用脚本更新文档
-
-&lt;pre&gt;`POST /website/blog/1/_update
-{
-   &quot;script&quot; : &quot;ctx._source.views+=1&quot;
-}
-`&lt;/pre&gt;
-
-`_source`的字段内容， 它在更新脚本中称为 `ctx._source` 。
-
-### 2.14\. 批量获取文档
-
-&lt;pre&gt;`GET /_mget
-{
-   &quot;docs&quot; : [
-      {
-         &quot;_index&quot; : &quot;website&quot;,
-         &quot;_type&quot; :  &quot;blog&quot;,
-         &quot;_id&quot; :    2
-      },
-      {
-         &quot;_index&quot; : &quot;website&quot;,
-         &quot;_type&quot; :  &quot;pageviews&quot;,
-         &quot;_id&quot; :    1,
-         &quot;_source&quot;: &quot;views&quot;
-      }
-   ]
-}
-`&lt;/pre&gt;
-
-### 2.15\. 批量操作bulk
-
-&lt;pre&gt;`{ action: { metadata }}n
-{ request body        }n
-{ action: { metadata }}n
-{ request body        }n
-...
-`&lt;/pre&gt;
-</code></pre><ul>
+<h2 id="2-操作"><a href="#2-操作" class="headerlink" title="2. 操作"></a>2. 操作</h2><h3 id="2-1-创建一个名为blogs的索引（索引在默认情况下会被分配5个主分片），该索引将分配3个主分片和1份副本："><a href="#2-1-创建一个名为blogs的索引（索引在默认情况下会被分配5个主分片），该索引将分配3个主分片和1份副本：" class="headerlink" title="2.1. 创建一个名为blogs的索引（索引在默认情况下会被分配5个主分片），该索引将分配3个主分片和1份副本："></a>2.1. 创建一个名为<code>blogs</code>的索引（索引在默认情况下会被分配5个主分片），该索引将分配3个主分片和1份副本：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PUT /blogs</span><br><span class="line">&#123;</span><br><span class="line">   "settings" : &#123;</span><br><span class="line">      "number_of_shards" : 3,</span><br><span class="line">      "number_of_replicas" : 1</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-修改blogs的默认副本数："><a href="#2-2-修改blogs的默认副本数：" class="headerlink" title="2.2. 修改blogs的默认副本数："></a>2.2. 修改<code>blogs</code>的默认副本数：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PUT /blogs/_settings</span><br><span class="line">&#123;</span><br><span class="line">   "number_of_replicas" : 2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-自定义ID"><a href="#2-3-自定义ID" class="headerlink" title="2.3. 自定义ID"></a>2.3. 自定义ID</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PUT /&#123;index&#125;/&#123;type&#125;/&#123;id&#125;</span><br><span class="line">&#123;</span><br><span class="line">  "field": "value",</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-自动生成ID"><a href="#2-4-自动生成ID" class="headerlink" title="2.4. 自动生成ID"></a>2.4. 自动生成ID</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /website/blog/</span><br><span class="line">&#123;</span><br><span class="line">  "title": "My second blog entry",</span><br><span class="line">  "text":  "Still trying this out...",</span><br><span class="line">  "date":  "2014/01/01"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>自动生成的唯一ID:<code>&quot;_id&quot;: &quot;AV1Kxv0cIHSGtXe9SZfO&quot;,</code></p>
+<h3 id="2-5-只返回文档的一部分"><a href="#2-5-只返回文档的一部分" class="headerlink" title="2.5. 只返回文档的一部分"></a>2.5. 只返回文档的一部分</h3><p><code>GET /website/blog/123?_source=title,text</code></p>
+<h3 id="2-6-只获取-source"><a href="#2-6-只获取-source" class="headerlink" title="2.6. 只获取_source"></a>2.6. 只获取_source</h3><p><code>GET /website/blog/123/_source</code></p>
+<h3 id="2-7-判断文档是否存在"><a href="#2-7-判断文档是否存在" class="headerlink" title="2.7. 判断文档是否存在"></a>2.7. 判断文档是否存在</h3><p><code>curl -i -XHEAD http://localhost:9200/website/blog/123</code><br>如果文档存在， Elasticsearch 将返回一个 200 ok 的状态码<br>若文档不存在， Elasticsearch 将返回一个 404 Not Found 的状态码</p>
+<h3 id="2-8-更新文档"><a href="#2-8-更新文档" class="headerlink" title="2.8. 更新文档"></a>2.8. 更新文档</h3><p>在 Elasticsearch 中文档是 不可改变 的，不能修改它们。 相反，如果想要更新现有的文档，需要 重建索引 或者进行替换。<br>实际上 Elasticsearch 按前述完全相同方式执行以下过程：</p>
+<ol>
+<li>从旧文档构建 JSON</li>
+<li>更改该 JSON</li>
+<li>删除旧文档</li>
+<li>索引一个新文档</li>
+</ol>
+<h3 id="2-8-PUT-if-absent"><a href="#2-8-PUT-if-absent" class="headerlink" title="2.8. PUT if absent"></a>2.8. PUT if absent</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PUT /website/blog/123?op_type=create</span><br><span class="line">&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PUT /website/blog/123/_create</span><br><span class="line">&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>如果创建新文档的请求成功执行，Elasticsearch 会返回元数据和一个 201 Created 的 HTTP 响应码。</p>
+<h3 id="2-9-删除文档"><a href="#2-9-删除文档" class="headerlink" title="2.9. 删除文档"></a>2.9. 删除文档</h3><p><code>DELETE /website/blog/123</code><br>删除文档不会立即将文档从磁盘中删除，只是将文档标记为已删除状态。随着你不断的索引更多的数据，Elasticsearch 将会在后台清理标记为已删除的文档。</p>
+<h3 id="2-10-指定版本号-version修改"><a href="#2-10-指定版本号-version修改" class="headerlink" title="2.10. 指定版本号_version修改"></a>2.10. 指定版本号<code>_version</code>修改</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PUT /website/blog/1?version=1</span><br><span class="line">&#123;</span><br><span class="line">  "title": "My first blog entry",</span><br><span class="line">  "text":  "Starting to get the hang of this..."</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果版本号已经变更，Elasticsearch 返回 409 Conflict HTTP 响应码</p>
+<h3 id="2-11-使用外部版本号"><a href="#2-11-使用外部版本号" class="headerlink" title="2.11. 使用外部版本号"></a>2.11. 使用外部版本号</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PUT /website/blog/2?version=10&amp;version_type=external</span><br><span class="line">&#123;</span><br><span class="line">  "title": "My first external blog entry",</span><br><span class="line">  "text":  "This is a piece of cake..."</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-12-更新指定字段"><a href="#2-12-更新指定字段" class="headerlink" title="2.12. 更新指定字段"></a>2.12. 更新指定字段</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST /website/blog/1/_update</span><br><span class="line">&#123;</span><br><span class="line">   "doc" : &#123;</span><br><span class="line">      "tags" : [ "testing" ],</span><br><span class="line">      "views": 0</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该操作的内部实现和<code>PUT</code>请求的内部实现是一样的，也是<em>检索-修改-重建索引</em> 的处理过程，区别在于这个过程发生在分片内部，这样就避免了多次请求的网络开销。通过减少检索和重建索引步骤之间的时间，我们也减少了其他进程的变更带来冲突的可能性。</p>
+<h3 id="2-13-使用脚本更新文档"><a href="#2-13-使用脚本更新文档" class="headerlink" title="2.13. 使用脚本更新文档"></a>2.13. 使用脚本更新文档</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST /website/blog/1/_update</span><br><span class="line">&#123;</span><br><span class="line">   "script" : "ctx._source.views+=1"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>_source</code>的字段内容， 它在更新脚本中称为 <code>ctx._source</code> 。</p>
+<h3 id="2-14-批量获取文档"><a href="#2-14-批量获取文档" class="headerlink" title="2.14. 批量获取文档"></a>2.14. 批量获取文档</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">GET /_mget</span><br><span class="line">&#123;</span><br><span class="line">   "docs" : [</span><br><span class="line">      &#123;</span><br><span class="line">         "_index" : "website",</span><br><span class="line">         "_type" :  "blog",</span><br><span class="line">         "_id" :    2</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">         "_index" : "website",</span><br><span class="line">         "_type" :  "pageviews",</span><br><span class="line">         "_id" :    1,</span><br><span class="line">         "_source": "views"</span><br><span class="line">      &#125;</span><br><span class="line">   ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-15-批量操作bulk"><a href="#2-15-批量操作bulk" class="headerlink" title="2.15. 批量操作bulk"></a>2.15. 批量操作bulk</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123; action: &#123; metadata &#125;&#125;n</span><br><span class="line">&#123; request body        &#125;n</span><br><span class="line">&#123; action: &#123; metadata &#125;&#125;n</span><br><span class="line">&#123; request body        &#125;n</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<ul>
 <li>每行一定要以换行符(\n)结尾， 包括最后一行 。这些换行符被用作一个标记，可以有效分隔行。</li>
-<li><p>这些行不能包含未转义的换行符，因为他们将会对解析造成干扰。这意味着这个 JSON 不 能使用 pretty 参数打印。<br>例子：</p>
-<p><pre>`POST /_bulk<br>{ “delete”: { “_index”: “website”, “_type”: “blog”, “_id”: “123” }}<br>{ “create”: { “_index”: “website”, “_type”: “blog”, “_id”: “123” }}<br>{ “title”:    “My first blog post” }<br>{ “index”:  { “_index”: “website”, “_type”: “blog” }}<br>{ “title”:    “My second blog post” }<br>{ “update”: { “_index”: “website”, “_type”: “blog”, “_id”: “123”, “_retry_on_conflict” : 3} }<br>{ “doc” : {“title” : “My updated blog post”} }</pre></p>
+<li>这些行不能包含未转义的换行符，因为他们将会对解析造成干扰。这意味着这个 JSON 不 能使用 pretty 参数打印。<br>例子：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">POST /_bulk</span><br><span class="line">&#123; "delete": &#123; "_index": "website", "_type": "blog", "_id": "123" &#125;&#125;</span><br><span class="line">&#123; "create": &#123; "_index": "website", "_type": "blog", "_id": "123" &#125;&#125;</span><br><span class="line">&#123; "title":    "My first blog post" &#125;</span><br><span class="line">&#123; "index":  &#123; "_index": "website", "_type": "blog" &#125;&#125;</span><br><span class="line">&#123; "title":    "My second blog post" &#125;</span><br><span class="line">&#123; "update": &#123; "_index": "website", "_type": "blog", "_id": "123", "_retry_on_conflict" : 3&#125; &#125;</span><br><span class="line">&#123; "doc" : &#123;"title" : "My updated blog post"&#125; &#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>每个子请求都是独立执行，因此某个子请求的失败不会对其他子请求的成功与否造成影响。<br>一个好的办法是开始时将 1,000 到 5,000 个文档作为一个批次, 如果你的文档非常大，那么就减少批量的文档个数。</p>
@@ -678,7 +556,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-概念"><span class="nav-number">1.</span> <span class="nav-text">1. 概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-操作"><span class="nav-number">2.</span> <span class="nav-text">2. 操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-创建一个名为blogs的索引（索引在默认情况下会被分配5个主分片），该索引将分配3个主分片和1份副本："><span class="nav-number">2.1.</span> <span class="nav-text">2.1. 创建一个名为blogs的索引（索引在默认情况下会被分配5个主分片），该索引将分配3个主分片和1份副本：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-概念"><span class="nav-number">1.</span> <span class="nav-text">1. 概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-操作"><span class="nav-number">2.</span> <span class="nav-text">2. 操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-创建一个名为blogs的索引（索引在默认情况下会被分配5个主分片），该索引将分配3个主分片和1份副本："><span class="nav-number">2.1.</span> <span class="nav-text">2.1. 创建一个名为blogs的索引（索引在默认情况下会被分配5个主分片），该索引将分配3个主分片和1份副本：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-修改blogs的默认副本数："><span class="nav-number">2.2.</span> <span class="nav-text">2.2. 修改blogs的默认副本数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-自定义ID"><span class="nav-number">2.3.</span> <span class="nav-text">2.3. 自定义ID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-自动生成ID"><span class="nav-number">2.4.</span> <span class="nav-text">2.4. 自动生成ID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-只返回文档的一部分"><span class="nav-number">2.5.</span> <span class="nav-text">2.5. 只返回文档的一部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-只获取-source"><span class="nav-number">2.6.</span> <span class="nav-text">2.6. 只获取_source</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-判断文档是否存在"><span class="nav-number">2.7.</span> <span class="nav-text">2.7. 判断文档是否存在</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-更新文档"><span class="nav-number">2.8.</span> <span class="nav-text">2.8. 更新文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-PUT-if-absent"><span class="nav-number">2.9.</span> <span class="nav-text">2.8. PUT if absent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-删除文档"><span class="nav-number">2.10.</span> <span class="nav-text">2.9. 删除文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-10-指定版本号-version修改"><span class="nav-number">2.11.</span> <span class="nav-text">2.10. 指定版本号_version修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-11-使用外部版本号"><span class="nav-number">2.12.</span> <span class="nav-text">2.11. 使用外部版本号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-12-更新指定字段"><span class="nav-number">2.13.</span> <span class="nav-text">2.12. 更新指定字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-13-使用脚本更新文档"><span class="nav-number">2.14.</span> <span class="nav-text">2.13. 使用脚本更新文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-14-批量获取文档"><span class="nav-number">2.15.</span> <span class="nav-text">2.14. 批量获取文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-15-批量操作bulk"><span class="nav-number">2.16.</span> <span class="nav-text">2.15. 批量操作bulk</span></a></li></ol></li></ol></div>
             
 
           </div>
