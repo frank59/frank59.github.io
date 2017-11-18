@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Markdown," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Markdown是什么？WIKI  Markdown 是一种轻量级标记语言，创始人为約翰·格魯伯（John Gruber）。它允许人们“使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML(或者HTML)文档”。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。">
+<meta name="keywords" content="Markdown">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Markdown——像写代码那样写文章">
+<meta property="og:url" content="http://yoursite.com/2014/11/02/markdown-e5-83-8f-e5-86-99-e4-bb-a3-e7-a0-81-e9-82-a3-e6-a0-b7-e5-86-99-e6-96-87-e7-ab-a0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Markdown是什么？WIKI  Markdown 是一种轻量级标记语言，创始人为約翰·格魯伯（John Gruber）。它允许人们“使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML(或者HTML)文档”。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/3d6ce2f1gw1elvka17x4ej218e04idhp.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/3d6ce2f1gw1elvjsgq2r7j20bp0fdwfi.jpg">
+<meta property="og:updated_time" content="2017-11-18T15:56:30.621Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Markdown——像写代码那样写文章">
+<meta name="twitter:description" content="Markdown是什么？WIKI  Markdown 是一种轻量级标记语言，创始人为約翰·格魯伯（John Gruber）。它允许人们“使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML(或者HTML)文档”。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。">
+<meta name="twitter:image" content="http://ww4.sinaimg.cn/mw690/3d6ce2f1gw1elvka17x4ej218e04idhp.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2014/11/02/markdown-e5-83-8f-e5-86-99-e4-bb-a3-e7-a0-81-e9-82-a3-e6-a0-b7-e5-86-99-e6-96-87-e7-ab-a0/"/>
+
+
+
+
+
+  <title>Markdown——像写代码那样写文章 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/11/02/markdown-e5-83-8f-e5-86-99-e4-bb-a3-e7-a0-81-e9-82-a3-e6-a0-b7-e5-86-99-e6-96-87-e7-ab-a0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Markdown——像写代码那样写文章</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-11-02T00:59:16+08:00">
+                2014-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/文章/" itemprop="url" rel="index">
+                    <span itemprop="name">文章</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/11/02/markdown-e5-83-8f-e5-86-99-e4-bb-a3-e7-a0-81-e9-82-a3-e6-a0-b7-e5-86-99-e6-96-87-e7-ab-a0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/02/markdown-e5-83-8f-e5-86-99-e4-bb-a3-e7-a0-81-e9-82-a3-e6-a0-b7-e5-86-99-e6-96-87-e7-ab-a0/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Markdown是什么？"><a href="#Markdown是什么？" class="headerlink" title="Markdown是什么？"></a>Markdown是什么？</h2><p><a href="http://zh.wikipedia.org/wiki/Markdown" target="_blank" rel="noopener">WIKI</a></p>
+<blockquote>
+<p>Markdown 是一种轻量级标记语言，创始人为約翰·格魯伯（John Gruber）。它允许人们“使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML(或者HTML)文档”。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。<br>  <a id="more"></a></p>
+</blockquote>
+<h2 id="为什么要用Markdown？"><a href="#为什么要用Markdown？" class="headerlink" title="为什么要用Markdown？"></a>为什么要用Markdown？</h2><p>作为程序员，已经习惯了使用最原始的文本编辑器来处理文字信息，当我们使用Office Word等文字编辑工具的时候往往会被Office强大的文字编辑和排版功能搞晕。像下面这张图，基础功能就已经和庞杂了：<br><img src="http://ww4.sinaimg.cn/mw690/3d6ce2f1gw1elvka17x4ej218e04idhp.jpg" alt="Word工具栏"><br>对我们来说，这些功能真的都需要吗？</p>
+<blockquote>
+<p><strong>我只想简简单单地写一篇技术文档而已！</strong></p>
+</blockquote>
+<p>使用Word编写的文档还存在排版兼容的问题，比如你想把你精心排版的文章发表到你的技术博客上，或是通过邮件发送给别人，复制粘贴肯定没法完整地保留你的排版，到时候文章会显得乱糟糟的。<br>那么这个时候，就需要用到Markdown了。<br>先来说说Markdown的有点：</p>
+<blockquote>
+<ul>
+<li>纯文本，所以兼容性极强，可以用所有文本编辑器打开。</li>
+<li>让你专注于文字而不是排版。</li>
+<li>格式转换方便，Markdown 的文本你可以轻松转换为 html、电子书等。</li>
+<li>Markdown 的标记语法有极好的可读性。</li>
+</ul>
+</blockquote>
+<h2 id="怎么使用Markdown？"><a href="#怎么使用Markdown？" class="headerlink" title="怎么使用Markdown？"></a>怎么使用Markdown？</h2><h3 id="Markdown的语法"><a href="#Markdown的语法" class="headerlink" title="Markdown的语法"></a>Markdown的语法</h3><p><img src="http://ww2.sinaimg.cn/mw690/3d6ce2f1gw1elvjsgq2r7j20bp0fdwfi.jpg" alt="马克飞象Markdown语法提示"><br>更多的技巧请参考<a href="http://wowubuntu.com/markdown/" target="_blank" rel="noopener">Markdown 语法说明 (简体中文版)</a>。</p>
+<h4 id="1-标题"><a href="#1-标题" class="headerlink" title="1. 标题"></a>1. 标题</h4><p>相关代码：</p>
+<pre><code># 一级标题
+## 二级标题
+### 三级标题
+#### 四级标题
+##### 五级标题
+###### 六级标题
+`&lt;/pre&gt;
+
+显示效果：
+
+&gt; # 一级标题
+
+## 二级标题
+
+### 三级标题
+
+#### 四级标题
+
+##### 五级标题
+
+###### 六级标题
+
+注：`#` 和「一级标题」之间建议保留一个字符的空格，这是最标准的 Markdown 写法。
+
+#### 2\. 列表
+
+相关代码：
+
+&lt;pre&gt;`- 文本1
+- 文本2
+- 文本3
+
+1\. 有序文本1
+1\. 有序文本2
+1\. 有序文本3
+`&lt;/pre&gt;
+
+显示效果：
+
+&gt; *   文本1
+</code></pre><blockquote>
+<ul>
+<li>文本2</li>
+<li>文本3</li>
+</ul>
+<ol>
+<li>编号文本1</li>
+<li>编号文本2</li>
+<li>编号文本3</li>
+</ol>
+</blockquote>
+<pre><code>注：`-`、`1.`和文本之间要保留一个字符的空格，有序文本的序号和写的`1.`还是`2.`没有关系，序号是更具文本结构自动递增的。
+
+#### 3\. 链接和图片
+
+相关代码：
+
+&lt;pre&gt;`[GeeWaza](http://www.geewaza.com/)
+![GeeWaza微信公众号](http://ww3.sinaimg.cn/mw690/3d6ce2f1gw1ek3xg9zro4j20by0byq3o.jpg)
+`&lt;/pre&gt;
+
+显示效果：
+
+&gt; [GeeWaza](http://www.geewaza.com/)
+</code></pre><blockquote>
+<pre><code>![GeeWaza微信公众号](http://ww3.sinaimg.cn/mw690/3d6ce2f1gw1ek3xg9zro4j20by0byq3o.jpg)
+</code></pre></blockquote>
+<pre><code>注：插入图片的语法和链接的语法很像，只是前面多了一个`!`。
+
+#### 4\. 引用
+
+相关代码：
+
+&lt;pre class=&quot;lang:default decode:true&quot;&gt;&amp;gt; 这是一条引用
+&gt; 这条引用还没完
+这样也不算完&lt;/pre&gt;
+
+显示效果：
+
+&gt; 这是一条引用
+</code></pre><blockquote>
+<pre><code>这条引用还没完
+这样也不算完
+</code></pre></blockquote>
+<pre><code>注：`&amp;amp;gt;`和文本之间要保留一个字符的空格，引用的结束要和下一行文本开头有一个空行的间隔。
+
+#### 5\. 粗体和斜体
+
+用两个`*`包含一段文本就是粗体的语法，用一个`*`包含一段文本就是斜体的语法。
+相关代码：
+
+&lt;pre&gt;`*这是一段斜体*，**这是一段粗体**
+`&lt;/pre&gt;
+
+显示效果：
+
+&gt; _这是一段斜体_，**这是一段粗体**
+
+注：`*`和文本之间没有空格。
+
+#### 6.表格
+
+相关代码：
+
+&lt;pre&gt;`| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+`&lt;/pre&gt;
+
+显示效果：
+
+&gt; &lt;table&gt;
+</code></pre><blockquote>
+<pre><code>&lt;thead&gt;
+&lt;tr&gt;
+  &lt;th&gt;Tables        &lt;/th&gt;
+  &lt;th align=&quot;center&quot;&gt;Are           &lt;/th&gt;
+  &lt;th align=&quot;right&quot;&gt;Cool  &lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+  &lt;td&gt;col 3 is      &lt;/td&gt;
+  &lt;td align=&quot;center&quot;&gt;right-aligned&lt;/td&gt;
+  &lt;td align=&quot;right&quot;&gt;$1600&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td&gt;col 2 is      &lt;/td&gt;
+  &lt;td align=&quot;center&quot;&gt;centered      &lt;/td&gt;
+  &lt;td align=&quot;right&quot;&gt;   $12&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td&gt;zebra stripes&lt;/td&gt;
+  &lt;td align=&quot;center&quot;&gt;are neat      &lt;/td&gt;
+  &lt;td align=&quot;right&quot;&gt;    $1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre></blockquote>
+<pre><code>#### 7.代码块
+
+可以使用三个连续的` ``来包裹多行代码，单个或多个则表示行内代码。
+相关代码：
+
+&lt;pre&gt;```单个或多个(`)表示行内代码，如果文本中出现(`)，则用多个区分.``
+`&lt;/pre&gt;
+
+显示效果：
+
+&gt; `单个或多个(`)表示行内代码，如果文本中出现(`)，则用多个区分.`
+
+多行代码（在演示代码中，三个连续的` ``多加的一个空格是无用的，实际是没有这个空格的，请注意）：
+
+&lt;pre&gt;``` `java
+public class Test{
+public static void main(String[] args) {
+System.out.println(&quot;Hello, world!&quot;);
+}
+}
+`` `
+`&lt;/pre&gt;
+
+显示效果：
+
+&lt;pre class=&quot;lang:java decode:true&quot;&gt;public class Test{
+    public static void main(String[] args) {
+        System.out.println(&quot;Hello, world!&quot;);
+    }
+}&lt;/pre&gt;
+
+### Markdown的工具介绍
+
+和编程语言一样，用Markdown语法书写的文章需要一个“解释器”来解释文章中的排版符号，这种“解释器”就是Markdown编辑工具。
+
+&lt;!--more--&gt;
+
+#### 1\. Mou
+
+[官网](http://www.mouapp.com)
+![Mou](http://www.ylzx8.cn/imgs/imgs/img/2012/12/24/122111820.png)
+这是一款Mac平台的Markdown工具。
+
+#### 2.MarkdownPad
+
+[官网](httP://www.markdownpad.com)
+![MarkdownPad](http://ww2.sinaimg.cn/mw690/3d6ce2f1gw1elvymupetjj20ge0ha0vr.jpg)
+这是Windows平台下的Markdown工具，可以免费使用。免费版只包含基本功能，购买授权后可以升级为Pro版，Pro版功能强大，且非常好用。当然，也可以直接下载[破解版](http://pan.baidu.com/s/1pJFOCxt)，你们懂的...`3d1n`
+
+#### 3.马克飞象
+
+[官网](http://maxiang.info/)
+![maxiang](http://appcenter.yinxiang.com/images/apps/maxiang/logo_112.png)
+![maxiang](http://ww2.sinaimg.cn/mw690/3d6ce2f1gw1elvyr14ohgj20jg0fntci.jpg)
+由[葛致良](http://www.zhihu.com/people/gock)一人开发的依托[印象笔记](httP://www.yinxiang.com)的Markdown编辑工具，该工具与印象笔记绑定后，可以实现将马克飞象中编辑的文章排版后直接保存到印象笔记中，不过这个只有马克飞象的包年用户才有。
+
+&gt; 马克飞象目前已正式发布，为新用户提供 10 天的试用期，试用期过后需要续费才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。费用是79 元 / 年
+
+#### 4\. Markdown Here
+
+[官网](http://markdown-here.com/)
+![](http://markdown-here.com/img/icon128.png)
+这是一个Markdown的Chrome插件工具，能够将你在文本框中使用Mardown语法书写内容自动转成格式优良的HTML代码，主要用在微信公众账号的文章编写上。
+
+#### 5\. Jetpack
+
+[主页](https://wordpress.org/plugins/jetpack/)
+这是一个让Wordpress支持Markdown语法的Wordpress编辑工具插件，当你使用Markdown语法写发表自己的博文时，它会自动解析文章中使用Markdown语法编写的内容。
+
+### 一些小技巧
+
+#### 1\. 如果图片连接中带有`()`
+
+如果图片连接中带有`()`，则需要使用一些技巧：
+
+&lt;pre&gt;`![][1]
+[1]: http://latex.codecogs.com/gif.latex?prod%20(n_{i})+1
+</code></pre><h4 id="2-免费图片外链"><a href="#2-免费图片外链" class="headerlink" title="2. 免费图片外链"></a>2. 免费图片外链</h4><p>Markdown编辑的文章中，图片都是使用网络图片外链的方式实现的，所以需要一个支持图片外链的相册来管理文章中用到的图片。<br>新浪微博的<a href="http://photo.weibo.com/" target="_blank" rel="noopener">微相册</a>就是一个很好的免费图片外链的工具，当然，你得必须有新浪微博的账号才行。上传图片到微相册，这样上传的图片就能在文章中使用了。<br>这个方法长期有效，但是不知道哪天新浪会限制这种图片外链的方式。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Markdown/" rel="tag"># Markdown</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/10/11/e4-bd-bf-e7-94-a8ssh-e5-ae-9e-e7-8e-b0-e6-9c-8d-e5-8a-a1-e5-99-a8-e4-b9-8b-e9-97-b4-e7-9a-84-e5-85-8d-e7-99-bb-e9-99-86/" rel="next" title="使用SSH实现服务器之间的免登陆">
+                <i class="fa fa-chevron-left"></i> 使用SSH实现服务器之间的免登陆
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/11/12/e7-a8-8b-e5-ba-8f-e5-91-98-e9-83-bd-e5-ba-94-e8-af-a5-e6-9c-89-e8-87-aa-e5-b7-b1-e7-9a-84-e6-8a-80-e6-9c-af-e5-8d-9a-e5-ae-a2/" rel="prev" title="程序员都应该有自己的技术博客">
+                程序员都应该有自己的技术博客 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2014/11/02/markdown-e5-83-8f-e5-86-99-e4-bb-a3-e7-a0-81-e9-82-a3-e6-a0-b7-e5-86-99-e6-96-87-e7-ab-a0/"
+           data-title="Markdown——像写代码那样写文章" data-url="http://yoursite.com/2014/11/02/markdown-e5-83-8f-e5-86-99-e4-bb-a3-e7-a0-81-e9-82-a3-e6-a0-b7-e5-86-99-e6-96-87-e7-ab-a0/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Markdown是什么？"><span class="nav-number">1.</span> <span class="nav-text">Markdown是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要用Markdown？"><span class="nav-number">2.</span> <span class="nav-text">为什么要用Markdown？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎么使用Markdown？"><span class="nav-number">3.</span> <span class="nav-text">怎么使用Markdown？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Markdown的语法"><span class="nav-number">3.1.</span> <span class="nav-text">Markdown的语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-标题"><span class="nav-number">3.1.1.</span> <span class="nav-text">1. 标题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-免费图片外链"><span class="nav-number">3.1.2.</span> <span class="nav-text">2. 免费图片外链</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

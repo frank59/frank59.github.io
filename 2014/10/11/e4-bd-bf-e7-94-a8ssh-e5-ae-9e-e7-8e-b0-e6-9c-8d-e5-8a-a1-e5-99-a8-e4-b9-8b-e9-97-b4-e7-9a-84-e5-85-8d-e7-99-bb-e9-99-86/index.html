@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SSH," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="假设我有两台服务器：服务器A 和 服务器B我需要在服务器A上访问服务器B，但是每次ssh到服务器B上都要输入服务器B该用户的密码（root用户），比较麻烦而且以后会写shell脚本把服务器A的文件拷贝到服务器B上，不能通过脚本文件完成输入密码的交互这样便可以使用ssh的免登陆。">
+<meta name="keywords" content="SSH">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用SSH实现服务器之间的免登陆">
+<meta property="og:url" content="http://yoursite.com/2014/10/11/e4-bd-bf-e7-94-a8ssh-e5-ae-9e-e7-8e-b0-e6-9c-8d-e5-8a-a1-e5-99-a8-e4-b9-8b-e9-97-b4-e7-9a-84-e5-85-8d-e7-99-bb-e9-99-86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="假设我有两台服务器：服务器A 和 服务器B我需要在服务器A上访问服务器B，但是每次ssh到服务器B上都要输入服务器B该用户的密码（root用户），比较麻烦而且以后会写shell脚本把服务器A的文件拷贝到服务器B上，不能通过脚本文件完成输入密码的交互这样便可以使用ssh的免登陆。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-18T15:56:30.621Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用SSH实现服务器之间的免登陆">
+<meta name="twitter:description" content="假设我有两台服务器：服务器A 和 服务器B我需要在服务器A上访问服务器B，但是每次ssh到服务器B上都要输入服务器B该用户的密码（root用户），比较麻烦而且以后会写shell脚本把服务器A的文件拷贝到服务器B上，不能通过脚本文件完成输入密码的交互这样便可以使用ssh的免登陆。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2014/10/11/e4-bd-bf-e7-94-a8ssh-e5-ae-9e-e7-8e-b0-e6-9c-8d-e5-8a-a1-e5-99-a8-e4-b9-8b-e9-97-b4-e7-9a-84-e5-85-8d-e7-99-bb-e9-99-86/"/>
+
+
+
+
+
+  <title>使用SSH实现服务器之间的免登陆 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/10/11/e4-bd-bf-e7-94-a8ssh-e5-ae-9e-e7-8e-b0-e6-9c-8d-e5-8a-a1-e5-99-a8-e4-b9-8b-e9-97-b4-e7-9a-84-e5-85-8d-e7-99-bb-e9-99-86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用SSH实现服务器之间的免登陆</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-10-11T19:44:36+08:00">
+                2014-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/10/11/e4-bd-bf-e7-94-a8ssh-e5-ae-9e-e7-8e-b0-e6-9c-8d-e5-8a-a1-e5-99-a8-e4-b9-8b-e9-97-b4-e7-9a-84-e5-85-8d-e7-99-bb-e9-99-86/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/11/e4-bd-bf-e7-94-a8ssh-e5-ae-9e-e7-8e-b0-e6-9c-8d-e5-8a-a1-e5-99-a8-e4-b9-8b-e9-97-b4-e7-9a-84-e5-85-8d-e7-99-bb-e9-99-86/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="markdown-here-wrapper" data-md-url="http://www.geewaza.com/wp-admin/post.php?post=158&amp;action=edit&amp;message=10"><br><br>假设我有两台服务器：<code>服务器A</code> 和 <code>服务器B</code><br>我需要在<code>服务器A</code>上访问服务器B，但是每次ssh到<code>服务器B</code>上都要输入<code>服务器B</code>该用户的密码（root用户），比较麻烦<br>而且以后会写shell脚本把<code>服务器A</code>的文件拷贝到<code>服务器B</code>上，不能通过脚本文件完成输入密码的交互<br>这样便可以使用ssh的免登陆。<br><a id="more"></a><br><br>1.  需要在两台服务器上都安装ssh服务：<br>安装ssh服务<br><br>    sudo apt-get install ssh<br>    <code>&lt;/pre&gt;
+    启动服务
+    &lt;pre style=&quot;font-size: 1em; font-family: Consolas, Inconsolata, Courier, monospace; line-height: 1.2em; margin: 1.2em 0px;&quot;&gt;</code>service ssh start<br>    <code>&lt;/pre&gt;
+2.  生成公钥
+    在</code>服务器A<code>的</code>$home/.ssh<code>目录下生成公钥：
+    ![](http://img.my.csdn.net/uploads/201304/15/1366015609_2710.jpg)
+    &lt;pre style=&quot;font-size: 1em; font-family: Consolas, Inconsolata, Courier, monospace; line-height: 1.2em; margin: 1.2em 0px;&quot;&gt;</code>ssh-keygen -t rsa<br>    <code>&lt;/pre&gt;
+    ![](http://img.my.csdn.net/uploads/201304/15/1366015805_5472.png)
+    这里可以输入生成文件的名字，也可以不输入，比如输入：</code>10.10.10.1<code>则会生成</code>10.10.10.1<code>和</code>10.10.10.1.pub<code>这两个文件
+    如果不输入任何内容，则默认生成</code>id_rsa<code>和</code>id_rsa.pub<code>两个文件（可以一路回车跳过所有设置~）
+    这里什么都没输入 结束后：
+    ![](http://img.my.csdn.net/uploads/201304/15/1366016226_1712.png)
+    生成以下两个文件
+    ![](http://img.my.csdn.net/uploads/201304/15/1366016284_9155.png)
+3.  从</code>服务器A<code>拷贝pub文件到</code>服务器B<code>&lt;pre style=&quot;font-size: 1em; font-family: Consolas, Inconsolata, Courier, monospace; line-height: 1.2em; margin: 1.2em 0px;&quot;&gt;</code>scp ~/.ssh/id_rsa.pub root@10.10.10.1:~/.ssh/id_rsa.pub<br>    <code>&lt;/pre&gt;
+    此时会要求输入</code>服务器B<code>的密码
+4.  追加公钥
+    拷贝结束后，在</code>服务器A<code>和</code>服务器B<code>上 都执行指令：（追加公钥）
+    &lt;pre style=&quot;font-size: 1em; font-family: Consolas, Inconsolata, Courier, monospace; line-height: 1.2em; margin: 1.2em 0px;&quot;&gt;</code>cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys<br>    <code>&lt;/pre&gt;
+5.  测试
+    在</code>服务器A<code>上执行（假设</code>服务器B<code>的IP是</code>10.10.10.10<code>）
+    &lt;pre style=&quot;font-size: 1em; font-family: Consolas, Inconsolata, Courier, monospace; line-height: 1.2em; margin: 1.2em 0px;&quot;&gt;</code>ssh root@10.10.10.10<br>    <code>&lt;/pre&gt;
+    此时就不需要再输入</code>服务器B<code>的用户密码了
+    **注意**：如果在步骤②指定了生成文件的文件名 如 10.10.10.1 10.10.10.1.pub 则在测试阶段（以及以后ssh或者scp的时候）指令应该改为：
+    &lt;pre style=&quot;font-size: 1em; font-family: Consolas, Inconsolata, Courier, monospace; line-height: 1.2em; margin: 1.2em 0px;&quot;&gt;</code>ssh -i ~/.ssh/10.10.10.1 root@10.10.10.10<br>    <code>&lt;/pre&gt;</code>-i<code>参数指定使用的私钥
+    指定生成文件名可以使用</code>-f<code>参数如下：
+    &lt;pre style=&quot;font-size: 1em; font-family: Consolas, Inconsolata, Courier, monospace; line-height: 1.2em; margin: 1.2em 0px;&quot;&gt;</code>ssh-keygen -t rsa -f 10.10.10.1<br><div style="height: 0; font-size: 0em; padding: 0; margin: 0;" title="MDH:PHA+5YGH6K6+5oiR5pyJ5Lik5Y+w5pyN5Yqh5Zmo77yaYOacjeWKoeWZqEFgIOWSjCBg5pyN5Yqh&lt;br /&gt; 5ZmoQmA8YnI+IOaIkemcgOimgeWcqGDmnI3liqHlmahBYOS4iuiuv+mXruacjeWKoeWZqELvvIzk&lt;br /&gt; vYbmmK/mr4/mrKFzc2jliLBg5pyN5Yqh5ZmoQmDkuIrpg73opoHovpPlhaVg5pyN5Yqh5ZmoQmDo&lt;br /&gt; r6XnlKjmiLfnmoTlr4bnoIHvvIhyb29055So5oi377yJ77yM5q+U6L6D6bq754OmPGJyPiDogIzk&lt;br /&gt; uJTku6XlkI7kvJrlhplzaGVsbOiEmuacrOaKimDmnI3liqHlmahBYOeahOaWh+S7tuaLt+i0neWI&lt;br /&gt; sGDmnI3liqHlmahCYOS4iu+8jOS4jeiDvemAmui/h+iEmuacrOaWh+S7tuWujOaIkOi+k+WFpeWv&lt;br /&gt; hueggeeahOS6pOS6kjxicj4g6L+Z5qC35L6/5Y+v5Lul5L2/55Soc3No55qE5YWN55m76ZmG44CC&lt;br /&gt; PGJyPiAxLiDpnIDopoHlnKjkuKTlj7DmnI3liqHlmajkuIrpg73lronoo4Vzc2jmnI3liqHvvJo8&lt;br /&gt; YnI+IOWuieijhXNzaOacjeWKoTxicj4gYGBgc2hlbGw8YnI+IHN1ZG8gYXB0LWdldCBpbnN0YWxs&lt;br /&gt; IHNzaDxicj4gYGBgPGJyPiDlkK/liqjmnI3liqE8YnI+IGBgYHNoZWxsPGJyPiBzZXJ2aWNlIHNz&lt;br /&gt; aCBzdGFydDxicj4gYGBgPGJyPiAyLiDnlJ/miJDlhazpkqU8YnI+IOWcqGDmnI3liqHlmahBYOea&lt;br /&gt; hGAkaG9tZS8uc3NoYOebruW9leS4i+eUn+aIkOWFrOmSpe+8mjxicj4gIVtdKGh0dHA6Ly9pbWcu&lt;br /&gt; bXkuY3Nkbi5uZXQvdXBsb2Fkcy8yMDEzMDQvMTUvMTM2NjAxNTYwOV8yNzEwLmpwZyk8YnI+IGBg&lt;br /&gt; YHNoZWxsPGJyPiBzc2gta2V5Z2VuIC10IHJzYTxicj4gYGBgPGJyPiAhW10oaHR0cDovL2ltZy5t&lt;br /&gt; eS5jc2RuLm5ldC91cGxvYWRzLzIwMTMwNC8xNS8xMzY2MDE1ODA1XzU0NzIucG5nKTxicj4g6L+Z&lt;br /&gt; 6YeM5Y+v5Lul6L6T5YWl55Sf5oiQ5paH5Lu255qE5ZCN5a2X77yM5Lmf5Y+v5Lul5LiN6L6T5YWl&lt;br /&gt; 77yM5q+U5aaC6L6T5YWl77yaYDEwLjEwLjEwLjFgIOWImeS8mueUn+aIkGAxMC4xMC4xMC4xYCDl&lt;br /&gt; koxgMTAuMTAuMTAuMS5wdWJgIOi/meS4pOS4quaWh+S7tjxicj4g5aaC5p6c5LiN6L6T5YWl5Lu7&lt;br /&gt; 5L2V5YaF5a6577yM5YiZ6buY6K6k55Sf5oiQYGlkX3JzYWAg5ZKMIGBpZF9yc2EucHViYOS4pOS4&lt;br /&gt; quaWh+S7tu+8iOWPr+S7peS4gOi3r+Wbnui9pui3s+i/h+aJgOacieiuvue9rn7vvIk8YnI+IOi/&lt;br /&gt; memHjOS7gOS5iOmDveayoei+k+WFpSDnu5PmnZ/lkI7vvJo8YnI+ICFbXShodHRwOi8vaW1nLm15&lt;br /&gt; LmNzZG4ubmV0L3VwbG9hZHMvMjAxMzA0LzE1LzEzNjYwMTYyMjZfMTcxMi5wbmcpPGJyPiDnlJ/m&lt;br /&gt; iJDku6XkuIvkuKTkuKrmlofku7Y8YnI+ICFbXShodHRwOi8vaW1nLm15LmNzZG4ubmV0L3VwbG9h&lt;br /&gt; ZHMvMjAxMzA0LzE1LzEzNjYwMTYyODRfOTE1NS5wbmcpPGJyPiAzLiDku45g5pyN5Yqh5ZmoQWDm&lt;br /&gt; i7fotJ1wdWLmlofku7bliLBg5pyN5Yqh5ZmoQmA8YnI+IGBgYHNoZWxsPGJyPiBzY3Agfi8uc3No&lt;br /&gt; L2lkX3JzYS5wdWIgcm9vdEAxMC4xMC4xMC4xOn4vLnNzaC9pZF9yc2EucHViPGJyPiBgYGA8YnI+&lt;br /&gt; IOatpOaXtuS8muimgeaxgui+k+WFpWDmnI3liqHlmahCYOeahOWvhueggTxicj4gNC4g6L+95Yqg&lt;br /&gt; 5YWs6ZKlPGJyPiDmi7fotJ3nu5PmnZ/lkI7vvIzlnKhg5pyN5Yqh5ZmoQWAg5ZKMIGDmnI3liqHl&lt;br /&gt; mahCYOS4iiDpg73miafooYzmjIfku6TvvJrvvIjov73liqDlhazpkqXvvIk8YnI+IGBgYHNoZWxs&lt;br /&gt; PGJyPiBjYXQgfi8uc3NoL2lkX3JzYS5wdWIgJmd0OyZndDsgfi8uc3NoL2F1dGhvcml6ZWRfa2V5&lt;br /&gt; czxicj4gYGBgPGJyPiA1LiDmtYvor5U8YnI+IOWcqGDmnI3liqHlmahBYOS4iuaJp+ihjO+8iOWB&lt;br /&gt; h+iuvmDmnI3liqHlmahCYOeahElQ5pivIGAxMC4xMC4xMC4xMGDvvIk8YnI+IGBgYHNoZWxsPGJy&lt;br /&gt; PiBzc2ggcm9vdEAxMC4xMC4xMC4xMDxicj4gYGBgPGJyPiDmraTml7blsLHkuI3pnIDopoHlho3o&lt;br /&gt; vpPlhaVg5pyN5Yqh5ZmoQmDnmoTnlKjmiLflr4bnoIHkuoY8YnI+ICoq5rOo5oSPKirvvJrlpoLm&lt;br /&gt; npzlnKjmraXpqqTikaHmjIflrprkuobnlJ/miJDmlofku7bnmoTmlofku7blkI0g5aaCIDEwLjEw&lt;br /&gt; LjEwLjEgMTAuMTAuMTAuMS5wdWIg5YiZ5Zyo5rWL6K+V6Zi25q6177yI5Lul5Y+K5Lul5ZCOc3No&lt;br /&gt; 5oiW6ICFc2Nw55qE5pe25YCZ77yJ5oyH5Luk5bqU6K+l5pS55Li677yaPGJyPiBgYGBzaGVsbDxi&lt;br /&gt; cj4gc3NoIC1pIH4vLnNzaC8xMC4xMC4xMC4xIHJvb3RAMTAuMTAuMTAuMTA8YnI+IGBgYDxicj4g&lt;br /&gt; YC1pYOWPguaVsOaMh+WumuS9v+eUqOeahOengemSpTxicj4g5oyH5a6a55Sf5oiQ5paH5Lu25ZCN&lt;br /&gt; 5Y+v5Lul5L2/55SoYC1mYOWPguaVsOWmguS4i++8mjxicj4gYGBgc2hlbGw8YnI+IHNzaC1rZXln&lt;br /&gt; ZW4gLXQgcnNhIC1mIDEwLjEwLjEwLjE8YnI+IGBgYDwvcD4=">​</div><br></div>
+
+<!--more-->
+<!--more-->
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SSH/" rel="tag"># SSH</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/09/09/129/" rel="next" title="Jedis——使用笔记(1)">
+                <i class="fa fa-chevron-left"></i> Jedis——使用笔记(1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/11/02/markdown-e5-83-8f-e5-86-99-e4-bb-a3-e7-a0-81-e9-82-a3-e6-a0-b7-e5-86-99-e6-96-87-e7-ab-a0/" rel="prev" title="Markdown——像写代码那样写文章">
+                Markdown——像写代码那样写文章 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2014/10/11/e4-bd-bf-e7-94-a8ssh-e5-ae-9e-e7-8e-b0-e6-9c-8d-e5-8a-a1-e5-99-a8-e4-b9-8b-e9-97-b4-e7-9a-84-e5-85-8d-e7-99-bb-e9-99-86/"
+           data-title="使用SSH实现服务器之间的免登陆" data-url="http://yoursite.com/2014/10/11/e4-bd-bf-e7-94-a8ssh-e5-ae-9e-e7-8e-b0-e6-9c-8d-e5-8a-a1-e5-99-a8-e4-b9-8b-e9-97-b4-e7-9a-84-e5-85-8d-e7-99-bb-e9-99-86/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
