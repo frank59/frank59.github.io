@@ -229,211 +229,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/29/lcs-e7-ae-97-e6-b3-95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeeWaza">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeeWaza">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/03/29/lcs-e7-ae-97-e6-b3-95/" itemprop="url">LCS算法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-29T17:48:18+08:00">
-                2016-03-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/03/29/lcs-e7-ae-97-e6-b3-95/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/29/lcs-e7-ae-97-e6-b3-95/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <iframe width="510" height="498" src="http://player.youku.com/embed/XOTIzNjM1OTM2" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
-
-<p>附上我实现的部分LCS算法的代码：</p>
-<pre><code>public class LCS {
-
-    @Test
-    public void test01() {
-        String[][] tests = {
-                {&quot;ABCBDAB&quot;,&quot;BDCABA&quot;},
-        };
-        for (String[] test : tests) {
-            System.out.println(LCS(test[0], test[1], null, null));
-        }
-    }
-
-    enum Direct {
-        Left, Top, LeftTop;
-    }
-
-    private int LCS(String x, String y, int[][] c, Direct[][] b) {
-        if (c == null) {
-            c = new int[x.length()+1][y.length()+1];
-        }
-        if (b == null) {
-            b = new Direct[x.length()+1][y.length()+1];
-        }
-        if (x == null || y == null || x.length() == 0|| y.length() == 0) {
-            return 0;
-        }
-
-        for(int i = 0; i &amp;lt;= x.length(); i++){
-            c[i][0] = 0;
-        }
-        for(int j = 0; j &amp;lt;= y.length(); j++){
-            c[0][j] = 0;
-        }
-        for (int i = 1; i &amp;lt;= x.length(); i++) {
-            for (int j = 1; j &amp;lt;= y.length(); j++) {
-                if (x.charAt(i - 1) == y.charAt(j - 1)) {
-                    c[i][j] = c[i - 1][j - 1] + 1;
-                    b[i][j] = Direct.LeftTop;
-                } else {
-                    c[i][j] =  Math.max(c[i - 1][j], c[i][j - 1]);
-                    if ( c[i][j] == c[i - 1][j]) {
-                        b[i][j] = Direct.Top;
-                    } else {
-                        b[i][j] = Direct.Left;
-                    }
-                }
-            }
-        }
-        return c[x.length()][y.length()];
-    }
-}
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/28/solr-e7-8e-af-e5-a2-83-e6-90-ad-e5-bb-ba/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1880,6 +1675,162 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/11/12/e7-a8-8b-e5-ba-8f-e5-91-98-e9-83-bd-e5-ba-94-e8-af-a5-e6-9c-89-e8-87-aa-e5-b7-b1-e7-9a-84-e6-8a-80-e6-9c-af-e5-8d-9a-e5-ae-a2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeeWaza">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeeWaza">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2014/11/12/e7-a8-8b-e5-ba-8f-e5-91-98-e9-83-bd-e5-ba-94-e8-af-a5-e6-9c-89-e8-87-aa-e5-b7-b1-e7-9a-84-e6-8a-80-e6-9c-af-e5-8d-9a-e5-ae-a2/" itemprop="url">程序员都应该有自己的技术博客</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-11-12T00:17:32+08:00">
+                2014-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂谈/" itemprop="url" rel="index">
+                    <span itemprop="name">杂谈</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/11/12/e7-a8-8b-e5-ba-8f-e5-91-98-e9-83-bd-e5-ba-94-e8-af-a5-e6-9c-89-e8-87-aa-e5-b7-b1-e7-9a-84-e6-8a-80-e6-9c-af-e5-8d-9a-e5-ae-a2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/12/e7-a8-8b-e5-ba-8f-e5-91-98-e9-83-bd-e5-ba-94-e8-af-a5-e6-9c-89-e8-87-aa-e5-b7-b1-e7-9a-84-e6-8a-80-e6-9c-af-e5-8d-9a-e5-ae-a2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="程序员为什么要写博客"><a href="#程序员为什么要写博客" class="headerlink" title="程序员为什么要写博客"></a>程序员为什么要写博客</h2><h3 id="技术积累"><a href="#技术积累" class="headerlink" title="技术积累"></a>技术积累</h3><p>程序员在平日工作中会遇到很多技术难题，这些技术问题有时候并不成体系，是零散的技术点。这个时候就需要养成一个把遇到的技术问题记录下来的习惯，有助于之后再次遇到这个问题时能够更快地处理。日积月累，也就能形成自己的技术积累。既然是要把技术问题记录下来，为何不记录在自己的博客中和大家分享呢？说不定还能在分享的过程中寻求到更好的解决方案。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2014/11/12/e7-a8-8b-e5-ba-8f-e5-91-98-e9-83-bd-e5-ba-94-e8-af-a5-e6-9c-89-e8-87-aa-e5-b7-b1-e7-9a-84-e6-8a-80-e6-9c-af-e5-8d-9a-e5-ae-a2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -1930,7 +1881,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
