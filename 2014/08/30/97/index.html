@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"frank59.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.29.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="前言JDK 1.4 中引入的新输入输出 (NIO) 库在标准 Java 代码中提供了高速的、面向块的 I&#x2F;O。NIO 弥补了原来的 I&#x2F;O 的不足，它在标准 Java 代码中提供了高速的、面向块的 I&#x2F;O。通过定义包含数据的类，以及通过以块的形式处理这些数据，NIO 不用使用本机代码就可以利用低级优化，这是原来的 I&#x2F;O 包所无法做到的。 为什么要使用NIO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NIO——Java NIO学习笔记(1)">
+<meta property="og:url" content="https://frank59.github.io/2014/08/30/97/index.html">
+<meta property="og:site_name" content="GeeWaza">
+<meta property="og:description" content="前言JDK 1.4 中引入的新输入输出 (NIO) 库在标准 Java 代码中提供了高速的、面向块的 I&#x2F;O。NIO 弥补了原来的 I&#x2F;O 的不足，它在标准 Java 代码中提供了高速的、面向块的 I&#x2F;O。通过定义包含数据的类，以及通过以块的形式处理这些数据，NIO 不用使用本机代码就可以利用低级优化，这是原来的 I&#x2F;O 包所无法做到的。 为什么要使用NIO">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/3d6ce2f1gw1ejupx6yaxgj20co02uwef.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/3d6ce2f1gw1ejupx6lsrxj20c909rglq.jpg">
+<meta property="article:published_time" content="2014-08-30T08:34:54.000Z">
+<meta property="article:modified_time" content="2026-08-28T08:33:11.602Z">
+<meta property="article:author" content="GeeWaza">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="NIO">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/3d6ce2f1gw1ejupx6yaxgj20co02uwef.jpg">
+
+
+<link rel="canonical" href="https://frank59.github.io/2014/08/30/97/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://frank59.github.io/2014/08/30/97/","path":"2014/08/30/97/","title":"NIO——Java NIO学习笔记(1)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>NIO——Java NIO学习笔记(1) | GeeWaza</title>
+  
+
+
+
+
+
+
+
+
+  
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">GeeWaza</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Geek's 技（わざ）</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8NIO%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要使用NIO？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E9%81%93%E5%92%8C%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="nav-number">2.</span> <span class="nav-text">通道和缓冲区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E9%81%93-Channel"><span class="nav-number">2.1.</span> <span class="nav-text">通道(Channel)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%86%B2%E5%8C%BA-Buffer"><span class="nav-number">2.2.</span> <span class="nav-text">缓冲区(Buffer)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%86%B2%E5%8C%BA%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.3.</span> <span class="nav-text">缓冲区类型</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GeeWaza</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://frank59.github.io/2014/08/30/97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeeWaza">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeeWaza">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="NIO——Java NIO学习笔记(1) | GeeWaza">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          NIO——Java NIO学习笔记(1)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2014-08-30 16:34:54" itemprop="dateCreated datePublished" datetime="2014-08-30T16:34:54+08:00">2014-08-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-08-28 16:33:11" itemprop="dateModified" datetime="2026-08-28T16:33:11+08:00">2026-08-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%96%87%E7%AB%A0/" itemprop="url" rel="index"><span itemprop="name">文章</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>JDK 1.4 中引入的新输入输出 (NIO) 库在标准 Java 代码中提供了高速的、面向块的 I&#x2F;O。NIO 弥补了原来的 I&#x2F;O 的不足，它在标准 Java 代码中提供了高速的、面向块的 I&#x2F;O。通过定义包含数据的类，以及通过以块的形式处理这些数据，NIO 不用使用本机代码就可以利用低级优化，这是原来的 I&#x2F;O 包所无法做到的。</p>
+<h4 id="为什么要使用NIO？"><a href="#为什么要使用NIO？" class="headerlink" title="为什么要使用NIO？"></a>为什么要使用NIO？</h4><p>NIO 的创建目的是为了让 Java 程序员可以实现高速 I&#x2F;O 而无需编写自定义的本机代码。NIO 将最耗时的 I&#x2F;O 操作(即填充和提取缓冲区)转移回操作系统，因而可以极大地提高速度。</p>
+<span id="more"></span>
+
+<h2 id="通道和缓冲区"><a href="#通道和缓冲区" class="headerlink" title="通道和缓冲区"></a>通道和缓冲区</h2><p><em>通道(Channel)</em> 和 _缓冲区(Buffer)_是 NIO 中的核心对象，几乎在每一个 I&#x2F;O 操作中都要使用它们。<br>区别于原来I&#x2F;O基于Stream的逐个字节读写的方式，使用NIO是先将数据写入缓存区，再将缓存区中的数据写入到通道中的块读写方式。<br><img src="http://ww1.sinaimg.cn/large/3d6ce2f1gw1ejupx6yaxgj20co02uwef.jpg" alt="channel_buffer"></p>
+<h4 id="通道-Channel"><a href="#通道-Channel" class="headerlink" title="通道(Channel)"></a>通道(Channel)</h4><p>Channel是一个对象，可以通过它读取和写入数据。拿 NIO 与原来的 I&#x2F;O 做个比较，通道就像是流。通道与流的不同之处在于通道是双向的。</p>
+<h4 id="缓冲区-Buffer"><a href="#缓冲区-Buffer" class="headerlink" title="缓冲区(Buffer)"></a>缓冲区(Buffer)</h4><p>Buffer 是一个对象， 它包含一些要写入或者刚读出的数据。 在 NIO 中加入 Buffer 对象，体现了新库与原 I&#x2F;O 的一个重要区别。在面向流的 I&#x2F;O 中，您将数据直接写入或者将数据直接读到 Stream 对象中。缓冲区实质上是一个数组。通常它是一个字节数组，但是也可以使用其他种类的数组。<br><img src="http://ww2.sinaimg.cn/mw690/3d6ce2f1gw1ejupx6lsrxj20c909rglq.jpg" alt="buffer"></p>
+<h4 id="缓冲区类型"><a href="#缓冲区类型" class="headerlink" title="缓冲区类型"></a>缓冲区类型</h4><p>最常用的缓冲区类型是 <code>ByteBuffer</code>。以下是Buffer的各个类型：</p>
+<ul>
+<li><code>ByteBuffer</code></li>
+<li><code>CharBuffer</code></li>
+<li><code>ShortBuffer</code></li>
+<li><code>IntBuffer</code></li>
+<li><code>LongBuffer</code></li>
+<li><code>FloatBuffer</code></li>
+<li><code>DoubleBuffer</code></li>
+</ul>
+<p>来看一个拷贝文件的例子：</p>
+<pre class="lang:java decode:true">import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+
+public class CopyFile {
+
+    private static void copy(String sourceFile, String directFile) throws IOException {
+        FileInputStream fis = new FileInputStream(sourceFile);
+        FileOutputStream fos = new FileOutputStream(directFile);
+        int i = 0;
+        try {
+            FileChannel inputChannel = fis.getChannel();
+            FileChannel outputChannel = fos.getChannel();
+            ByteBuffer buffer = ByteBuffer.allocate(1024);
+            while(true) {
+                //重设缓冲区
+                buffer.clear();
+                int r = inputChannel.read(buffer);
+                if (r == -1) {
+                    break;
+                }
+                //让缓冲区可以将新读入的数据写入另一个通道
+                buffer.flip();
+                outputChannel.write(buffer);
+                i++;
+            }
+            System.out.println("I/O次数：" + i);
+        } finally {
+            fos.close();
+            fis.close();
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        copy("/opt/source.txt", "/opt/direct.txt");
+        System.out.println("完成！");
+    }
+}</pre>
+
+<p>程序中用到了<code>buffer.clear()</code> <code>buffer.flip()</code></p>
+<ul>
+<li><code>clear()</code> 方法重设缓冲区，使它可以接受读入的数据。</li>
+<li><code>flip()</code> 方法让缓冲区可以将新读入的数据写入另一个通道。</li>
+</ul>
+<p>来看看源码：<br><strong>Buffer.clear()</strong></p>
+<pre class="lang:java decode:true">public final Buffer clear() {
+    position = 0;
+    limit = capacity;
+    mark = -1;
+    return this;
+}</pre>
+
+<p><strong>Buffer.flip()</strong></p>
+<pre class="lang:java decode:true">public final Buffer flip() {
+    limit = position;
+    position = 0;
+    mark = -1;
+    return this;
+}</pre>
+
+<p><em>参考：<a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/education/java/j-nio/j-nio.html">NIO 入门</a></em></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/NIO/" rel="tag"># NIO</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2014/08/25/jvm-java-e8-99-9a-e6-8b-9f-e6-9c-ba-e7-9a-84-e5-86-85-e5-ad-98-e6-a8-a1-e5-9e-8b/" rel="prev" title="JVM——(1)Java虚拟机的内存模型">
+                  <i class="fa fa-angle-left"></i> JVM——(1)Java虚拟机的内存模型
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2014/09/04/jvm-2-e5-9e-83-e5-9c-be-e6-94-b6-e9-9b-86-e5-99-a8/" rel="next" title="JVM——(2)垃圾收集器">
+                  JVM——(2)垃圾收集器 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">GeeWaza</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

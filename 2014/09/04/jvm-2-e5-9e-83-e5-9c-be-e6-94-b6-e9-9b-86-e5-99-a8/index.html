@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"frank59.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.29.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="对象死了吗垃圾收集器的目的就是回收掉虚拟机内存中无用的对象，而这些无用的对象我们称为“死掉的对象”。那么怎么判断一个对象已经“死掉”，即怎么判断一个对象是无用对象呢？ 引用计数算法(Reference Counting)就是给每个对象添加一个引用计数器，每当一个地方引用这个对象，计数器的值就加1，引用失效计数器就减1。那么，当计数器的值为0时，这个对象就是无用对象了，已而为没有引用指向这个对象，也">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM——(2)垃圾收集器">
+<meta property="og:url" content="https://frank59.github.io/2014/09/04/jvm-2-e5-9e-83-e5-9c-be-e6-94-b6-e9-9b-86-e5-99-a8/index.html">
+<meta property="og:site_name" content="GeeWaza">
+<meta property="og:description" content="对象死了吗垃圾收集器的目的就是回收掉虚拟机内存中无用的对象，而这些无用的对象我们称为“死掉的对象”。那么怎么判断一个对象已经“死掉”，即怎么判断一个对象是无用对象呢？ 引用计数算法(Reference Counting)就是给每个对象添加一个引用计数器，每当一个地方引用这个对象，计数器的值就加1，引用失效计数器就减1。那么，当计数器的值为0时，这个对象就是无用对象了，已而为没有引用指向这个对象，也">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/3d6ce2f1gw1ejzpee4sm4j20cx08z74f.jpg">
+<meta property="article:published_time" content="2014-09-03T16:35:38.000Z">
+<meta property="article:modified_time" content="2026-08-28T08:33:11.604Z">
+<meta property="article:author" content="GeeWaza">
+<meta property="article:tag" content="GC">
+<meta property="article:tag" content="JVM">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/mw690/3d6ce2f1gw1ejzpee4sm4j20cx08z74f.jpg">
+
+
+<link rel="canonical" href="https://frank59.github.io/2014/09/04/jvm-2-e5-9e-83-e5-9c-be-e6-94-b6-e9-9b-86-e5-99-a8/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://frank59.github.io/2014/09/04/jvm-2-e5-9e-83-e5-9c-be-e6-94-b6-e9-9b-86-e5-99-a8/","path":"2014/09/04/jvm-2-e5-9e-83-e5-9c-be-e6-94-b6-e9-9b-86-e5-99-a8/","title":"JVM——(2)垃圾收集器"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JVM——(2)垃圾收集器 | GeeWaza</title>
+  
+
+
+
+
+
+
+
+
+  
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">GeeWaza</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Geek's 技（わざ）</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%AD%BB%E4%BA%86%E5%90%97"><span class="nav-number">1.</span> <span class="nav-text">对象死了吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E7%AE%97%E6%B3%95-Reference-Counting"><span class="nav-number">2.</span> <span class="nav-text">引用计数算法(Reference Counting)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90%E7%AE%97%E6%B3%95-Reachablility-Analysis"><span class="nav-number">3.</span> <span class="nav-text">可达性分析算法(Reachablility Analysis)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">引用的类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Efinalize-%E6%96%B9%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">关于finalize()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA%E7%9A%84%E5%8D%A1%E6%9C%BA%E5%9B%9E%E6%94%B6"><span class="nav-number">6.</span> <span class="nav-text">方法区的卡机回收</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GeeWaza</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://frank59.github.io/2014/09/04/jvm-2-e5-9e-83-e5-9c-be-e6-94-b6-e9-9b-86-e5-99-a8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeeWaza">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeeWaza">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JVM——(2)垃圾收集器 | GeeWaza">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JVM——(2)垃圾收集器
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2014-09-04 00:35:38" itemprop="dateCreated datePublished" datetime="2014-09-04T00:35:38+08:00">2014-09-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-08-28 16:33:11" itemprop="dateModified" datetime="2026-08-28T16:33:11+08:00">2026-08-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%96%87%E7%AB%A0/" itemprop="url" rel="index"><span itemprop="name">文章</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="对象死了吗"><a href="#对象死了吗" class="headerlink" title="对象死了吗"></a>对象死了吗</h3><p>垃圾收集器的目的就是回收掉虚拟机内存中无用的对象，而这些无用的对象我们称为“死掉的对象”。那么怎么判断一个对象已经“死掉”，即怎么判断一个对象是无用对象呢？</p>
+<h3 id="引用计数算法-Reference-Counting"><a href="#引用计数算法-Reference-Counting" class="headerlink" title="引用计数算法(Reference Counting)"></a>引用计数算法(Reference Counting)</h3><p>就是给每个对象添加一个引用计数器，每当一个地方引用这个对象，计数器的值就加1，引用失效计数器就减1。那么，当计数器的值为0时，这个对象就是无用对象了，已而为没有引用指向这个对象，也就没办法再使用对象了。<br>这种垃圾收集器算法<strong>实现简单</strong>，<strong>判定效率高</strong>，但是有一个问题：<strong>无法处理对象相互引用的情况</strong>。这种情况下，相互引用的对象的引用计数器值都大于0，实际上相互应用的对象已经不能再被访问。</p>
+<pre class="lang:java decode:true">public class ReferenceCountingGC {
+    public static void main(String[] args) {
+        testGC();
+    }
+    public Object instance = null;
+    private static final int _1MB=1024*1024;
+    /**
+     * 这个成员属性的唯一意义就是占点内存，以便能在GC日志中看清楚是否被回收过 
+     */
+    private byte[] bigSize = new byte[2 * _1MB];
+    public static void testGC(){
+        ReferenceCountingGC objA=new ReferenceCountingGC();
+        ReferenceCountingGC objB=new ReferenceCountingGC();
+        objA.instance=objB;
+        objB.instance=objA;
+        objA=null;
+        objB=null;
+        // 假设在这行发生GC，那么objA和objB是否能被回收？
+        System.gc();
+    }
+}</pre>
+
+<p><strong>Java虚拟机不是通过引用技术算法来判断对象是否存活的</strong>，所以这个例子中，对象依然被回收了。</p>
+<span id="more"></span>
+
+<h3 id="可达性分析算法-Reachablility-Analysis"><a href="#可达性分析算法-Reachablility-Analysis" class="headerlink" title="可达性分析算法(Reachablility Analysis)"></a>可达性分析算法(Reachablility Analysis)</h3><p>在Java、C#等主流商用编程语言的实现中，都是使用可达性分析来判断对象是否存活的。这个算法的基本思路是：通过一系列成为“GC Roots”的对象作为起始点，从这些起始点开始搜索，通过引用链（Reference Chain）搜寻所有可达的对象，当一个对象到GC Root没有任何引用相连，证明此对象不可用，即为可回收对象。<br><img src="http://ww1.sinaimg.cn/mw690/3d6ce2f1gw1ejzpee4sm4j20cx08z74f.jpg" alt="可达性分析算法"><br>在Java中，可作为GC Roots的对象包括下面几种：</p>
+<ul>
+<li>虚拟机栈（栈帧本地变量表）中引用的对象</li>
+<li>方法区中类静态属性引用的对象</li>
+<li>方法区中常量医用的对象</li>
+<li>本地方法栈中JNI（即一般说的Native方法）引用的对象</li>
+</ul>
+<h3 id="引用的类型"><a href="#引用的类型" class="headerlink" title="引用的类型"></a>引用的类型</h3><p>在JDK 1.2之后，Java对引用的概念进行了扩充，将引用分为<strong>强引用（Strong Reference）</strong>、<strong>软引用（Soft Reference）</strong>、<strong>弱引用（Weak Reference）</strong>、**虚引用（Phantom Reference）**4种，这4种引用强度一次逐渐减弱。</p>
+<ul>
+<li>强引用：只要引用在，垃圾收集器就不会回收掉被引用的对象，如<code>Object obj = new Object()</code>。</li>
+<li>软引用：描述一个非必须的对象，在系统将要发生内存溢出异常之前，进行二次回收，即使这个引用还存在。使用<code>SoftReference</code>类来实现。</li>
+<li>弱引用：也是用来描述一个非必须的对象，但是被弱引用关联的对象<strong>只能生存到下一次垃圾收集之前</strong>。使用<code>WeakReference</code>类来实现。</li>
+<li>虚引用：被虚引用关联的对象，不会和没有引用关联的对象在生存时间上有任何区别，也无法通过虚引用来取得对象实例，使用虚引用的唯一目的就是<strong>这个对象在被收集器回收时能收到一个系统通知</strong>。使用<code>PhantomReference</code>类来实现。</li>
+</ul>
+<h3 id="关于finalize-方法"><a href="#关于finalize-方法" class="headerlink" title="关于finalize()方法"></a>关于finalize()方法</h3><p>即使可达性分析后不可达对象也不一定会执行“死刑”,要宣告一个对象死亡，至少要经历两次标记过程：如果对象在进行可达性分析后发现没有与GC Roots相连接的引用链，那它将会被第一次标记并且进行一次筛选，筛选的条件是此对象是否有必要执行<code>finalize()</code>方法。当对象没有覆盖<code>finalize()</code>方法，或者<code>finalize()</code>方法已经被虚拟机调用过，即为“没有必要执行<code>finalize()</code>”。<br>如果这个对象被判定有必要执行<code>finalize()</code>方法，那么这个对象将会放置在一个叫做F-Queue的队列中，稍后会由一个虚拟机自动建立的、低优先级的Finalizer线程去执行它，这里的执行仅仅是“触发”，而不保证<code>finalize()</code>方法执行完成，因为如果某个对象的<code>finalize()</code>在执行的过程中发生了死循环等极端状况，那么虚拟机不可能永久等待它执行完成。对象可以再<code>finalize()</code>中进行“自救”，即重新与引用链建立关系，那再第二次标记时，它将被移除“即将回收”集合，剩下在集合中的就被回收了。<strong>fianlize()方法只会被虚拟机执行一次</strong>，当对象再次与引用链断开时，就不能再通过<code>finalize()</code>进行自救了。<br>我们来看个对象自救的例子：</p>
+<pre class="lang:java decode:true">/**
+ * 这个例子讲述了一个濒死的对象时如何得到救赎的
+ * 对象在第一次GC时被判处死刑，但是它在finalize()方法中进行了申诉，抓住了一根救命稻草
+ * 但是main()判定这根救命稻草无效（null），这个对象最终还是被执行了死刑
+ * 这是个悲伤的故事:p
+ * @author WangHeng
+ *
+ */
+public class FinalizeEscapeGC {
+
+    public static FinalizeEscapeGC SAVE_HOOK = null;
+
+    public void isAlive() {
+        System.out.println("Yes!, I am still alive :)");
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        System.out.println("NOT TODAY!");
+        //抓住一根救命稻草(GC Root)
+        FinalizeEscapeGC.SAVE_HOOK = this;
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        SAVE_HOOK = new FinalizeEscapeGC();
+
+        SAVE_HOOK = null;
+        //宣布对象的死刑
+        System.gc();
+        Thread.sleep(500);//可以再0.5s内进行申诉
+        if (SAVE_HOOK != null) {
+            SAVE_HOOK.isAlive();
+        } else {
+            System.out.println("I'm sorry, I tried my best.:（");
+        }
+
+        SAVE_HOOK = null;
+        //驳回上诉，维持原判
+        System.gc();
+        Thread.sleep(500);//可以再0.5s内进行申诉，但最高法院不会受理的
+        if (SAVE_HOOK != null) {
+            SAVE_HOOK.isAlive();
+        } else {
+            System.out.println("I'm sorry, I tried my best.:（");
+        }
+    }
+}</pre>
+
+<p>执行的结果：</p>
+<blockquote>
+<p>NOT TODAY!<br>  Yes!, I am still alive :)<br>  I’m sorry, I tried my best.:（</p>
+</blockquote>
+<p>对于<code>finalize()</code>，它的运行代价高昂，不确定性大，无法保证各个对象的调用顺序。有些教科书中描述它适合做“关闭外部资源”之类的工作，这完全是对这个方法用途的一种自我安慰。</p>
+<blockquote>
+<p><strong>忘掉<code>finalize()</code>吧</strong>。</p>
+</blockquote>
+<h3 id="方法区的卡机回收"><a href="#方法区的卡机回收" class="headerlink" title="方法区的卡机回收"></a>方法区的卡机回收</h3><p>方法区的垃圾收集在Java虚拟机规范中是不要求实现的。但是在大量使用反射、动态代CGLib等ByteCode框架、动态生成JSP以及OSGi这类频繁自定义<code>ClassLoader</code>的场景都需要虚拟机具备类卸载的功能。<br>永久代的垃圾收集主要回收两部分内容：<strong>废弃常量</strong>和<strong>无用的类</strong>。<br><strong>废弃常量</strong>：如果没有任何对象引用常量池中的常量，或者也没有任何其他地方引用了一个字面量，此时发生内存回收，并且有必要的话，则常量被清理出常量池。<br><strong>无用的类</strong>：同时满足下面3个条件</p>
+<ul>
+<li>该类所有的实例都已经被回收，也就是Java堆中不存在该类的任何实例。</li>
+<li>加载该类的<code>ClassLoader</code>已经被回收。</li>
+<li>该类对应的<code>java.lang.Class</code>对象没有任何地方被引用，无法再任何地方通过反射访问该类的方法。</li>
+</ul>
+<p>满足以上3个条件的无用类仅仅是“可以”被回收，是否被回收，HotSpot虚拟机提供了如下参数：</p>
+<ul>
+<li><code>-Xnoclassgc</code>控制不进行回收</li>
+<li><code>-verbose:class</code>以及<code>-XX:+TraceClassLoading</code>、<code>-XX:+TraceClassUnLoading</code>查看类加载和卸载信息（<code>-verbose:class</code>和<code>-XX:+TraceClassLoading</code>可以在Product版的虚拟机中使用，<code>-XX:+TraceClassUnLoading</code>需要FastDebug版的虚拟机）</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/JVM/" rel="tag"># JVM</a>
+              <a href="/tags/GC/" rel="tag"># GC</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2014/08/30/97/" rel="prev" title="NIO——Java NIO学习笔记(1)">
+                  <i class="fa fa-angle-left"></i> NIO——Java NIO学习笔记(1)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2014/09/08/2014-09-08-e4-b8-ad-e7-a7-8b-e8-8a-82-e7-9a-84-e9-a2-90-e5-92-8c-e5-9b-ad/" rel="next" title="2014-09-08 中秋节的颐和园">
+                  2014-09-08 中秋节的颐和园 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">GeeWaza</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

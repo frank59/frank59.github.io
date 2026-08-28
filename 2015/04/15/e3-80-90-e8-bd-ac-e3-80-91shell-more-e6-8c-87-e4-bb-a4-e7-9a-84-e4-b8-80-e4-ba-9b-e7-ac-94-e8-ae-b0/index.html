@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"frank59.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.29.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="原帖：http:&#x2F;&#x2F;blog.csdn.net&#x2F;cneaglelee&#x2F;article&#x2F;details&#x2F;6216589more在查看文件内容时很常用。有同学问我，使用more怎样到文件尾，怎样从文件尾开始查看。这些类似的技巧可能大家不怎么关注，的确有时也很有必要。现做个简单的总结。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【转】shell more指令的一些笔记">
+<meta property="og:url" content="https://frank59.github.io/2015/04/15/e3-80-90-e8-bd-ac-e3-80-91shell-more-e6-8c-87-e4-bb-a4-e7-9a-84-e4-b8-80-e4-ba-9b-e7-ac-94-e8-ae-b0/index.html">
+<meta property="og:site_name" content="GeeWaza">
+<meta property="og:description" content="原帖：http:&#x2F;&#x2F;blog.csdn.net&#x2F;cneaglelee&#x2F;article&#x2F;details&#x2F;6216589more在查看文件内容时很常用。有同学问我，使用more怎样到文件尾，怎样从文件尾开始查看。这些类似的技巧可能大家不怎么关注，的确有时也很有必要。现做个简单的总结。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-04-15T02:17:21.000Z">
+<meta property="article:modified_time" content="2026-08-28T08:33:11.603Z">
+<meta property="article:author" content="GeeWaza">
+<meta property="article:tag" content="Linuex">
+<meta property="article:tag" content="more">
+<meta property="article:tag" content="shell">
+<meta property="article:tag" content="转载">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://frank59.github.io/2015/04/15/e3-80-90-e8-bd-ac-e3-80-91shell-more-e6-8c-87-e4-bb-a4-e7-9a-84-e4-b8-80-e4-ba-9b-e7-ac-94-e8-ae-b0/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://frank59.github.io/2015/04/15/e3-80-90-e8-bd-ac-e3-80-91shell-more-e6-8c-87-e4-bb-a4-e7-9a-84-e4-b8-80-e4-ba-9b-e7-ac-94-e8-ae-b0/","path":"2015/04/15/e3-80-90-e8-bd-ac-e3-80-91shell-more-e6-8c-87-e4-bb-a4-e7-9a-84-e4-b8-80-e4-ba-9b-e7-ac-94-e8-ae-b0/","title":"【转】shell more指令的一些笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>【转】shell more指令的一些笔记 | GeeWaza</title>
+  
+
+
+
+
+
+
+
+
+  
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">GeeWaza</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Geek's 技（わざ）</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#more%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">more基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#more%E5%90%8E%E9%9D%A2%E8%B7%9F%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">more后面跟的参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#more%E6%96%87%E4%BB%B6%E5%90%8E%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">more文件后的参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#more%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="nav-number">4.</span> <span class="nav-text">more问题解决</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GeeWaza</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://frank59.github.io/2015/04/15/e3-80-90-e8-bd-ac-e3-80-91shell-more-e6-8c-87-e4-bb-a4-e7-9a-84-e4-b8-80-e4-ba-9b-e7-ac-94-e8-ae-b0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeeWaza">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeeWaza">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="【转】shell more指令的一些笔记 | GeeWaza">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【转】shell more指令的一些笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2015-04-15 10:17:21" itemprop="dateCreated datePublished" datetime="2015-04-15T10:17:21+08:00">2015-04-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-08-28 16:33:11" itemprop="dateModified" datetime="2026-08-28T16:33:11+08:00">2026-08-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>原帖：<a target="_blank" rel="noopener" href="http://blog.csdn.net/cneaglelee/article/details/6216589">http://blog.csdn.net/cneaglelee/article/details/6216589</a><br>more在查看文件内容时很常用。有同学问我，使用more怎样到文件尾，怎样从文件尾开始查看。这些类似的技巧可能大家不怎么关注，的确有时也很有必要。现做个简单的总结。</p>
+<span id="more"></span>
+
+<h2 id="more基本使用"><a href="#more基本使用" class="headerlink" title="more基本使用"></a>more基本使用</h2><p>类似 cat ，不过会以一页一页的显示方便使用者逐页阅读，而最基本的指令就是按空白键（space）就往下一页显示，按 b 键就会往回（back）一页显示，而且还有搜寻字串的功能（与 vi 相似），使用中使用帮助按 h 。</p>
+<h2 id="more后面跟的参数"><a href="#more后面跟的参数" class="headerlink" title="more后面跟的参数"></a>more后面跟的参数</h2><p>-num 一次显示的行数<br>-d 提示使用者，在画面下方显示 [Press space to continue, ‘q’ to quit.] ，如果使用者按错键，则会显示 [Press ‘h’ for instructions.] 而不是 ‘哔’ 声<br>-l 取消遇见特殊字元 ^L（送纸字元）时会暂停的功能<br>-f 计算行数时，以实际上的行数，而非自动换行过后的行数（有些单行字数太长的会被扩展为两行或两行以上）<br>-p 不以卷动的方式显示每一页，而是先清除萤幕后再显示内容<br>-c 跟 -p 相似，不同的是先显示内容再清除其他旧资料<br>-s 当遇到有连续两行以上的空白行，就代换为一行的空白行<br>-u 不显示下引号 （根据环境变数 TERM 指定的 terminal 而有所不同）<br>+&#x2F; 在每个档案显示前搜寻该字串（pattern），然后从该字串之后开始显示<br>+num 从第 num 行开始显示</p>
+<h2 id="more文件后的参数"><a href="#more文件后的参数" class="headerlink" title="more文件后的参数"></a>more文件后的参数</h2><p>f [K]有行数K向前（forward）移动K行，没有K，向前移动一屏<br>b [K]有行数K向后（backward）移动K行，没有K，向后移动一屏<br>d [K]有行数K向前（forward）移动K行，没有K，向前移动半屏<br>u [K]有行数K向后（backward）移动K行，没有K，向后移动半屏<br>j [K]有行数K向前（forward）移动K行，没有K，向前移动1行<br>k [K]有行数K向后（backward）移动K行，没有K，向后移动1行<br>g [K]有行数K向前（forward）移动K行，没有K，移动到文件首<br>G [K]有行数K向后（backward）移动K行，没有K，移动到文件首<br>p [K]%向后移动的百分比<br>更详细的帮助你可以在linux&#x2F;unix下使用man more。</p>
+<h2 id="more问题解决"><a href="#more问题解决" class="headerlink" title="more问题解决"></a>more问题解决</h2><p>（1）如何查看到文件尾，more文件后直接输入G字符。<br>（2）怎样从文件尾开始查看，more -p G 文件名，前翻使用b或u就可以了。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linuex/" rel="tag"># Linuex</a>
+              <a href="/tags/more/" rel="tag"># more</a>
+              <a href="/tags/shell/" rel="tag"># shell</a>
+              <a href="/tags/%E8%BD%AC%E8%BD%BD/" rel="tag"># 转载</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2015/02/03/e3-80-90-e5-89-91-e9-81-93-e3-80-91-e7-ba-aa-e5-bd-95-e7-89-87-ef-bc-9a-e3-80-8a-e5-89-91-e9-81-93-e4-b9-8b-e9-81-93-e3-80-8b/" rel="prev" title="【剑道】纪录片：《剑道之道》">
+                  <i class="fa fa-angle-left"></i> 【剑道】纪录片：《剑道之道》
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/03/28/solr-e7-8e-af-e5-a2-83-e6-90-ad-e5-bb-ba/" rel="next" title="Solr 环境搭建">
+                  Solr 环境搭建 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">GeeWaza</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

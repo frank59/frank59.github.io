@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"frank59.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.29.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="程序员为什么要写博客技术积累程序员在平日工作中会遇到很多技术难题，这些技术问题有时候并不成体系，是零散的技术点。这个时候就需要养成一个把遇到的技术问题记录下来的习惯，有助于之后再次遇到这个问题时能够更快地处理。日积月累，也就能形成自己的技术积累。既然是要把技术问题记录下来，为何不记录在自己的博客中和大家分享呢？说不定还能在分享的过程中寻求到更好的解决方案。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="程序员都应该有自己的技术博客">
+<meta property="og:url" content="https://frank59.github.io/2014/11/12/e7-a8-8b-e5-ba-8f-e5-91-98-e9-83-bd-e5-ba-94-e8-af-a5-e6-9c-89-e8-87-aa-e5-b7-b1-e7-9a-84-e6-8a-80-e6-9c-af-e5-8d-9a-e5-ae-a2/index.html">
+<meta property="og:site_name" content="GeeWaza">
+<meta property="og:description" content="程序员为什么要写博客技术积累程序员在平日工作中会遇到很多技术难题，这些技术问题有时候并不成体系，是零散的技术点。这个时候就需要养成一个把遇到的技术问题记录下来的习惯，有助于之后再次遇到这个问题时能够更快地处理。日积月累，也就能形成自己的技术积累。既然是要把技术问题记录下来，为何不记录在自己的博客中和大家分享呢？说不定还能在分享的过程中寻求到更好的解决方案。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1em72or1lo3j206g0gkq3f.jpg">
+<meta property="article:published_time" content="2014-11-11T16:17:32.000Z">
+<meta property="article:modified_time" content="2026-08-28T08:33:11.604Z">
+<meta property="article:author" content="GeeWaza">
+<meta property="article:tag" content="主机">
+<meta property="article:tag" content="博客">
+<meta property="article:tag" content="域名">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1em72or1lo3j206g0gkq3f.jpg">
+
+
+<link rel="canonical" href="https://frank59.github.io/2014/11/12/e7-a8-8b-e5-ba-8f-e5-91-98-e9-83-bd-e5-ba-94-e8-af-a5-e6-9c-89-e8-87-aa-e5-b7-b1-e7-9a-84-e6-8a-80-e6-9c-af-e5-8d-9a-e5-ae-a2/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://frank59.github.io/2014/11/12/e7-a8-8b-e5-ba-8f-e5-91-98-e9-83-bd-e5-ba-94-e8-af-a5-e6-9c-89-e8-87-aa-e5-b7-b1-e7-9a-84-e6-8a-80-e6-9c-af-e5-8d-9a-e5-ae-a2/","path":"2014/11/12/e7-a8-8b-e5-ba-8f-e5-91-98-e9-83-bd-e5-ba-94-e8-af-a5-e6-9c-89-e8-87-aa-e5-b7-b1-e7-9a-84-e6-8a-80-e6-9c-af-e5-8d-9a-e5-ae-a2/","title":"程序员都应该有自己的技术博客"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>程序员都应该有自己的技术博客 | GeeWaza</title>
+  
+
+
+
+
+
+
+
+
+  
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">GeeWaza</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Geek's 技（わざ）</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E5%91%98%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%86%99%E5%8D%9A%E5%AE%A2"><span class="nav-number">1.</span> <span class="nav-text">程序员为什么要写博客</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF"><span class="nav-number">1.1.</span> <span class="nav-text">技术积累</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%99%E4%BC%9A%E5%88%AB%E4%BA%BA%E4%B9%9F%E6%98%AF%E8%87%AA%E5%B7%B1%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">教会别人也是自己学习的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E7%AE%80%E5%8E%86%E4%B8%8A%E9%94%A6%E4%B8%8A%E6%B7%BB%E8%8A%B1"><span class="nav-number">1.3.</span> <span class="nav-text">在简历上锦上添花</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2%E5%BA%94%E8%AF%A5%E5%86%99%E4%BA%9B%E4%BB%80%E4%B9%88"><span class="nav-number">2.</span> <span class="nav-text">技术博客应该写些什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%82%E7%82%B9%E4%B8%80%EF%BC%9A%E6%83%B3%E5%86%99%E4%BB%80%E4%B9%88%E5%86%99%E4%BB%80%E4%B9%88"><span class="nav-number">2.1.</span> <span class="nav-text">观点一：想写什么写什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%82%E7%82%B9%E4%BA%8C%EF%BC%9A%E5%8F%AA%E5%86%99%E7%BB%8F%E8%BF%87%E8%87%AA%E5%B7%B1%E5%AD%A6%E4%B9%A0%E6%80%9D%E8%80%83%E8%BF%87%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">2.2.</span> <span class="nav-text">观点二：只写经过自己学习思考过的内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F"><span class="nav-number">2.3.</span> <span class="nav-text">我的一些感悟</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%BB%E5%93%AA%E5%86%99%E5%8D%9A%E5%AE%A2%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">去哪写博客？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2"><span class="nav-number">4.</span> <span class="nav-text">自己的博客</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D"><span class="nav-number">4.1.</span> <span class="nav-text">域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E6%9C%BA"><span class="nav-number">4.2.</span> <span class="nav-text">主机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%9A%E5%AE%A2%E7%B3%BB%E7%BB%9F"><span class="nav-number">4.3.</span> <span class="nav-text">博客系统</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GeeWaza</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://frank59.github.io/2014/11/12/e7-a8-8b-e5-ba-8f-e5-91-98-e9-83-bd-e5-ba-94-e8-af-a5-e6-9c-89-e8-87-aa-e5-b7-b1-e7-9a-84-e6-8a-80-e6-9c-af-e5-8d-9a-e5-ae-a2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeeWaza">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeeWaza">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="程序员都应该有自己的技术博客 | GeeWaza">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          程序员都应该有自己的技术博客
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2014-11-12 00:17:32" itemprop="dateCreated datePublished" datetime="2014-11-12T00:17:32+08:00">2014-11-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-08-28 16:33:11" itemprop="dateModified" datetime="2026-08-28T16:33:11+08:00">2026-08-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="程序员为什么要写博客"><a href="#程序员为什么要写博客" class="headerlink" title="程序员为什么要写博客"></a>程序员为什么要写博客</h2><h3 id="技术积累"><a href="#技术积累" class="headerlink" title="技术积累"></a>技术积累</h3><p>程序员在平日工作中会遇到很多技术难题，这些技术问题有时候并不成体系，是零散的技术点。这个时候就需要养成一个把遇到的技术问题记录下来的习惯，有助于之后再次遇到这个问题时能够更快地处理。日积月累，也就能形成自己的技术积累。既然是要把技术问题记录下来，为何不记录在自己的博客中和大家分享呢？说不定还能在分享的过程中寻求到更好的解决方案。</p>
+<span id="more"></span>
+
+<h3 id="教会别人也是自己学习的过程"><a href="#教会别人也是自己学习的过程" class="headerlink" title="教会别人也是自己学习的过程"></a>教会别人也是自己学习的过程</h3><p>程序员时常要学习很多新技术，新工具，而这些技术往往是需要大量实践才能够掌握的。将学习到的新知识通过编写教程的方式分享给其他人的这个过程，本身就是对新知识回顾的过程，有助于对知识点的进一步消化吸收。如果能够通过一篇文章教会别人一个新的知识，那么自己对这个知识的掌握也将更上一个台阶。所谓“最好的检验学习的方法就是把它教给别人”就是这个道理。</p>
+<h3 id="在简历上锦上添花"><a href="#在简历上锦上添花" class="headerlink" title="在简历上锦上添花"></a>在简历上锦上添花</h3><p>博客能够很好地记录程序员的学习路劲，并且也能很直观地表现出博主对技术的掌握以及学习的态度，也从侧面见证了博主的一步步的成长。<br>当你在简历中贴上你的博客地址，它表明你对技术的热爱，是一个对工作有规划有想法的从业人员，光是这一点，就已经让你和别的应聘者高出了一个等级。通过博客传递的信息，也能更快地让面试人员了解你的技术领域，提高面试的效率。通常，招聘者通过博客招聘人才的效率要比在求职网站上散布求职信息效率来的要高。</p>
+<h2 id="技术博客应该写些什么"><a href="#技术博客应该写些什么" class="headerlink" title="技术博客应该写些什么"></a>技术博客应该写些什么</h2><p>关于如何写好博文，好的技术博客应该都写些什么一直都有两种观点：</p>
+<h3 id="观点一：想写什么写什么"><a href="#观点一：想写什么写什么" class="headerlink" title="观点一：想写什么写什么"></a>观点一：想写什么写什么</h3><p>记录点滴成长。无论是一个API的使用方法，还是某个命令的指令参数，都可以写成一篇文章到博客上。写博客不全是写给别人看的，其主要目的还是在于帮助自己回顾梳理知识，或者是记录下一些容易忘记的知识点。不要在意这篇文章的质量，重要的是要写出来。</p>
+<h3 id="观点二：只写经过自己学习思考过的内容"><a href="#观点二：只写经过自己学习思考过的内容" class="headerlink" title="观点二：只写经过自己学习思考过的内容"></a>观点二：只写经过自己学习思考过的内容</h3><p>不要什么东西都往博客上放，博客上的文章一定是经过自己思考总结下来的知识。不要罗列下一对代码，凑上几句话“首先…，其次…，最后…”。写一篇技术博客，首先是要明确该博客的目的，通常是学习一项技术、解决一个技术问题什么的。要分清楚什么东西值得写，什么东西不值得写。</p>
+<h3 id="我的一些感悟"><a href="#我的一些感悟" class="headerlink" title="我的一些感悟"></a>我的一些感悟</h3><p>前期技术积累少，表达能力有限，想要写出高质量的文章是很困难的。这个时候遇到的最多的还是，这个东西怎么用，那个东西能解决什么问题等较为低级的知识点。这种知识点值不值得写呢？我觉得这个阶段不写这些写什么呢，难道还想写出轰动的文章？技术积累是有一个过程的，前期文章质量不高是很正常的，关键是有没有养成梳理知识，并把知识表达出来的习惯。我觉得目前我就处于这个阶段，要想写出好文章真心力不从心，但是不经过“烂”文章的训练，又怎么能写出好的技术博文呢。所以我的方法是，<strong>把文章进行分类</strong>。是经过学习总结得出来的文章我放到“<strong>学习</strong>”分类下，这个分类下的文章是我自认为质量尚可的（当然只是自认为……）。单纯为了预防自己忘记的知识点，或是一些工具的用法，我放到“<strong>备忘</strong>”这个分类下，这个分类下的文章全不在意细节和质量，只要自己看得懂就行了，转载别人的文章也会放在这个分类下。“<strong>笔记</strong>”这个分类下的文章和“备忘”分类中的文章比起来，区别在“笔记”分类下的文章是经过了一定的梳理但质量并不高的文章。除此之外就是“<strong>杂谈</strong>”分类，这个分类用来存放和技术无关的文章，或许会有几篇日记性质的文章来抒发下内心情感也是可以的。</p>
+<blockquote>
+<p>学习：质量较高的“旗舰”文章，我的“科研成果”<br>  笔记：不关注质量，关注知识的梳理<br>  备忘：一些转载的文章，看得懂就行<br>  杂谈：想写什么写什么</p>
+</blockquote>
+<h2 id="去哪写博客？"><a href="#去哪写博客？" class="headerlink" title="去哪写博客？"></a>去哪写博客？</h2><p>技术社区型：一般提供了较好的博客编写工具，并拥有成熟的技术社区。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/">CSDN</a><br>  <a target="_blank" rel="noopener" href="http://www.cnblogs.com/">博客园</a><br>  <a target="_blank" rel="noopener" href="http://www.iteye.com/blogs">ITEYE</a><br>  <a target="_blank" rel="noopener" href="http://www.oschina.net/blog">开源中国</a><br>  <a target="_blank" rel="noopener" href="http://blog.51cto.com/">51CTO</a></p>
+</blockquote>
+<p>非技术社区型：对技术类博客支持不好，一般没有代码高亮的功能，不推荐使用。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://blog.sina.com.cn/">新浪博客</a><br>  <a target="_blank" rel="noopener" href="http://blog.163.com/">网易博客</a><br>  <a target="_blank" rel="noopener" href="http://hi.baidu.com/">百度空间</a><br>  <a target="_blank" rel="noopener" href="http://qzone.qq.com/">QQ空间</a></p>
+</blockquote>
+<h2 id="自己的博客"><a href="#自己的博客" class="headerlink" title="自己的博客"></a>自己的博客</h2><p>如果觉得以上这些博客服务“逼格”还不够高，或者需要自定义一些特殊功能，那么你可以试试搭建一个个人技术博客。<br>接下来就来说说<a target="_blank" rel="noopener" href="http://www.geewaza.com/">GeeWaza</a>的搭建过程。</p>
+<h3 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h3><p>首先要去申请域名，我是去<a target="_blank" rel="noopener" href="http://www.net.cn/">万网</a>申请的域名，因为可以直接用支付宝付款。</p>
+<h3 id="主机"><a href="#主机" class="headerlink" title="主机"></a>主机</h3><p>目前(2014-11-11)我使用的主机是<a target="_blank" rel="noopener" href="http://www.cefhost.cn/index.html">CEFHOST 优易主机</a>，选择的是这个套餐，速度和稳定性都还行，因为是香港的主机，所以不用备案：<br><img src="http://ww3.sinaimg.cn/mw690/3d6ce2f1jw1em72or1lo3j206g0gkq3f.jpg" alt="主机套餐"></p>
+<h3 id="博客系统"><a href="#博客系统" class="headerlink" title="博客系统"></a>博客系统</h3><p>我使用的是<a target="_blank" rel="noopener" href="http://cn.wordpress.org/">WordPress</a>博客系统，具体情况参见官网。装上这个系统后，还需要安装一些相关的插件来满足一些特殊的功能，比如代码高亮啊什么的。我使用了什么插件，具体请看“<a target="_blank" rel="noopener" href="http://www.geewaza.com/?page_id=68">关于本站</a>”。</p>
+<p>参考:<br><a target="_blank" rel="noopener" href="http://rock3.info/blog/2013/11/26/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E7%AF%87%E5%A5%BD%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/">如何写一篇好的技术博客</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/oiio/article/details/6913156/">为什么写技术博客对新人如此重要？</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%B8%BB%E6%9C%BA/" rel="tag"># 主机</a>
+              <a href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag"># 博客</a>
+              <a href="/tags/%E5%9F%9F%E5%90%8D/" rel="tag"># 域名</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2014/11/02/markdown-e5-83-8f-e5-86-99-e4-bb-a3-e7-a0-81-e9-82-a3-e6-a0-b7-e5-86-99-e6-96-87-e7-ab-a0/" rel="prev" title="Markdown——像写代码那样写文章">
+                  <i class="fa fa-angle-left"></i> Markdown——像写代码那样写文章
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2014/12/03/e5-89-91-e9-81-93-e7-ba-aa-e5-bd-95-e7-89-87-ef-bc-8c-e7-83-88-e7-81-ab-e8-88-ac-e7-9a-84-e4-b8-80-e5-87-bb-ef-bc-8c-e4-b8-8a-e6-ae-b5-e9-80-89-e6-89-8b-ef-bc-8c-e5-b0-be-e5-bd-a2-e8-8c-82/" rel="next" title="【剑道】纪录片：《烈火般的一击！上段选手：尾形茂》">
+                  【剑道】纪录片：《烈火般的一击！上段选手：尾形茂》 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">GeeWaza</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"frank59.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.29.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="假设我有两台服务器：服务器A 和 服务器B我需要在服务器A上访问服务器B，但是每次ssh到服务器B上都要输入服务器B该用户的密码（root用户），比较麻烦而且以后会写shell脚本把服务器A的文件拷贝到服务器B上，不能通过脚本文件完成输入密码的交互这样便可以使用ssh的免登陆。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用SSH实现服务器之间的免登陆">
+<meta property="og:url" content="https://frank59.github.io/2014/10/11/e4-bd-bf-e7-94-a8ssh-e5-ae-9e-e7-8e-b0-e6-9c-8d-e5-8a-a1-e5-99-a8-e4-b9-8b-e9-97-b4-e7-9a-84-e5-85-8d-e7-99-bb-e9-99-86/index.html">
+<meta property="og:site_name" content="GeeWaza">
+<meta property="og:description" content="假设我有两台服务器：服务器A 和 服务器B我需要在服务器A上访问服务器B，但是每次ssh到服务器B上都要输入服务器B该用户的密码（root用户），比较麻烦而且以后会写shell脚本把服务器A的文件拷贝到服务器B上，不能通过脚本文件完成输入密码的交互这样便可以使用ssh的免登陆。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201304/15/1366015609_2710.jpg">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201304/15/1366015805_5472.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201304/15/1366016226_1712.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201304/15/1366016284_9155.png">
+<meta property="article:published_time" content="2014-10-11T11:44:36.000Z">
+<meta property="article:modified_time" content="2026-08-28T08:33:11.603Z">
+<meta property="article:author" content="GeeWaza">
+<meta property="article:tag" content="SSH">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.my.csdn.net/uploads/201304/15/1366015609_2710.jpg">
+
+
+<link rel="canonical" href="https://frank59.github.io/2014/10/11/e4-bd-bf-e7-94-a8ssh-e5-ae-9e-e7-8e-b0-e6-9c-8d-e5-8a-a1-e5-99-a8-e4-b9-8b-e9-97-b4-e7-9a-84-e5-85-8d-e7-99-bb-e9-99-86/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://frank59.github.io/2014/10/11/e4-bd-bf-e7-94-a8ssh-e5-ae-9e-e7-8e-b0-e6-9c-8d-e5-8a-a1-e5-99-a8-e4-b9-8b-e9-97-b4-e7-9a-84-e5-85-8d-e7-99-bb-e9-99-86/","path":"2014/10/11/e4-bd-bf-e7-94-a8ssh-e5-ae-9e-e7-8e-b0-e6-9c-8d-e5-8a-a1-e5-99-a8-e4-b9-8b-e9-97-b4-e7-9a-84-e5-85-8d-e7-99-bb-e9-99-86/","title":"使用SSH实现服务器之间的免登陆"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>使用SSH实现服务器之间的免登陆 | GeeWaza</title>
+  
+
+
+
+
+
+
+
+
+  
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">GeeWaza</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Geek's 技（わざ）</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GeeWaza</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://frank59.github.io/2014/10/11/e4-bd-bf-e7-94-a8ssh-e5-ae-9e-e7-8e-b0-e6-9c-8d-e5-8a-a1-e5-99-a8-e4-b9-8b-e9-97-b4-e7-9a-84-e5-85-8d-e7-99-bb-e9-99-86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeeWaza">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeeWaza">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="使用SSH实现服务器之间的免登陆 | GeeWaza">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用SSH实现服务器之间的免登陆
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2014-10-11 19:44:36" itemprop="dateCreated datePublished" datetime="2014-10-11T19:44:36+08:00">2014-10-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-08-28 16:33:11" itemprop="dateModified" datetime="2026-08-28T16:33:11+08:00">2026-08-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><div class="markdown-here-wrapper" data-md-url="http://www.geewaza.com/wp-admin/post.php?post=158&amp;action=edit&amp;message=10">
+
+<p>假设我有两台服务器：<code>服务器A</code> 和 <code>服务器B</code><br>我需要在<code>服务器A</code>上访问服务器B，但是每次ssh到<code>服务器B</code>上都要输入<code>服务器B</code>该用户的密码（root用户），比较麻烦<br>而且以后会写shell脚本把<code>服务器A</code>的文件拷贝到<code>服务器B</code>上，不能通过脚本文件完成输入密码的交互<br>这样便可以使用ssh的免登陆。</p>
+<span id="more"></span>
+
+<ol>
+<li><p>需要在两台服务器上都安装ssh服务：<br>安装ssh服务</p>
+<p>sudo apt-get install ssh<br>&#96;</pre><br>启动服务</p>
+<pre style="font-size: 1em; font-family: Consolas, Inconsolata, Courier, monospace; line-height: 1.2em; margin: 1.2em 0px;">`service ssh start
+`</pre></li>
+<li><p>生成公钥<br>在<code>服务器A</code>的<code>$home/.ssh</code>目录下生成公钥：<br><img src="http://img.my.csdn.net/uploads/201304/15/1366015609_2710.jpg"></p>
+<pre style="font-size: 1em; font-family: Consolas, Inconsolata, Courier, monospace; line-height: 1.2em; margin: 1.2em 0px;">`ssh-keygen -t rsa
+`</pre>
+<p><img src="http://img.my.csdn.net/uploads/201304/15/1366015805_5472.png"><br>这里可以输入生成文件的名字，也可以不输入，比如输入：<code>10.10.10.1</code> 则会生成<code>10.10.10.1</code> 和<code>10.10.10.1.pub</code> 这两个文件<br>如果不输入任何内容，则默认生成<code>id_rsa</code> 和 <code>id_rsa.pub</code>两个文件（可以一路回车跳过所有设置~）<br>这里什么都没输入 结束后：<br><img src="http://img.my.csdn.net/uploads/201304/15/1366016226_1712.png"><br>生成以下两个文件<br><img src="http://img.my.csdn.net/uploads/201304/15/1366016284_9155.png"></p>
+</li>
+<li><p>从<code>服务器A</code>拷贝pub文件到<code>服务器B</code></p>
+<pre style="font-size: 1em; font-family: Consolas, Inconsolata, Courier, monospace; line-height: 1.2em; margin: 1.2em 0px;">`scp ~/.ssh/id_rsa.pub root@10.10.10.1:~/.ssh/id_rsa.pub
+`</pre>
+<p>此时会要求输入<code>服务器B</code>的密码</p>
+</li>
+<li><p>追加公钥<br>拷贝结束后，在<code>服务器A</code> 和 <code>服务器B</code>上 都执行指令：（追加公钥）</p>
+<pre style="font-size: 1em; font-family: Consolas, Inconsolata, Courier, monospace; line-height: 1.2em; margin: 1.2em 0px;">`cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+`</pre></li>
+<li><p>测试<br>在<code>服务器A</code>上执行（假设<code>服务器B</code>的IP是 <code>10.10.10.10</code>）</p>
+<pre style="font-size: 1em; font-family: Consolas, Inconsolata, Courier, monospace; line-height: 1.2em; margin: 1.2em 0px;">`ssh root@10.10.10.10
+`</pre>
+<p>此时就不需要再输入<code>服务器B</code>的用户密码了<br><strong>注意</strong>：如果在步骤②指定了生成文件的文件名 如 10.10.10.1 10.10.10.1.pub 则在测试阶段（以及以后ssh或者scp的时候）指令应该改为：</p>
+<pre style="font-size: 1em; font-family: Consolas, Inconsolata, Courier, monospace; line-height: 1.2em; margin: 1.2em 0px;">`ssh -i ~/.ssh/10.10.10.1 root@10.10.10.10
+`</pre>
+<p><code>-i</code>参数指定使用的私钥<br>指定生成文件名可以使用<code>-f</code>参数如下：</p>
+<pre style="font-size: 1em; font-family: Consolas, Inconsolata, Courier, monospace; line-height: 1.2em; margin: 1.2em 0px;">`ssh-keygen -t rsa -f 10.10.10.1</li>
+</ol>
+<div style="height: 0; font-size: 0em; padding: 0; margin: 0;" title="MDH:PHA+5YGH6K6+5oiR5pyJ5Lik5Y+w5pyN5Yqh5Zmo77yaYOacjeWKoeWZqEFgIOWSjCBg5pyN5Yqh&lt;br /&gt; 5ZmoQmA8YnI+IOaIkemcgOimgeWcqGDmnI3liqHlmahBYOS4iuiuv+mXruacjeWKoeWZqELvvIzk&lt;br /&gt; vYbmmK/mr4/mrKFzc2jliLBg5pyN5Yqh5ZmoQmDkuIrpg73opoHovpPlhaVg5pyN5Yqh5ZmoQmDo&lt;br /&gt; r6XnlKjmiLfnmoTlr4bnoIHvvIhyb29055So5oi377yJ77yM5q+U6L6D6bq754OmPGJyPiDogIzk&lt;br /&gt; uJTku6XlkI7kvJrlhplzaGVsbOiEmuacrOaKimDmnI3liqHlmahBYOeahOaWh+S7tuaLt+i0neWI&lt;br /&gt; sGDmnI3liqHlmahCYOS4iu+8jOS4jeiDvemAmui/h+iEmuacrOaWh+S7tuWujOaIkOi+k+WFpeWv&lt;br /&gt; hueggeeahOS6pOS6kjxicj4g6L+Z5qC35L6/5Y+v5Lul5L2/55Soc3No55qE5YWN55m76ZmG44CC&lt;br /&gt; PGJyPiAxLiDpnIDopoHlnKjkuKTlj7DmnI3liqHlmajkuIrpg73lronoo4Vzc2jmnI3liqHvvJo8&lt;br /&gt; YnI+IOWuieijhXNzaOacjeWKoTxicj4gYGBgc2hlbGw8YnI+IHN1ZG8gYXB0LWdldCBpbnN0YWxs&lt;br /&gt; IHNzaDxicj4gYGBgPGJyPiDlkK/liqjmnI3liqE8YnI+IGBgYHNoZWxsPGJyPiBzZXJ2aWNlIHNz&lt;br /&gt; aCBzdGFydDxicj4gYGBgPGJyPiAyLiDnlJ/miJDlhazpkqU8YnI+IOWcqGDmnI3liqHlmahBYOea&lt;br /&gt; hGAkaG9tZS8uc3NoYOebruW9leS4i+eUn+aIkOWFrOmSpe+8mjxicj4gIVtdKGh0dHA6Ly9pbWcu&lt;br /&gt; bXkuY3Nkbi5uZXQvdXBsb2Fkcy8yMDEzMDQvMTUvMTM2NjAxNTYwOV8yNzEwLmpwZyk8YnI+IGBg&lt;br /&gt; YHNoZWxsPGJyPiBzc2gta2V5Z2VuIC10IHJzYTxicj4gYGBgPGJyPiAhW10oaHR0cDovL2ltZy5t&lt;br /&gt; eS5jc2RuLm5ldC91cGxvYWRzLzIwMTMwNC8xNS8xMzY2MDE1ODA1XzU0NzIucG5nKTxicj4g6L+Z&lt;br /&gt; 6YeM5Y+v5Lul6L6T5YWl55Sf5oiQ5paH5Lu255qE5ZCN5a2X77yM5Lmf5Y+v5Lul5LiN6L6T5YWl&lt;br /&gt; 77yM5q+U5aaC6L6T5YWl77yaYDEwLjEwLjEwLjFgIOWImeS8mueUn+aIkGAxMC4xMC4xMC4xYCDl&lt;br /&gt; koxgMTAuMTAuMTAuMS5wdWJgIOi/meS4pOS4quaWh+S7tjxicj4g5aaC5p6c5LiN6L6T5YWl5Lu7&lt;br /&gt; 5L2V5YaF5a6577yM5YiZ6buY6K6k55Sf5oiQYGlkX3JzYWAg5ZKMIGBpZF9yc2EucHViYOS4pOS4&lt;br /&gt; quaWh+S7tu+8iOWPr+S7peS4gOi3r+Wbnui9pui3s+i/h+aJgOacieiuvue9rn7vvIk8YnI+IOi/&lt;br /&gt; memHjOS7gOS5iOmDveayoei+k+WFpSDnu5PmnZ/lkI7vvJo8YnI+ICFbXShodHRwOi8vaW1nLm15&lt;br /&gt; LmNzZG4ubmV0L3VwbG9hZHMvMjAxMzA0LzE1LzEzNjYwMTYyMjZfMTcxMi5wbmcpPGJyPiDnlJ/m&lt;br /&gt; iJDku6XkuIvkuKTkuKrmlofku7Y8YnI+ICFbXShodHRwOi8vaW1nLm15LmNzZG4ubmV0L3VwbG9h&lt;br /&gt; ZHMvMjAxMzA0LzE1LzEzNjYwMTYyODRfOTE1NS5wbmcpPGJyPiAzLiDku45g5pyN5Yqh5ZmoQWDm&lt;br /&gt; i7fotJ1wdWLmlofku7bliLBg5pyN5Yqh5ZmoQmA8YnI+IGBgYHNoZWxsPGJyPiBzY3Agfi8uc3No&lt;br /&gt; L2lkX3JzYS5wdWIgcm9vdEAxMC4xMC4xMC4xOn4vLnNzaC9pZF9yc2EucHViPGJyPiBgYGA8YnI+&lt;br /&gt; IOatpOaXtuS8muimgeaxgui+k+WFpWDmnI3liqHlmahCYOeahOWvhueggTxicj4gNC4g6L+95Yqg&lt;br /&gt; 5YWs6ZKlPGJyPiDmi7fotJ3nu5PmnZ/lkI7vvIzlnKhg5pyN5Yqh5ZmoQWAg5ZKMIGDmnI3liqHl&lt;br /&gt; mahCYOS4iiDpg73miafooYzmjIfku6TvvJrvvIjov73liqDlhazpkqXvvIk8YnI+IGBgYHNoZWxs&lt;br /&gt; PGJyPiBjYXQgfi8uc3NoL2lkX3JzYS5wdWIgJmd0OyZndDsgfi8uc3NoL2F1dGhvcml6ZWRfa2V5&lt;br /&gt; czxicj4gYGBgPGJyPiA1LiDmtYvor5U8YnI+IOWcqGDmnI3liqHlmahBYOS4iuaJp+ihjO+8iOWB&lt;br /&gt; h+iuvmDmnI3liqHlmahCYOeahElQ5pivIGAxMC4xMC4xMC4xMGDvvIk8YnI+IGBgYHNoZWxsPGJy&lt;br /&gt; PiBzc2ggcm9vdEAxMC4xMC4xMC4xMDxicj4gYGBgPGJyPiDmraTml7blsLHkuI3pnIDopoHlho3o&lt;br /&gt; vpPlhaVg5pyN5Yqh5ZmoQmDnmoTnlKjmiLflr4bnoIHkuoY8YnI+ICoq5rOo5oSPKirvvJrlpoLm&lt;br /&gt; npzlnKjmraXpqqTikaHmjIflrprkuobnlJ/miJDmlofku7bnmoTmlofku7blkI0g5aaCIDEwLjEw&lt;br /&gt; LjEwLjEgMTAuMTAuMTAuMS5wdWIg5YiZ5Zyo5rWL6K+V6Zi25q6177yI5Lul5Y+K5Lul5ZCOc3No&lt;br /&gt; 5oiW6ICFc2Nw55qE5pe25YCZ77yJ5oyH5Luk5bqU6K+l5pS55Li677yaPGJyPiBgYGBzaGVsbDxi&lt;br /&gt; cj4gc3NoIC1pIH4vLnNzaC8xMC4xMC4xMC4xIHJvb3RAMTAuMTAuMTAuMTA8YnI+IGBgYDxicj4g&lt;br /&gt; YC1pYOWPguaVsOaMh+WumuS9v+eUqOeahOengemSpTxicj4g5oyH5a6a55Sf5oiQ5paH5Lu25ZCN&lt;br /&gt; 5Y+v5Lul5L2/55SoYC1mYOWPguaVsOWmguS4i++8mjxicj4gYGBgc2hlbGw8YnI+IHNzaC1rZXln&lt;br /&gt; ZW4gLXQgcnNhIC1mIDEwLjEwLjEwLjE8YnI+IGBgYDwvcD4=">​</div>
+</div>
+
+<!--more-->
+
+<!--more-->
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SSH/" rel="tag"># SSH</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2014/09/09/129/" rel="prev" title="Jedis——使用笔记(1)">
+                  <i class="fa fa-angle-left"></i> Jedis——使用笔记(1)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2014/11/02/markdown-e5-83-8f-e5-86-99-e4-bb-a3-e7-a0-81-e9-82-a3-e6-a0-b7-e5-86-99-e6-96-87-e7-ab-a0/" rel="next" title="Markdown——像写代码那样写文章">
+                  Markdown——像写代码那样写文章 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">GeeWaza</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
