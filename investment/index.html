@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A 股投资分析索引</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+    color: #1e293b;
+    min-height: 100vh;
+    padding: 32px 24px;
+    line-height: 1.6;
+  }
+
+  .container { max-width: 960px; margin: 0 auto; }
+
+  /* === Header === */
+  .header {
+    padding: 40px 36px;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    background: #ffffff;
+    margin-bottom: 40px;
+  }
+  .header h1 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+  .header .subtitle {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .meta-tag {
+    display: inline-block;
+    padding: 5px 12px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #475569;
+    font-weight: 500;
+  }
+
+  /* === Section === */
+  .section { margin-bottom: 40px; }
+  .section-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .section-count {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 500;
+    margin-left: 8px;
+  }
+
+  /* === Month Group（大盘复盘） === */
+  .month-group { margin-bottom: 16px; }
+  .month-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 10px;
+    padding-left: 2px;
+    letter-spacing: 0.5px;
+  }
+  .item-list {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  /* === Item（统一一条目样式） === */
+  a.item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 20px;
+    border-bottom: 1px solid #f1f5f9;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s ease;
+  }
+  a.item:last-child { border-bottom: none; }
+  a.item:hover { background: #f8fafc; }
+  a.item:hover .item-arrow { color: #2563eb; transform: translateX(2px); }
+
+  .item-date {
+    font-size: 13px;
+    color: #334155;
+    font-weight: 600;
+    min-width: 96px;
+    font-variant-numeric: tabular-nums;
+  }
+  .item-weekday {
+    font-size: 12px;
+    color: #94a3b8;
+    min-width: 28px;
+    font-weight: 500;
+  }
+  .item-name {
+    flex: 1;
+    color: #0f172a;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .item-arrow {
+    color: #cbd5e1;
+    font-size: 14px;
+    transition: all 0.15s ease;
+  }
+
+  /* === Stock Group（个股分析） === */
+  .stock-group {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .stock-header {
+    background: #f8fafc;
+    padding: 11px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .stock-code {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0f172a;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.5px;
+  }
+  .stock-badge {
+    font-size: 11px;
+    background: #eff6ff;
+    color: #2563eb;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+  .stock-items { padding: 0; }
+  .stock-items a.item { padding: 12px 20px; }
+
+  /* === Footer === */
+  .footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  .footer .footer-line + .footer-line { margin-top: 2px; }
+
+  /* === Responsive === */
+  @media (max-width: 640px) {
+    body { padding: 16px 12px; }
+    .header { padding: 24px 20px; }
+    .header h1 { font-size: 22px; }
+    a.item { padding: 12px 16px; gap: 12px; }
+    .item-date { min-width: 80px; font-size: 12px; }
+    .item-name { font-size: 13px; }
+    .stock-header { padding: 10px 16px; }
+    .stock-items a.item { padding: 11px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ============ Header ============ -->
+  <div class="header">
+    <h1>📈 A 股投资分析索引</h1>
+    <div class="subtitle">A 股市场盘后分析与个股深度研究的统一导航</div>
+    <div class="meta">
+      <span class="meta-tag">📅 最后更新：2026-09-01</span>
+      <span class="meta-tag">📊 10 份报告</span>
+      <span class="meta-tag">🔄 自动维护</span>
+    </div>
+  </div>
+
+  <!-- ============ Section 1: 大盘日度复盘 ============ -->
+  <div class="section">
+    <div class="section-title">
+      📊 A 股大盘日度复盘
+      <span class="section-count">3 份</span>
+    </div>
+
+    <div class="month-group">
+      <div class="month-label">2026 / 08</div>
+      <div class="item-list">
+        <a class="item" href="ashare/review/2026/08/20260831.html">
+          <span class="item-date">2026-08-31</span>
+          <span class="item-weekday">周一</span>
+          <span class="item-name">A 股大盘复盘</span>
+          <span class="item-arrow">→</span>
+        </a>
+        <a class="item" href="ashare/review/2026/08/20260828.html">
+          <span class="item-date">2026-08-28</span>
+          <span class="item-weekday">周五</span>
+          <span class="item-name">A 股大盘复盘</span>
+          <span class="item-arrow">→</span>
+        </a>
+        <a class="item" href="ashare/review/2026/08/20260827.html">
+          <span class="item-date">2026-08-27</span>
+          <span class="item-weekday">周四</span>
+          <span class="item-name">A 股大盘复盘</span>
+          <span class="item-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Section 2: 个股深度分析 ============ -->
+  <div class="section">
+    <div class="section-title">
+      🧬 个股深度分析
+      <span class="section-count">6 只标的 · 7 份报告</span>
+    </div>
+
+    <div class="stock-group">
+      <div class="stock-header">
+        <span class="stock-code">002979</span>
+        <span class="stock-badge">1 份分析</span>
+      </div>
+      <div class="stock-items">
+        <a class="item" href="ashare/stock/002979/20260831.html">
+          <span class="item-date">2026-08-31</span>
+          <span class="item-weekday">周一</span>
+          <span class="item-name">个股深度分析</span>
+          <span class="item-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="stock-group">
+      <div class="stock-header">
+        <span class="stock-code">600025</span>
+        <span class="stock-badge">1 份分析</span>
+      </div>
+      <div class="stock-items">
+        <a class="item" href="ashare/stock/600025/20260827.html">
+          <span class="item-date">2026-08-27</span>
+          <span class="item-weekday">周四</span>
+          <span class="item-name">个股深度分析</span>
+          <span class="item-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="stock-group">
+      <div class="stock-header">
+        <span class="stock-code">600036</span>
+        <span class="stock-badge">1 份分析</span>
+      </div>
+      <div class="stock-items">
+        <a class="item" href="ashare/stock/600036/20260831.html">
+          <span class="item-date">2026-08-31</span>
+          <span class="item-weekday">周一</span>
+          <span class="item-name">个股深度分析</span>
+          <span class="item-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="stock-group">
+      <div class="stock-header">
+        <span class="stock-code">600276</span>
+        <span class="stock-badge">2 份分析</span>
+      </div>
+      <div class="stock-items">
+        <a class="item" href="ashare/stock/600276/20260831.html">
+          <span class="item-date">2026-08-31</span>
+          <span class="item-weekday">周一</span>
+          <span class="item-name">个股深度分析</span>
+          <span class="item-arrow">→</span>
+        </a>
+        <a class="item" href="ashare/stock/600276/20260827.html">
+          <span class="item-date">2026-08-27</span>
+          <span class="item-weekday">周四</span>
+          <span class="item-name">个股深度分析</span>
+          <span class="item-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="stock-group">
+      <div class="stock-header">
+        <span class="stock-code">600941</span>
+        <span class="stock-badge">1 份分析</span>
+      </div>
+      <div class="stock-items">
+        <a class="item" href="ashare/stock/600941/20260901.html">
+          <span class="item-date">2026-09-01</span>
+          <span class="item-weekday">周二</span>
+          <span class="item-name">个股深度分析</span>
+          <span class="item-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="stock-group">
+      <div class="stock-header">
+        <span class="stock-code">688692</span>
+        <span class="stock-badge">1 份分析</span>
+      </div>
+      <div class="stock-items">
+        <a class="item" href="ashare/stock/688692/20260828.html">
+          <span class="item-date">2026-08-28</span>
+          <span class="item-weekday">周五</span>
+          <span class="item-name">个股深度分析</span>
+          <span class="item-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Footer ============ -->
+  <div class="footer">
+    <div class="footer-line">由 A 股投资分析工作空间自动维护</div>
+    <div class="footer-line">数据日期截至 2026-09-01 收盘 · 不构成投资建议</div>
+  </div>
+
+</div>
+</body>
+</html>
