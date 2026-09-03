@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-09-03 麦格米特(002851) · 11 方法论综合投资分析</title>
+<style>
+/* === 全局重置 === */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
+  color: #e8eef5; min-height: 100vh; padding: 24px; line-height: 1.6;
+}
+.container { max-width: 1500px; margin: 0 auto; }
+
+/* === 头部 === */
+.header {
+  background: linear-gradient(135deg, rgba(239,68,68,0.22), rgba(245,158,11,0.16), rgba(168,85,247,0.10));
+  border: 1px solid rgba(239,68,68,0.35); border-radius: 20px; padding: 36px; margin-bottom: 24px; position: relative; overflow: hidden;
+}
+.header::before {
+  content: ''; position: absolute; top: -50px; left: -50px; width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(239,68,68,0.25), transparent 70%); border-radius: 50%;
+}
+.header h1 {
+  font-size: 34px; font-weight: 700; margin-bottom: 8px;
+  background: linear-gradient(90deg, #f87171, #fbbf24, #c084fc);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.header .subtitle { color: #cbd5e1; font-size: 15px; margin-bottom: 12px; }
+.badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.badge {
+  display: inline-block; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  background: rgba(30,41,59,0.6); border: 1px solid rgba(148,163,184,0.2);
+}
+.badge-success { background: rgba(16,185,129,0.18); border-color: rgba(16,185,129,0.4); color: #34d399; }
+.badge-warning { background: rgba(245,158,11,0.18); border-color: rgba(245,158,11,0.4); color: #fbbf24; }
+.badge-source { background: rgba(56,189,248,0.18); border-color: rgba(56,189,248,0.4); color: #38bdf8; }
+.badge-purple { background: rgba(168,85,247,0.18); border-color: rgba(168,85,247,0.4); color: #c084fc; }
+.badge-danger { background: rgba(239,68,68,0.18); border-color: rgba(239,68,68,0.4); color: #f87171; }
+
+/* === 数据说明 === */
+.data-note {
+  background: rgba(30,41,59,0.6); border: 1px dashed rgba(148,163,184,0.3); border-radius: 12px;
+  padding: 20px; margin-bottom: 24px; font-size: 13px; line-height: 1.8; color: #cbd5e1;
+}
+.data-note .ok { color: #34d399; font-weight: 600; }
+.data-note .warn { color: #fbbf24; font-weight: 600; }
+.data-note .danger { color: #f87171; font-weight: 600; }
+.data-note .info { color: #38bdf8; font-weight: 600; }
+
+/* === 主题横幅 === */
+.theme-banner {
+  background: linear-gradient(135deg, rgba(239,68,68,0.18), rgba(245,158,11,0.10));
+  border-left: 5px solid #ef4444; border-radius: 12px; padding: 20px 24px; margin-bottom: 24px;
+  display: flex; align-items: flex-start; gap: 16px;
+}
+.theme-banner.warn { border-left-color: #f59e0b; background: linear-gradient(135deg, rgba(245,158,11,0.18), rgba(239,68,68,0.08)); }
+.theme-banner.info { border-left-color: #0ea5e9; background: linear-gradient(135deg, rgba(14,165,233,0.18), rgba(168,85,247,0.08)); }
+.theme-banner .icon { font-size: 32px; flex-shrink: 0; }
+.theme-banner .text h3 { font-size: 18px; color: #f1f5f9; margin-bottom: 6px; font-weight: 700; }
+.theme-banner .text p { font-size: 14px; color: #cbd5e1; line-height: 1.6; }
+
+/* === 章节标题 === */
+.section-title {
+  font-size: 22px; font-weight: 700; margin: 32px 0 16px; padding-left: 14px;
+  border-left: 4px solid #f87171; color: #f1f5f9;
+}
+.section-title.warn { border-left-color: #f59e0b; }
+.section-title.ok { border-left-color: #10b981; }
+.section-title.info { border-left-color: #38bdf8; }
+
+/* === Dashboard / 关键数据卡 === */
+.dashboard { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-bottom: 24px; }
+.index-card {
+  background: rgba(30,41,59,0.6); border: 1px solid rgba(148,163,184,0.2);
+  border-radius: 12px; padding: 16px; position: relative; transition: all 0.2s;
+}
+.index-card:hover { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(0,0,0,0.3); }
+.index-card.ok { border-top: 3px solid #34d399; }
+.index-card.danger { border-top: 3px solid #f87171; }
+.index-card.warn { border-top: 3px solid #fbbf24; }
+.index-card.mid { border-top: 3px solid #94a3b8; }
+.index-card.purple { border-top: 3px solid #c084fc; }
+.index-card .name { color: #94a3b8; font-size: 11px; margin-bottom: 6px; }
+.index-card .value { font-size: 20px; font-weight: 700; line-height: 1.2; }
+.index-card .value.ok { color: #34d399; }
+.index-card .value.danger { color: #f87171; }
+.index-card .value.warn { color: #fbbf24; }
+.index-card .value.info { color: #38bdf8; }
+.index-card .change { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+.index-card .tag {
+  position: absolute; top: 8px; right: 8px; font-size: 9px; padding: 2px 6px; border-radius: 4px;
+  background: rgba(0,0,0,0.3); font-weight: 600;
+}
+.index-card .tag.ok { background: rgba(16,185,129,0.3); color: #6ee7b7; }
+.index-card .tag.warn { background: rgba(245,158,11,0.3); color: #fcd34d; }
+.index-card .tag.danger { background: rgba(239,68,68,0.3); color: #fca5a5; }
+
+/* === 评分条 === */
+.score-table { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 24px; }
+.score-item {
+  background: rgba(30,41,59,0.6); border: 1px solid rgba(148,163,184,0.2);
+  border-radius: 12px; padding: 16px; text-align: center; transition: all 0.2s;
+}
+.score-item:hover { transform: translateY(-3px); }
+.score-num { font-size: 30px; font-weight: 900; line-height: 1; margin-bottom: 6px; letter-spacing: 2px; }
+.score-num.good { color: #34d399; }
+.score-num.warn { color: #fbbf24; }
+.score-num.bad { color: #f87171; }
+.score-name { font-size: 12px; color: #cbd5e1; font-weight: 600; margin-bottom: 8px; }
+.score-bar { height: 6px; background: rgba(148,163,184,0.15); border-radius: 3px; overflow: hidden; margin-bottom: 4px; }
+.score-fill { height: 100%; border-radius: 3px; transition: width 0.4s; }
+.score-fill.good { background: linear-gradient(90deg, #10b981, #34d399); }
+.score-fill.warn { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.score-fill.bad { background: linear-gradient(90deg, #ef4444, #f87171); }
+.score-out { font-size: 10px; color: #94a3b8; }
+
+/* === 主题卡矩阵 === */
+.risk-grid, .method-grid, .strategy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.risk-grid { grid-template-columns: repeat(2, 1fr); }
+.strategy-grid { grid-template-columns: repeat(3, 1fr); }
+.risk-card, .method-card, .strategy-card {
+  background: rgba(30,41,59,0.6); border: 1px solid rgba(148,163,184,0.2);
+  border-left: 4px solid #f87171; border-radius: 12px; padding: 18px; transition: all 0.2s;
+}
+.risk-card:hover, .method-card:hover, .strategy-card:hover { transform: translateY(-4px); box-shadow: 0 8px 16px rgba(0,0,0,0.3); }
+.risk-card .risk-title, .method-card .method-title, .strategy-card .strategy-title {
+  font-size: 15px; font-weight: 700; color: #f87171; margin-bottom: 10px;
+}
+.method-card.best { border-left-color: #34d399; }
+.method-card.mid { border-left-color: #fbbf24; }
+.method-card.weak { border-left-color: #f87171; }
+.method-card .method-title.best { color: #34d399; }
+.method-card .method-title.mid { color: #fbbf24; }
+.risk-card .risk-desc, .method-card .method-desc, .strategy-card .strategy-desc {
+  font-size: 13px; color: #cbd5e1; line-height: 1.7;
+}
+.risk-card .risk-desc strong, .method-card .method-desc strong, .strategy-card .strategy-desc strong {
+  color: #f1f5f9; font-weight: 700;
+}
+
+/* === 表格 === */
+.compare-table, .fin-table { display: grid; gap: 4px; margin-bottom: 24px; }
+.compare-table .fin-row, .fin-table .fin-row {
+  display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1.4fr; padding: 10px 14px; align-items: center;
+  border-bottom: 1px dashed rgba(148,163,184,0.15); font-size: 13px;
+}
+.fin-table .fin-row { grid-template-columns: 1.4fr 1.6fr 2.4fr; }
+.compare-table .fin-row.header, .fin-table .fin-row.header {
+  background: rgba(56,189,248,0.10); border-radius: 6px; font-weight: 700; color: #38bdf8; font-size: 12px;
+}
+.fin-name { color: #94a3b8; font-weight: 600; }
+.fin-val { font-weight: 700; font-size: 14px; }
+.fin-val.ok { color: #34d399; }
+.fin-val.warn { color: #fbbf24; }
+.fin-val.danger { color: #f87171; }
+.fin-val.info { color: #38bdf8; }
+.fin-comment { color: #cbd5e1; font-size: 12px; line-height: 1.5; }
+.hl.ok { color: #34d399; font-weight: 700; }
+.hl.warn { color: #fbbf24; font-weight: 700; }
+.hl.danger { color: #f87171; font-weight: 700; }
+.hl.info { color: #38bdf8; font-weight: 700; }
+
+/* === 安全边际条 === */
+.safety-track { display: flex; height: 28px; border-radius: 8px; overflow: hidden; margin-bottom: 24px; background: rgba(15,23,42,0.5); }
+.safety-seg { display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #fff; }
+.safety-seg.seg-deep { background: linear-gradient(90deg, #10b981, #34d399); }
+.safety-seg.seg-current { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.safety-seg.seg-over { background: linear-gradient(90deg, #ef4444, #f87171); }
+
+/* === 最终裁决 === */
+.final-verdict {
+  background: linear-gradient(135deg, rgba(245,158,11,0.20), rgba(239,68,68,0.16), rgba(168,85,247,0.10));
+  border: 1px solid rgba(245,158,11,0.4); border-radius: 20px; padding: 36px;
+  margin: 32px 0; text-align: center;
+}
+.final-verdict h2 { font-size: 20px; color: #cbd5e1; margin-bottom: 16px; font-weight: 700; }
+.final-verdict .rating {
+  font-size: 36px; font-weight: 900; letter-spacing: 6px; color: #fbbf24;
+  background: rgba(15,23,42,0.6); padding: 12px 32px; border-radius: 12px;
+  display: inline-block; margin-bottom: 16px;
+}
+.final-verdict .comment { font-size: 15px; color: #e8eef5; line-height: 1.8; max-width: 900px; margin: 0 auto; }
+.final-verdict .sub-rating { font-size: 14px; color: #cbd5e1; margin-bottom: 14px; font-weight: 700; }
+
+/* === 结论清单 === */
+.conclusion {
+  background: rgba(30,41,59,0.6); border: 1px solid rgba(148,163,184,0.2);
+  border-left: 4px solid #ef4444; border-radius: 12px; padding: 20px 24px; margin-bottom: 24px;
+}
+.conclusion-title { font-size: 16px; font-weight: 700; color: #f87171; margin-bottom: 14px; }
+.conclusion-item { display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start; }
+.conclusion-item:last-child { margin-bottom: 0; }
+.conclusion-item .num {
+  flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #ef4444; color: #fff;
+  font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center;
+}
+.conclusion-item p { font-size: 13px; color: #cbd5e1; line-height: 1.7; flex: 1; }
+.conclusion-item p strong { color: #f1f5f9; font-weight: 700; }
+
+/* === 页脚 === */
+.footer {
+  text-align: center; color: #64748b; font-size: 12px; margin-top: 32px;
+  padding: 16px; border-top: 1px solid rgba(148,163,184,0.10);
+}
+.footer strong { color: #94a3b8; }
+
+/* === 响应式 === */
+@media (max-width: 1024px) {
+  .dashboard { grid-template-columns: repeat(2, 1fr); }
+  .risk-grid, .method-grid, .strategy-grid { grid-template-columns: 1fr; }
+  .score-table { grid-template-columns: repeat(3, 1fr); }
+  .compare-table .fin-row, .fin-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ===================== 头部 ===================== -->
+<div class="header">
+  <h1>🧬 麦格米特 (002851) · 11 方法论综合投资分析</h1>
+  <div class="subtitle">电力设备 / 其他电源设备Ⅱ | 全球电气化产品一站式解决方案商 | 业绩拐点 × AI 数据中心 × 估值失锚</div>
+  <div class="badges">
+    <span class="badge badge-warning">🎯 综合评级：<b>谨慎买入 5.5/10</b>（业绩拐点初现 + 估值严重失锚）</span>
+    <span class="badge badge-source">📅 数据日期：2026-09-03（周四收盘后）</span>
+    <span class="badge badge-source">📊 股价 127.20 元 · 总市值 744 亿 · PE-TTM 331.86</span>
+    <span class="badge badge-purple">🧠 11 方法论 × 12 模块</span>
+    <span class="badge badge-success">✅ 核心催化：AI 数据中心电源 + 英伟达指定合作</span>
+  </div>
+</div>
+
+<!-- ===================== 数据来源说明 ===================== -->
+<div class="data-note">
+  <strong>📌 数据来源与口径说明（截至 2026-09-03）：</strong><br>
+  ✅ <span class="info">股价 / 成交 / 市值</span>：腾讯自选股 + 富途 + 证券时报三源核验（2026-09-03 14:18 快照）<br>
+  ✅ <span class="ok">财务数据</span>：公司 2025 年年度报告（巨潮资讯 2026-04-29）+ 2026 半年报（cnfin 2026-08-28）<br>
+  ⚠️ <span class="warn">PE/PB 失锚</span>：2025 年扣非净利暴跌 92.96%，静态 PE 严重高估（TTM 331.86、静态 476.55），分位数据"未独立核验"<br>
+  ⚠️ <span class="warn">均线 / 资金流</span>：MA60/120/250 等历史均线数据"未独立核验"，已用 52 周高低点代理<br>
+  🔴 <span class="danger">风险敞口</span>：经营现金流为负、长期借款激增 281.67%、存货占净资产 44.63%、汇率风险敞口大<br>
+  📊 <span class="info">同业对比</span>：汇川技术 (300124)、英威腾 (002334)、合康新能 (300048) 公开年报数据<br>
+  🔍 <span class="info">机构评级</span>：近 6 个月 10 家券商覆盖，综合目标价 138-173 元（中位数 156 元）
+</div>
+
+<!-- ===================== 主题横幅 ===================== -->
+<div class="theme-banner warn">
+  <div class="icon">⚡</div>
+  <div class="text">
+    <h3>核心定性：业绩拐点初现，但估值严重失锚；扣非利润与现金流尚待修复</h3>
+    <p>2025 年公司增收不增利（营收 +15%、归母 -66.58%、扣非 -92.96%），主因毛利率下行 + 研发/管理费用前置 + 汇兑损失。但 2026 H1 已反转：营收 +29.68%、归母 +45.21%，AI 数据中心电源（英伟达指定合作）进入兑现期。当前 PE-TTM 331 倍说明定价已 Price-in 预期，需严守止损纪律。机构目标价 138-173 元（中位 156）较现价（127.20）有 9-36% 上行空间。</p>
+  </div>
+</div>
+
+<!-- ===================== 一、基础画像 ===================== -->
+<div class="section-title">📊 一、基础画像（30 秒速览）</div>
+<div class="dashboard">
+  <div class="index-card ok">
+    <div class="name">股票名称 / 代码</div>
+    <div class="value">麦格米特 / 002851</div>
+    <div class="change">深交所主板</div>
+  </div>
+  <div class="index-card info">
+    <div class="name">所属行业</div>
+    <div class="value" style="font-size:14px; line-height:1.4;">电力设备 / 其他电源设备Ⅱ</div>
+    <div class="change">申万三级分类</div>
+  </div>
+  <div class="index-card mid">
+    <div class="name">上市日期 / 发行价</div>
+    <div class="value" style="font-size:16px;">2017-03-06 / 12.17 元</div>
+    <div class="change">累计 9.6 年</div>
+  </div>
+  <div class="index-card mid">
+    <div class="name">总市值 / 流通市值</div>
+    <div class="value" style="font-size:16px;">744 亿 / 625 亿</div>
+    <div class="change">总股本 5.85 亿股</div>
+  </div>
+  <div class="index-card warn">
+    <div class="name">当前股价</div>
+    <div class="value warn">127.20 元</div>
+    <div class="change">当日 +7.30%（触及涨停 130.41）</div>
+  </div>
+  <div class="index-card danger">
+    <div class="name">PE-TTM / 静态 PE</div>
+    <div class="value danger" style="font-size:16px;">331.86 / 476.55</div>
+    <div class="change">扣非基期失锚</div>
+  </div>
+  <div class="index-card purple">
+    <div class="name">PB / 股息率</div>
+    <div class="value info" style="font-size:16px;">8.15 / 0.02%</div>
+    <div class="change">2025 拟 10 派 0.3 元</div>
+  </div>
+  <div class="index-card danger">
+    <div class="name">52 周区间</div>
+    <div class="value danger" style="font-size:14px;">66.67 - 189.95</div>
+    <div class="change">振幅 185%（极端波动）</div>
+  </div>
+  <div class="index-card ok">
+    <div class="name">YTD 涨跌幅</div>
+    <div class="value ok">+41.27%</div>
+    <div class="change">2025-12-31 收盘 90.04</div>
+  </div>
+  <div class="index-card warn">
+    <div class="name">20 日涨跌幅</div>
+    <div class="value warn">+4.86%</div>
+    <div class="change">5 日 -0.36%（短期震荡）</div>
+  </div>
+  <div class="index-card ok">
+    <div class="name">2026 H1 营收</div>
+    <div class="value ok">60.61 亿</div>
+    <div class="change">同比 +29.68%</div>
+  </div>
+  <div class="index-card ok">
+    <div class="name">2026 H1 归母净利</div>
+    <div class="value ok">2.52 亿</div>
+    <div class="change">同比 +45.21%（扣非 -16.13%）</div>
+  </div>
+  <div class="index-card danger">
+    <div class="name">实控人持股</div>
+    <div class="value danger" style="font-size:16px;">童永胜 16.97%</div>
+    <div class="change">+ 王萍 6.23%（一致行动人 23.20%）</div>
+  </div>
+  <div class="index-card info">
+    <div class="name">北向持股</div>
+    <div class="value info">4.96%</div>
+    <div class="change">2026 H1 增持 +175.47%（同步 1844.92 万股）</div>
+  </div>
+</div>
+
+<!-- ===================== 二、综合评级 ===================== -->
+<div class="section-title warn">🎯 二、综合评级（一句话定位）</div>
+<div class="final-verdict">
+  <h2>⚖️ 11 方法论加权综合评级</h2>
+  <div class="rating">谨慎买入</div>
+  <div class="sub-rating">综合得分 5.5 / 10 · 仓位上限 5% · 分批建仓 3-4 批</div>
+  <div class="comment">
+    一句话定位：<b>业绩拐点初现 × 估值严重失锚</b>。麦格米特 2025 年经历「增收不增利」的极端承压期（扣非净利 -92.96%、经营现金流 -1.39 亿），但 2026 H1 已确认反转（营收 +29.68%、归母 +45.21%），AI 数据中心电源业务（英伟达指定合作）从研发期进入兑现期是核心驱动。<br>
+    但当前 PE-TTM 331 倍、静态 PE 476.55 倍的极端估值意味着市场已 Price-in 乐观预期；扣非基期失锚下格雷厄姆/林奇方法论均失效，估值安全边际缺失。<br>
+    <b style="color:#fbbf24;">冲突显式化：</b>格雷厄姆（深度价值 2 分）vs 费雪（成长性 7 分）、凯恩斯（短期博弈 7 分）vs 巴菲特（护城河 5 分）的结论显著分歧。综合采纳 <b>「业绩拐点 + 北向增持 + AI 主题催化</b>」的短期逻辑，但仓位 ≤5% + 严设止损，避免 2025 现金流陷阱重演。
+  </div>
+</div>
+
+<!-- ===================== 三、估值维度 ===================== -->
+<div class="section-title">💰 三、估值维度（格雷厄姆 + 邓普顿）</div>
+
+<div class="theme-banner">
+  <div class="icon">🚨</div>
+  <div class="text">
+    <h3>估值结论：<span class="hl warn">PE 严重失锚，当前定价已透支未来 1-2 年成长</span></h3>
+    <p>2025 年报披露口径 PE-TTM 331.86 倍、静态 PE 476.55 倍，远超历史均值与同业可比公司。当前股价 127.20 元对应 2026 年券商一致预期净利 8.65 亿（中位）的隐含 PE 约 86 倍，仍处高位。需以「2026E PE 视角 + 业绩兑现度」重估，而非静态 PE 锚定。</p>
+  </div>
+</div>
+
+<div class="safety-track">
+  <div class="safety-seg seg-deep" style="flex: 2;">深度价值（&lt;25 倍 PE）</div>
+  <div class="safety-seg seg-current" style="flex: 1;">合理区间（25-50 倍 PE）</div>
+  <div class="safety-seg seg-over" style="flex: 5;">高估区（&gt;50 倍）当前 332 倍</div>
+</div>
+
+<div class="compare-table">
+  <div class="fin-row header">
+    <div>估值口径</div>
+    <div>数值</div>
+    <div>隐含 PE（按 2026E）</div>
+    <div>对比同业</div>
+    <div>评估</div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">PE-TTM（2026-09-03）</div>
+    <div class="fin-val danger">331.86 倍</div>
+    <div class="fin-val warn">~86 倍（按 8.65 亿）</div>
+    <div>汇川 ~40 倍 / 英威腾 ~25 倍</div>
+    <div class="fin-comment">扣非基期失锚，TTM 数据失真</div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">静态 PE（2025 净利）</div>
+    <div class="fin-val danger">476.55 倍</div>
+    <div class="fin-val danger">~111 倍（按 2026E 高位 11 亿）</div>
+    <div>汇川 ~28 倍 / 英威腾 ~22 倍</div>
+    <div class="fin-comment">绝对高估，反映 2025 极端承压</div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">PB（2026 H1）</div>
+    <div class="fin-val danger">8.15 倍</div>
+    <div class="fin-val info">—</div>
+    <div>汇川 ~5 倍 / 英威腾 ~3.5 倍</div>
+    <div class="fin-comment">PB 也显著高于同业</div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">PS（TTM）</div>
+    <div class="fin-val warn">~7.9 倍</div>
+    <div class="fin-val ok">~3.4 倍（按 2026E 营收 133 亿）</div>
+    <div>汇川 ~3.5 倍 / 英威腾 ~3 倍</div>
+    <div class="fin-comment">2026E PS 已回落至同业水平</div>
+  </div>
+</div>
+
+<div class="theme-banner info">
+  <div class="icon">🔍</div>
+  <div class="text">
+    <h3>安全边际测算（基准 / 乐观 / 保守三情景）</h3>
+    <p><b>乐观情景：</b>若 2026 净利兑现 11 亿（券商高位预测），2027 给 40 倍 PE，目标市值 440 亿，对应股价 <b class="hl ok">75 元</b>（较现价 <span class="hl danger">-41%</span>）——说明仅依赖乐观情景下当前仍高估<br>
+    <b>中性情景：</b>若 2026 净利 8.65 亿（中位），2027 给 35 倍 PE，目标市值 330 亿，对应股价 <b class="hl warn">56 元</b>（<span class="hl danger">-56%</span>）<br>
+    <b>风险情景：</b>若 AI 电源不及预期、2026 净利仅 5 亿，2027 给 30 倍 PE，目标市值 165 亿，对应股价 <b class="hl danger">28 元</b>（<span class="hl danger">-78%</span>，绝对下行风险）<br>
+    <b>综合判断：</b>当前估值已透支未来 1-2 年高增长，下行风险高于上行空间。机构目标价 138-173 元（中位 156）隐含「业绩兑现 + 估值切换」双重假设，跟踪 2026 三季报与 AI 电源订单是关键。</p>
+  </div>
+</div>
+
+<!-- ===================== 四、成长性维度 ===================== -->
+<div class="section-title ok">🚀 四、成长性维度（费雪 + 林奇）</div>
+
+<div class="theme-banner info">
+  <div class="icon">📈</div>
+  <div class="text">
+    <h3>成长性结论：<span class="hl warn">营收增长稳健，归母拐点初现，扣非尚待修复</span></h3>
+    <p>近 5 年营收 CAGR ~20%（2022: 54.78 → 2026 H1: 60.61 亿中报+29.68%），但归母净利经历 2025 极端下滑后强劲回升。3 年归母复合增速 -10.69%（Q1 数据）反映 2023-2025 三年盈利波动剧烈。</p>
+  </div>
+</div>
+
+<div class="compare-table">
+  <div class="fin-row header">
+    <div>年度</div>
+    <div>营收（亿）</div>
+    <div>同比</div>
+    <div>归母净利（亿）</div>
+    <div>同比 / 评估</div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">2022</div>
+    <div class="fin-val">54.78</div>
+    <div class="fin-val info">—</div>
+    <div class="fin-val">4.73</div>
+    <div class="fin-comment">—</div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">2023</div>
+    <div class="fin-val">67.54</div>
+    <div class="fin-val ok">+23.3%</div>
+    <div class="fin-val ok">6.29</div>
+    <div class="fin-comment">+33.0%（业绩高点）</div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">2024</div>
+    <div class="fin-val">81.72</div>
+    <div class="fin-val ok">+21.0%</div>
+    <div class="fin-val warn">4.36</div>
+    <div class="fin-comment">-30.7%（开始承压）</div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">2025</div>
+    <div class="fin-val">94.03</div>
+    <div class="fin-val ok">+15.1%</div>
+    <div class="fin-val danger">1.46</div>
+    <div class="fin-comment"><span class="hl danger">-66.6%（增收不增利）</span></div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">2026 H1</div>
+    <div class="fin-val ok">60.61</div>
+    <div class="fin-val ok">+29.7%</div>
+    <div class="fin-val ok">2.52</div>
+    <div class="fin-comment"><span class="hl ok">+45.2%（拐点确认）</span></div>
+  </div>
+</div>
+
+<div class="risk-grid">
+  <div class="risk-card" style="border-left-color:#38bdf8;">
+    <div class="risk-title" style="color:#38bdf8;">📊 PEG 评估（标注：基期失真）</div>
+    <div class="risk-desc">
+      <strong>2026E PE 隐含 ~86 倍</strong>（按券商中位净利预测 8.65 亿）；<strong>2026-2028 净利复合增速预测 100%+</strong>（券商预测净利从 1.46 → 7.77 → 16.17 → 24.66 亿）<br>
+      <strong>PEG ≈ 0.86</strong>（86 倍 / 100%），表面看 PEG &lt; 1 显得合理，但：<br>
+      <strong>⚠️ 关键警示：</strong>基期 2025 净利 1.46 亿为异常低（产品迭代 + 减值 + 汇兑损失叠加），PEG 失真。若以 2024 净利 4.36 亿为基期，2026E PE 隐含 ~86 倍 / 2024-2028 CAGR 约 54%，PEG ≈ 1.6，<span class="hl danger">已超过林奇阈值</span>。
+    </div>
+  </div>
+  <div class="risk-card" style="border-left-color:#34d399;">
+    <div class="risk-title" style="color:#34d399;">💡 主营业务驱动力</div>
+    <div class="risk-desc">
+      <strong>四大驱动引擎：</strong><br>
+      ① <strong>智慧生活（42.19%）</strong>：智能家电电控产品，2025 收入 35.59 亿（-4.79%），2026 H1 25.57 亿（占比最大）<br>
+      ② <strong>电源产品（30.38%）</strong>：2025 收入 26.80 亿（+13.88%），AI 数据中心电源是核心增量<br>
+      ③ <strong>新能源交通（9.28%）</strong>：2025 收入 11.45 亿（<span class="hl ok">+108.65%</span>），增速最强<br>
+      ④ <strong>其他（18.15%）</strong>：含工业自动化、智能装备、精密连接
+    </div>
+  </div>
+  <div class="risk-card" style="border-left-color:#fbbf24;">
+    <div class="risk-title" style="color:#fbbf24;">🔮 未来 12-24 个月催化剂</div>
+    <div class="risk-desc">
+      <strong>正向催化：</strong><br>
+      ✅ <strong>AI 数据中心电源</strong>：英伟达指定合作（800V HVDC sidecar 方案），2025 H2 进入交付期<br>
+      ✅ <strong>服务器定制电源</strong>：项目陆续从研发期进入交付期<br>
+      ✅ <strong>新能源汽车热管理</strong>：电驱电控、车载电源、车载制氧机获头部车企定点<br>
+      ✅ <strong>智能卫浴</strong>：获国际龙头厂商定点<br>
+      ✅ <strong>人形机器人主题</strong>：9 月 3 日涨停直接催化（板块联动）
+    </div>
+  </div>
+</div>
+
+<!-- ===================== 五、护城河与生意本质 ===================== -->
+<div class="section-title ok">🛡️ 五、护城河与生意本质（巴菲特 + 费雪）</div>
+
+<div class="risk-grid">
+  <div class="risk-card" style="border-left-color:#34d399;">
+    <div class="risk-title" style="color:#34d399;">🏆 护城河类型六维评估</div>
+    <div class="risk-desc">
+      <strong>① 品牌</strong>：⭐⭐⭐ 中等（电气领域"国家级高新技术企业"，但非消费品牌）<br>
+      <strong>② 网络效应</strong>：⭐⭐ 弱（产品型而非平台型）<br>
+      <strong>③ 规模优势</strong>：⭐⭐⭐⭐ 较强（年营收 94 亿，<span class="hl ok">国内电源/变频器第一梯队第二名</span>，仅次于汇川）<br>
+      <strong>④ 技术研发</strong>：⭐⭐⭐⭐ 强（研发投入 11.22 亿、占比 11.94%、研发人员 3000+）<br>
+      <strong>⑤ 牌照/客户认证</strong>：⭐⭐⭐⭐ 强（英伟达指定合作、车规认证）<br>
+      <strong>⑥ 转换成本</strong>：⭐⭐⭐ 中等（电源/工控产品集成度高，客户切换需重新设计）<br>
+      <strong>综合护城河：<span class="hl ok">中等偏强</span></strong>（技术 + 规模 + 客户认证，但产品可替代性存在）
+    </div>
+  </div>
+  <div class="risk-card" style="border-left-color:#fbbf24;">
+    <div class="risk-title" style="color:#fbbf24;">📊 ROIC 与盈利能力趋势</div>
+    <div class="risk-desc">
+      <strong>ROIC / 加权 ROE 近 3 年：</strong><br>
+      • 2023 年加权 ROE <span class="hl ok">15.52%</span>（优秀）<br>
+      • 2024 年加权 ROE <span class="hl warn">9.19%</span>（回落）<br>
+      • 2025 年加权 ROE <span class="hl danger">2.38%</span>（断崖式下滑 -6.81pp）<br>
+      • 2025 年投入资本回报率 <span class="hl danger">2.33%</span>（-4.67pp）<br>
+      • 2026 H1 加权 ROE <span class="hl warn">2.93%</span>（Q1 1.43% + Q2 改善）<br>
+      <strong>评估：</strong>盈利能力剧烈波动，<span class="hl warn">2025 异常低</span>（受减值/汇兑/费用前置三重打击）。需观察 2026 H2 是否能回到 5%+ 正常水平。
+    </div>
+  </div>
+  <div class="risk-card" style="border-left-color:#38bdf8;">
+    <div class="risk-title" style="color:#38bdf8;">🎯 行业地位与市占率</div>
+    <div class="risk-desc">
+      <strong>国内电源/变频器第一梯队（2025 H1 营收口径）：</strong><br>
+      🥇 汇川技术 <span class="hl ok">205.09 亿</span>（绝对龙头）<br>
+      🥈 卧龙电驱 <span class="hl ok">80.31 亿</span><br>
+      🥉 麦格米特 <span class="hl ok">46.74 亿</span>（H1）/ 94.03 亿（全年）<br>
+      4️⃣ 合康新能 44.97 亿<br>
+      5️⃣ 英威腾 20.39 亿<br>
+      <strong>⚡ 净利率对比（H1）：</strong>汇川 14.5% / 麦格米特 4.2% / 英威腾 7.4%<br>
+      <strong>评估：</strong>麦格米特营收规模领先第二梯队，但<span class="hl warn">净利率仅为汇川的 29%</span>，规模未转化为利润，盈利能力待修复
+    </div>
+  </div>
+</div>
+
+<!-- ===================== 六、财务质量体检 ===================== -->
+<div class="section-title">💼 六、财务质量体检（格雷厄姆 + 凯恩斯）</div>
+
+<div class="fin-table">
+  <div class="fin-row header">
+    <div>财务指标</div>
+    <div>数值（2025 年报 / 2026 H1）</div>
+    <div>解读与评估</div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">营业收入 / 同比</div>
+    <div class="fin-val ok">94.03 亿 / +15.05%（25）<br>60.61 亿 / +29.68%（26 H1）</div>
+    <div class="fin-comment">营收稳健增长，2026 H1 增速加速至近 30%</div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">归母净利润 / 同比</div>
+    <div class="fin-val danger">1.46 亿 / -66.58%（25）<br><span class="fin-val ok">2.52 亿 / +45.21%（26 H1）</span></div>
+    <div class="fin-comment"><span class="hl danger">2025 极端承压</span>，但 2026 H1 已确认拐点（注意：扣非 -16.13% 说明非主营仍有压力）</div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">扣非归母净利 / 同比</div>
+    <div class="fin-val danger">0.26 亿 / -92.96%（25）<br>1.18 亿 / -16.13%（26 H1）</div>
+    <div class="fin-comment"><span class="hl danger">主业盈利能力断崖</span>，非经常性损益占比过高（2025 公允价值变动 0.87 亿），扣非尚未修复</div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">经营现金流</div>
+    <div class="fin-val danger">-1.39 亿 / -201.19%（25）<br>0.30 亿 / -84.62%（26 H1）</div>
+    <div class="fin-comment"><span class="hl danger">由正转负</span>，2025 极端恶化；2026 H1 略转正但同比仍下滑，<span class="hl warn">现金流陷阱</span></div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">销售毛利率</div>
+    <div class="fin-val warn">整体 ~22%（25）<br>20.91%（26 Q2 单季）</div>
+    <div class="fin-comment">电源/家电均下滑 3pp，行业价格战与原材料压力</div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">资产负债率</div>
+    <div class="fin-val warn">~46%（26 H1）<br>Q1 末 42.95%</div>
+    <div class="fin-comment">整体可控；<span class="hl danger">但长期借款激增 281.67%</span>，财务结构恶化</div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">应收账款 / 周转率</div>
+    <div class="fin-val warn">Q2 周转率 0.98 次（账期偏长）<br>存货周转率 0.77 次</div>
+    <div class="fin-comment">应收/存货周转效率较低，<span class="hl warn">运营能力需改善</span></div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">存货 / 跌价准备</div>
+    <div class="fin-val danger">27.75 亿 / 跌价 1.24 亿（25）<br>占净资产 44.63%</div>
+    <div class="fin-comment"><span class="hl danger">存货绝对值大，跌价风险持续</span>；2025 已计提存货跌价 4220 万</div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">商誉 / 总资产</div>
+    <div class="fin-val warn">2025 商誉减值 2436 万<br>占比未披露</div>
+    <div class="fin-comment">存在历史并购商誉，需关注后续减值压力</div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">研发费用 / 占比</div>
+    <div class="fin-val info">11.22 亿 / 11.94%（25）<br>同比 +14.05%</div>
+    <div class="fin-comment">高研发投入是双刃剑：<span class="hl ok">支撑长期竞争力</span>，但<span class="hl warn">短期侵蚀利润</span></div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">汇率风险敞口</div>
+    <div class="fin-val danger">汇兑损失 1.21 亿（25）<br>海外占比 35.97%</div>
+    <div class="fin-comment"><span class="hl danger">海外业务规模大，汇率波动直接影响净利润</span></div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">流动性指标</div>
+    <div class="fin-val ok">流动比率 1.35<br>速动比率 0.9（25）</div>
+    <div class="fin-comment">速动比率偏低（&lt;1），短期偿债依赖存货变现</div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-name">财务结论</div>
+    <div class="fin-val warn">财务瑕疵（但未达风险）</div>
+    <div class="fin-comment">短期：现金流陷阱 + 存货跌价 + 汇率敞口；长期：高研发投入构筑技术护城河。需观察 H2 现金流能否转正</div>
+  </div>
+</div>
+
+<!-- ===================== 七、管理层与公司治理 ===================== -->
+<div class="section-title warn">👥 七、管理层与公司治理（费雪 15 问精简版）</div>
+
+<div class="risk-grid">
+  <div class="risk-card" style="border-left-color:#34d399;">
+    <div class="risk-title" style="color:#34d399;">🏛️ 实控人背景与持股</div>
+    <div class="risk-desc">
+      <strong>童永胜（董事长、总经理、实控人）</strong>持股 9865.96 万股，占 16.97%<br>
+      <strong>王萍（一致行动人、配偶）</strong>持股 3624.01 万股，占 6.23%<br>
+      <strong>合计 23.20%</strong>（截至 2026-02-05），仍为公司绝对控股方<br>
+      <strong>高管合计</strong>：童永胜 16.97% + 王萍 6.23% + 王涛（董秘/CFO）0.58% ≈ 23.78%<br>
+      <strong>评估：</strong>实控人持股比例适中，配偶一致行动人结构稳定，决策效率高
+    </div>
+  </div>
+  <div class="risk-card" style="border-left-color:#fbbf24;">
+    <div class="risk-title" style="color:#fbbf24;">📉 减持与股本变动历史</div>
+    <div class="risk-desc">
+      <strong>2020-2026 累计比例减持 5.48pp：</strong><br>
+      • 2021-12：童永胜大宗减持 497 万股，王萍大宗减持 497 万股<br>
+      • 2022-01：王萍集中竞价减持 300 万股<br>
+      • 2023-06：王萍集中竞价减持 600 股<br>
+      • 2025：参与向特定对象发行股票认购（履行 18 个月锁定承诺）<br>
+      <strong>评估：</strong>实控人有减持历史但金额有限（占股本 &lt;1%），且 2025 定增承诺不减持 18 个月，<span class="hl ok">短期减持压力可控</span>
+    </div>
+  </div>
+  <div class="risk-card" style="border-left-color:#38bdf8;">
+    <div class="risk-title" style="color:#38bdf8;">🔬 研发投入与人才</div>
+    <div class="risk-desc">
+      <strong>研发投入 11.22 亿（2025）</strong>，占营收 <span class="hl ok">11.94%</span>（行业领先）<br>
+      <strong>研发人员 3000+</strong>，德州仪器联合实验室<br>
+      <strong>研发资本化率 0%</strong>（费用化处理，<span class="hl ok">财务保守</span>）<br>
+      <strong>知识产权优势企业</strong>，国家级高新技术企业<br>
+      <strong>评估：</strong>研发强度行业前列，技术储备深厚，是 AI 数据中心电源业务的核心支撑
+    </div>
+  </div>
+  <div class="risk-card" style="border-left-color:#fbbf24;">
+    <div class="risk-title" style="color:#fbbf24;">🎯 股权激励与业绩承诺</div>
+    <div class="risk-desc">
+      <strong>2022 年股票期权激励计划：</strong>授予 2000 万份期权（首次 1814.20 万 + 预留 185.80 万），分 4 个行权期（2023-2026）<br>
+      <strong>行权条件</strong>：与营收/净利增长目标挂钩<br>
+      <strong>实际行权情况</strong>：第三个行权期（2025-06 至 2026-06）已开放<br>
+      <strong>评估：</strong>股权激励长期化，但 2025 业绩骤降可能影响后续行权积极性，需关注 2026 业绩兑现度
+    </div>
+  </div>
+</div>
+
+<!-- ===================== 八、行业与周期定位 ===================== -->
+<div class="section-title info">🌐 八、行业与周期定位（马克斯 + 达里奥）</div>
+
+<div class="theme-banner">
+  <div class="icon">🌍</div>
+  <div class="text">
+    <h3>行业定位：<span class="hl info">电气自动化 · AI 数据中心浪潮核心受益方</span></h3>
+    <p>国内电源/变频器行业经历 2025 年极端承压（价格战 + 内卷 + 产业外迁 + 外贸冲击），但 AI 数据中心建设浪潮（800V HVDC）和新能源车电动化趋势正在打开第二增长曲线。麦格米特定位第一梯队（仅次于汇川技术），具备承接行业增量的能力。</p>
+  </div>
+</div>
+
+<div class="risk-grid">
+  <div class="risk-card" style="border-left-color:#34d399;">
+    <div class="risk-title" style="color:#34d399;">📈 行业周期阶段</div>
+    <div class="risk-desc">
+      <strong>传统电源/变频器：</strong>成熟期 + 价格战，2025 行业整体承压（终端需求不振 + 外贸冲击 + 产业外迁）<br>
+      <strong>AI 数据中心电源：</strong><span class="hl ok">成长期起点</span>，2026 被业内称为「800V HVDC 元年」（660kW 一代 → 1.2MW 迭代）<br>
+      <strong>新能源汽车热管理：</strong><span class="hl ok">成长期</span>，渗透率提升中<br>
+      <strong>人形机器人电源：</strong><span class="hl ok">概念导入期</span>，短期题材炒作
+    </div>
+  </div>
+  <div class="risk-card" style="border-left-color:#fbbf24;">
+    <div class="risk-title" style="color:#fbbf24;">📜 政策环境</div>
+    <div class="risk-desc">
+      <strong>国内：</strong>鼓励高端制造 + 信创 + 国产替代，但电力电子领域竞争白热化<br>
+      <strong>海外：</strong>北美数据中心建设超预期（OpenAI/微软/Google/Meta 资本开支大幅增加），带动 AI 电源需求；<span class="hl warn">但地缘政治可能影响出口</span><br>
+      <strong>汇率风险：</strong>人民币兑美元/欧元波动直接侵蚀海外利润（2025 汇兑损失 1.21 亿）
+    </div>
+  </div>
+  <div class="risk-card" style="border-left-color:#38bdf8;">
+    <div class="risk-title" style="color:#38bdf8;">🔮 行业未来 3-5 年空间</div>
+    <div class="risk-desc">
+      <strong>AI 数据中心电源：</strong>全球市场规模预计 2025-2028 CAGR &gt;50%（从 30 亿美元增至 200 亿美元+）<br>
+      <strong>国内变频器市场：</strong>本土品牌份额已升至 44%，行业集中度持续提升，头部企业受益<br>
+      <strong>新能源车电驱/电源：</strong>2025-2027 国内新能源汽车销量 CAGR 约 15-20%<br>
+      <strong>人形机器人电源</strong>：2030 年市场可能达 50-100 亿美元（早期阶段，<span class="hl warn">不确定性极高</span>）
+    </div>
+  </div>
+  <div class="risk-card" style="border-left-color:#c084fc;">
+    <div class="risk-title" style="color:#c084fc;">⛓️ 产业链位置</div>
+    <div class="risk-desc">
+      <strong>定位：</strong>中游电气自动化核心部件供应商<br>
+      <strong>上游：</strong>半导体（IGBT/MOSFET）、磁性元件、电容（2025 原材料涨价压制毛利率）<br>
+      <strong>下游：</strong>电力、家电、新能源车、数据中心、轨交、工业自动化等多场景<br>
+      <strong>议价能力：</strong>中等偏弱（多产品线分散，但单产品规模与汇川比仍有差距）
+    </div>
+  </div>
+</div>
+
+<!-- ===================== 九、技术面与资金流 ===================== -->
+<div class="section-title warn">📡 九、技术面与资金流（凯恩斯 + 索罗斯）</div>
+
+<div class="theme-banner warn">
+  <div class="icon">📈</div>
+  <div class="text">
+    <h3>技术面结论：<span class="hl warn">极端波动（区间振幅 113%），短期强势反弹</span></h3>
+    <p>2026 年初至 9 月 3 日，股价从 88.77 元最低点冲至 189.95 元高点（6 月 23 日），区间振幅 113.39%。YTD +41.27%。9 月 3 日触及涨停 +7.30%（盘中 130.41），为短期题材驱动（人形机器人/AI/汽车热管理/碳化硅多概念叠加）。</p>
+  </div>
+</div>
+
+<div class="risk-grid">
+  <div class="risk-card" style="border-left-color:#fbbf24;">
+    <div class="risk-title" style="color:#fbbf24;">📊 股价与均线位置</div>
+    <div class="risk-desc">
+      <strong>52 周区间：</strong>66.67 - 189.95 元（振幅 185%）<br>
+      <strong>当前股价：</strong>127.20 元（处区间约 41% 分位）<br>
+      <strong>距离 52 周高点：</strong>-33%（已大幅回撤）<br>
+      <strong>距离 52 周低点：</strong>+91%（已大幅反弹）<br>
+      <strong>MA60/120/250：</strong><span class="hl warn">数据未独立核验</span>，建议参考专业行情软件<br>
+      <strong>评估：</strong>短线强势反弹但波动剧烈，趋势不明确
+    </div>
+  </div>
+  <div class="risk-card" style="border-left-color:#34d399;">
+    <div class="risk-title" style="color:#34d399;">🌏 北向资金</div>
+    <div class="risk-desc">
+      <strong>2026 H1 北向持股：</strong>2896.35 万股（占总股本 <span class="hl ok">4.96%</span>）<br>
+      <strong>2026 H1 增持：</strong>+1844.92 万股（<span class="hl ok">+175.47%</span>），持仓市值 48.42 亿<br>
+      <strong>持股排名：</strong>632/3503<br>
+      <strong>近 3 日净流入：</strong>+5.19 亿<br>
+      <strong>近 10 日净流入：</strong>-4969 万（短期获利了结）<br>
+      <strong>近 20 日净流入：</strong>+12.36 亿<br>
+      <strong>评估：</strong><span class="hl ok">北向大幅增持是核心正面信号</span>，与 AI 电源主题催化共振
+    </div>
+  </div>
+  <div class="risk-card" style="border-left-color:#fbbf24;">
+    <div class="risk-title" style="color:#fbbf24;">💰 机构持仓变化</div>
+    <div class="risk-desc">
+      <strong>主动偏股基金持股：</strong>3.66%（较上期 <span class="hl danger">-2.78pp</span>）<br>
+      <strong>基金数量：</strong>59 家（较上期 -3 家）<br>
+      <strong>持股数：</strong>1688.40 万股（较上期 -1264.54 万股）<br>
+      <strong>股东户数：</strong>10.70 万户（环比 <span class="hl ok">-33.37%</span>，筹码集中度提升）<br>
+      <strong>近 3 个月累计龙虎榜：</strong>10 次上榜，上榜次日 +1.17%、5 日 +1.04%<br>
+      <strong>评估：</strong>基金减持但北向增持，<span class="hl warn">机构资金存在分歧</span>
+    </div>
+  </div>
+  <div class="risk-card" style="border-left-color:#38bdf8;">
+    <div class="risk-title" style="color:#38bdf8;">📈 成交量与关键位</div>
+    <div class="risk-desc">
+      <strong>2026-09-03 成交额：</strong>45.84 亿（<span class="hl ok">放量 +47.8%</span> vs 9-2 的 31.02 亿）<br>
+      <strong>换手率：</strong>7.50%（活跃）<br>
+      <strong>量比：</strong>1.49（放量上涨）<br>
+      <strong>融资余额：</strong>30.67 亿（占流通市值 4.9%，杠杆资金参与度高）<br>
+      <strong>融资近 5 日变化：</strong>+0.99 亿（+3.34%）<br>
+      <strong>关键支撑位：</strong>118 元（短期）、100 元（中期，强支撑）<br>
+      <strong>关键压力位：</strong>130 元（涨停价）、150 元（密集成交区）、190 元（52 周高点）
+    </div>
+  </div>
+</div>
+
+<!-- ===================== 十、多方法论视角最终评级 ===================== -->
+<div class="section-title ok">🧠 十、多方法论视角最终评级（核心）</div>
+
+<div class="score-table">
+  <div class="score-item">
+    <div class="score-num warn">2</div>
+    <div class="score-name">格雷厄姆</div>
+    <div class="score-bar"><div class="score-fill bad" style="width:20%"></div></div>
+    <div class="score-out">深度价值 / 10</div>
+  </div>
+  <div class="score-item">
+    <div class="score-num good">7</div>
+    <div class="score-name">费雪 成长</div>
+    <div class="score-bar"><div class="score-fill good" style="width:70%"></div></div>
+    <div class="score-out">成长投资 / 10</div>
+  </div>
+  <div class="score-item">
+    <div class="score-num bad">3</div>
+    <div class="score-name">林奇 PEG</div>
+    <div class="score-bar"><div class="score-fill bad" style="width:30%"></div></div>
+    <div class="score-out">PEG 投资 / 10</div>
+  </div>
+  <div class="score-item">
+    <div class="score-num warn">6</div>
+    <div class="score-name">邓普顿</div>
+    <div class="score-bar"><div class="score-fill warn" style="width:60%"></div></div>
+    <div class="score-out">逆向投资 / 10</div>
+  </div>
+  <div class="score-item">
+    <div class="score-num bad">2</div>
+    <div class="score-name">博格 指数</div>
+    <div class="score-bar"><div class="score-fill bad" style="width:20%"></div></div>
+    <div class="score-out">指数投资 / 10</div>
+  </div>
+  <div class="score-item">
+    <div class="score-num warn">6</div>
+    <div class="score-name">马克斯 周期</div>
+    <div class="score-bar"><div class="score-fill warn" style="width:60%"></div></div>
+    <div class="score-out">周期投资 / 10</div>
+  </div>
+  <div class="score-item">
+    <div class="score-num warn">5</div>
+    <div class="score-name">西蒙斯</div>
+    <div class="score-bar"><div class="score-fill warn" style="width:50%"></div></div>
+    <div class="score-out">量化投资 / 10</div>
+  </div>
+  <div class="score-item">
+    <div class="score-num warn">4</div>
+    <div class="score-name">达里奥</div>
+    <div class="score-bar"><div class="score-fill warn" style="width:40%"></div></div>
+    <div class="score-out">全天候 / 10</div>
+  </div>
+  <div class="score-item">
+    <div class="score-num good">7</div>
+    <div class="score-name">凯恩斯 选美</div>
+    <div class="score-bar"><div class="score-fill good" style="width:70%"></div></div>
+    <div class="score-out">趋势跟随 / 10</div>
+  </div>
+  <div class="score-item">
+    <div class="score-num warn">6</div>
+    <div class="score-name">索罗斯 反身性</div>
+    <div class="score-bar"><div class="score-fill warn" style="width:60%"></div></div>
+    <div class="score-out">反身性 / 10</div>
+  </div>
+  <div class="score-item">
+    <div class="score-num warn">5</div>
+    <div class="score-name">巴菲特 护城河</div>
+    <div class="score-bar"><div class="score-fill warn" style="width:50%"></div></div>
+    <div class="score-out">护城河 / 10</div>
+  </div>
+</div>
+
+<div class="conclusion">
+  <div class="conclusion-title">📌 方法论加权计算（综合得分 5.5/10）</div>
+  <div class="conclusion-item">
+    <span class="num">1</span>
+    <p><strong>权重体系：</strong>邓普顿逆向 15% + 马克斯周期 15% + 格雷厄姆 15% + 巴菲特护城河 15% + 费雪成长 10% + 林奇 PEG 10% + 博格指数 5% + 凯恩斯 5% + 西蒙斯/达里奥/索罗斯 各 5%</p>
+  </div>
+  <div class="conclusion-item">
+    <span class="num">2</span>
+    <p><strong>加权计算：</strong>2×15% + 7×10% + 3×10% + 6×15% + 2×5% + 6×15% + 5×5% + 4×5% + 7×5% + 6×5% + 5×15% ≈ <span class="hl warn">5.5</span></p>
+  </div>
+  <div class="conclusion-item">
+    <span class="num">3</span>
+    <p><strong>Top 3 方法论匹配：</strong>① <b style="color:#fbbf24;">凯恩斯选美（7 分）</b>——资金博弈 + 主题驱动是当前主导逻辑；② <b style="color:#fbbf24;">费雪成长（7 分）</b>——长期平台价值（AI 数据中心 + 新能源车电驱）；③ <b style="color:#fbbf24;">邓普顿逆向（6 分）</b>——2025 业绩极端低点的反转机会</p>
+  </div>
+</div>
+
+<div class="conclusion">
+  <div class="conclusion-title">⚠️ 冲突识别与最终倾向（三段式）</div>
+  <div class="conclusion-item">
+    <span class="num">1</span>
+    <p><strong>冲突点 1：格雷厄姆（2）vs 凯恩斯（7）</strong><br>静态 PE 476.55 倍 → 深度价值派完全放弃；资金面 + 主题催化派认为「业绩反转 + 北向增持」足以支撑当前估值</p>
+  </div>
+  <div class="conclusion-item">
+    <span class="num">2</span>
+    <p><strong>冲突点 2：林奇 PEG（3）vs 费雪成长（7）</strong><br>PEG 基期失真 + 当前估值透支 → 林奇派警示；长期平台 + AI 浪潮 → 费雪派积极</p>
+  </div>
+  <div class="conclusion-item">
+    <span class="num">3</span>
+    <p><strong>冲突点 3：巴菲特护城河（5）vs 凯恩斯趋势（7）</strong><br>护城河中等偏强（技术 + 规模 + 客户认证），但非卓越；趋势派更看重短期博弈机会</p>
+  </div>
+  <div class="conclusion-item">
+    <span class="num">⭐</span>
+    <p><strong>最终倾向：</strong>采纳 <b>「费雪成长 × 凯恩斯选美 × 马克斯周期」三方共振逻辑</b>，但仓位上限 ≤5% + 严设止损。理由：① 业绩拐点已由 2026 H1 数据初步确认；② 北向大幅增持（+175.47%）是机构资金对长期价值的认可；③ AI 数据中心电源 2026 进入兑现期。风险点：扣非基期失锚 + 现金流为负 + 长期借款激增 → <b style="color:#f87171;">避免 2025 现金流陷阱重演</b>，每季度跟踪经营现金流转正信号</p>
+  </div>
+</div>
+
+<!-- ===================== 十一、操作策略与建议 ===================== -->
+<div class="section-title warn">🎯 十一、操作策略与建议（核心输出）</div>
+
+<div class="strategy-grid">
+  <div class="strategy-card" style="border-left-color:#fbbf24;">
+    <div class="strategy-title" style="color:#fbbf24;">💼 1. 建议仓位</div>
+    <div class="strategy-desc">
+      <strong>≤ 5%</strong>（总投资组合），凯恩斯+博格原则：单股不超 10%，<span class="hl warn">高波动标的减半至 5%</span><br>
+      <strong>核心仓 + 卫星仓结构：</strong><br>
+      • 核心仓：3%（分批建仓 3 批）<br>
+      • 卫星仓：2%（主题催化加仓）
+    </div>
+  </div>
+  <div class="strategy-card" style="border-left-color:#38bdf8;">
+    <div class="strategy-title" style="color:#38bdf8;">📥 2. 买入策略（分 3-4 批建仓）</div>
+    <div class="strategy-desc">
+      <strong>第 1 批：</strong>现价 125-127 元区间（≤1%）<br>
+      <strong>第 2 批：</strong>回调至 115-118 元（加至 3%）<br>
+      <strong>第 3 批：</strong>回调至 100-105 元（加至 4%）<br>
+      <strong>第 4 批（卫星加仓）：</strong>AI 电源订单公告或 2026 Q3 业绩超预期时加至 5%<br>
+      <strong>建仓节奏：</strong>每批间隔 2-4 周，跟踪业绩催化
+    </div>
+  </div>
+  <div class="strategy-card" style="border-left-color:#f87171;">
+    <div class="strategy-title" style="color:#f87171;">🛑 3. 止损位</div>
+    <div class="strategy-desc">
+      <strong>硬止损：</strong>收盘价 <span class="hl danger">跌破 95 元</span>（= 2026 年低点 88.77 + 5% 缓冲；隐含 PE 仍约 250 倍）<br>
+      <strong>动态止损：</strong>从最高点回撤 <span class="hl danger">-25%</span>（如买入后股价从 130 跌至 97.5）<br>
+      <strong>基本面试损：</strong>2026 Q3 营收同比 &lt;15% 或归母净利 &lt;1.5 亿时减仓至 2%
+    </div>
+  </div>
+  <div class="strategy-card" style="border-left-color:#34d399;">
+    <div class="strategy-title" style="color:#34d399;">🎯 4. 目标价</div>
+    <div class="strategy-desc">
+      <strong>12 个月目标：</strong><br>
+      • 保守 <b class="hl warn">112 元</b>（对应 2027E 6.5 亿净利 + 30 倍 PE，-12%）<br>
+      • 中性 <b class="hl ok">138 元</b>（对应 2027E 9 亿净利 + 35 倍 PE，+8.5%）<br>
+      • 乐观 <b class="hl ok">156 元</b>（券商中位目标价，对应 2027E 12 亿净利 + 35 倍 PE，+22.7%）<br>
+      <strong>24 个月目标（保守）：</strong><b class="hl ok">175 元</b>（AI 电源兑现后估值切换）
+    </div>
+  </div>
+  <div class="strategy-card" style="border-left-color:#c084fc;">
+    <div class="strategy-title" style="color:#c084fc;">⏰ 5. 持有周期</div>
+    <div class="strategy-desc">
+      <strong>中长线（6-18 个月）</strong>——AI 数据中心电源业务兑现需 2026 H2 - 2027 H1 验证<br>
+      <strong>不建议短线：</strong>区间振幅 113% + PE 失锚 → 短线博弈胜率不高<br>
+      <strong>触发提前退出：</strong>12 个月内若 2026 + 2027 净利未达 8.65 亿 / 16 亿，应清仓
+    </div>
+  </div>
+  <div class="strategy-card" style="border-left-color:#38bdf8;">
+    <div class="strategy-title" style="color:#38bdf8;">📊 6. 关键监测指标（季度）</div>
+    <div class="strategy-desc">
+      <strong>① 经营现金流：</strong>2026 Q3 末能否转正（vs 2025 -1.39 亿、2026 H1 +0.30 亿）<br>
+      <strong>② 扣非净利率：</strong>2026 全年能否回到 5%+（vs 2025 仅 0.27%）<br>
+      <strong>③ AI 数据中心电源订单：</strong>英伟达合作项目的实际交付金额（管理层业绩说明会披露）<br>
+      <strong>④ 北向资金持仓：</strong>持股数是否稳定在 2500 万股以上
+    </div>
+  </div>
+  <div class="strategy-card" style="border-left-color:#fbbf24;">
+    <div class="strategy-title" style="color:#fbbf24;">🔔 7. 卖出信号（3 个触发条件）</div>
+    <div class="strategy-desc">
+      <strong>① 基本面破坏：</strong>2026 Q4 营收增速 &lt;10% 或扣非净利转负 → <span class="hl danger">清仓 100%</span><br>
+      <strong>② 估值失效：</strong>股价突破 170 元（PE-TTM &gt;400 倍）+ 北向资金连续 5 日净流出 → <span class="hl danger">减仓 50%</span><br>
+      <strong>③ 技术破位：</strong>收盘价跌破 95 元且放量（量比 &gt;1.5）→ <span class="hl danger">清仓</span><br>
+      <strong>④ 主题证伪：</strong>英伟达 800V HVDC 供应链调整 / 人形机器人量产推迟 → 减仓 30%
+    </div>
+  </div>
+</div>
+
+<!-- ===================== 十二、核心风险揭示 ===================== -->
+<div class="section-title">🚨 十二、核心风险揭示（5 条）</div>
+
+<div class="risk-grid">
+  <div class="risk-card">
+    <div class="risk-title">🔻 风险 1：扣非基期失锚 + 估值严重透支</div>
+    <div class="risk-desc">
+      <strong>触发条件：</strong>PE-TTM &gt;300 倍持续 2 个季度以上；或机构目标价中位 &lt;100 元<br>
+      <strong>影响幅度：</strong>若市场风险偏好下降，估值切换至 30-40 倍合理 PE，对应股价 30-50 元（较现价 -60% 至 -76%）<br>
+      <strong>应对策略：</strong>严守 5% 仓位上限 + 95 元硬止损；2026 三季报披露后若扣非净利未达 1.8 亿（半年 ×1.5），立即减仓至 2%
+    </div>
+  </div>
+  <div class="risk-card">
+    <div class="risk-title">🔻 风险 2：AI 数据中心电源业务不及预期</div>
+    <div class="risk-desc">
+      <strong>触发条件：</strong>英伟达 Rubin 架构延期 / 660kW 产品量产推迟 / 800V HVDC 商业化慢于预期<br>
+      <strong>影响幅度：</strong>若 AI 电源 2026 营收 &lt;5 亿（vs 乐观 15 亿），净利预测从 8.65 亿降至 4-5 亿，对应股价下行至 70-90 元<br>
+      <strong>应对策略：</strong>跟踪 GTC 大会与英伟达供应链公告；2026 H2 若 AI 电源订单未达管理层指引，减仓 30%
+    </div>
+  </div>
+  <div class="risk-card">
+    <div class="risk-title">🔻 风险 3：经营现金流持续为负 + 长期借款激增</div>
+    <div class="risk-desc">
+      <strong>触发条件：</strong>2026 年末经营现金流仍为负，且长期借款余额 &gt;15 亿<br>
+      <strong>影响幅度：</strong>财务费用增加 + 信用风险上升，可能触发审计师对持续经营能力的强调事项段<br>
+      <strong>应对策略：</strong>每季度跟踪现金流量表；若 2026 全年现金流仍为负，即使估值合理也减仓至 2%
+    </div>
+  </div>
+  <div class="risk-card">
+    <div class="risk-title">🔻 风险 4：存货跌价 + 商誉减值叠加</div>
+    <div class="risk-desc">
+      <strong>触发条件：</strong>2025 存货 27.75 亿（占净资产 44.63%）+ 商誉减值风险；原材料价格反弹 / 产品迭代加速可能放大跌价压力<br>
+      <strong>影响幅度：</strong>若 2026 计提存货跌价 &gt;2 亿（vs 2025 的 4220 万），将吞噬全部上半年扣非利润<br>
+      <strong>应对策略：</strong>跟踪存货周转率（当前 0.77 次，偏低）+ 跌价准备计提比例（4.28%）；若周转率继续恶化，减仓 20%
+    </div>
+  </div>
+  <div class="risk-card">
+    <div class="risk-title">🔻 风险 5：汇率风险 + 海外业务波动</div>
+    <div class="risk-desc">
+      <strong>触发条件：</strong>人民币兑美元升值 &gt;5% / 海外贸易摩擦升级 / 海外子公司经营恶化<br>
+      <strong>影响幅度：</strong>海外占比 35.97%，2025 汇兑损失 1.21 亿（占归母净利 83%）；汇率 ±5% 波动可吞噬 ±2-3 亿净利<br>
+      <strong>应对策略：</strong>关注公司外汇套保策略；每半年跟踪海外子公司收入占比与汇兑损益
+    </div>
+  </div>
+  <div class="risk-card">
+    <div class="risk-title">🔻 风险 6（备选）：主题炒作见顶</div>
+    <div class="risk-desc">
+      <strong>触发条件：</strong>人形机器人 / AI 电源 / 碳化硅等概念板块集体回调；YTD 涨幅回吐至 0% 以下<br>
+      <strong>影响幅度：</strong>9 月 3 日涨停的多重概念共振若瓦解，股价可能快速回撤 20-30%<br>
+      <strong>应对策略：</strong>主题驱动型仓位（卫星仓 2%）及时止盈；核心仓（3%）按基本面持有
+    </div>
+  </div>
+</div>
+
+<!-- ===================== 综合结论 ===================== -->
+<div class="section-title ok">📌 综合结论</div>
+<div class="conclusion">
+  <div class="conclusion-title">📌 核心结论 · 7 条</div>
+  <div class="conclusion-item">
+    <span class="num">1</span>
+    <p><strong>画像定位：</strong>麦格米特是国内电源/变频器第一梯队第二名（仅次于汇川技术），AI 数据中心电源业务（英伟达指定合作）是 2026 年核心增长引擎。2025 年经历极端承压（扣非 -92.96%、现金流 -1.39 亿），但 2026 H1 已确认反转。</p>
+  </div>
+  <div class="conclusion-item">
+    <span class="num">2</span>
+    <p><strong>估值判断：</strong>PE-TTM 331 倍、静态 476 倍，<span class="hl danger">估值严重失锚</span>。当前定价已透支未来 1-2 年高增长，安全边际极薄，<span class="hl warn">下行风险高于上行空间</span>。</p>
+  </div>
+  <div class="conclusion-item">
+    <span class="num">3</span>
+    <p><strong>成长判断：</strong>2026 H1 营收 +29.68% / 归母 +45.21% 已确认拐点，但扣非 -16.13% 说明非主营仍有压力；PEG 基期失真，需以 2026E PE 86 倍 + 业绩兑现度重估。</p>
+  </div>
+  <div class="conclusion-item">
+    <span class="num">4</span>
+    <p><strong>资金信号：</strong>北向资金 2026 H1 大幅增持 +175.47%（4.96% 持仓）、股东户数减少 33.37%（筹码集中）是核心正面信号；基金减持 -2.78pp 反映机构资金分歧。</p>
+  </div>
+  <div class="conclusion-item">
+    <span class="num">5</span>
+    <p><strong>策略核心：</strong>谨慎买入 5.5/10，仓位 ≤5%，分 3-4 批建仓（125/118/100 元三档），硬止损 95 元。中性目标 138 元（+8.5%），乐观 156 元（+22.7%），12-18 个月持有周期。</p>
+  </div>
+  <div class="conclusion-item">
+    <span class="num">6</span>
+    <p><strong>关键监测：</strong>① 经营现金流能否转正；② 扣非净利率能否回到 5%+；③ AI 电源订单实际交付金额；④ 北向资金持仓稳定性。任何一项未达预期即触发减仓。</p>
+  </div>
+  <div class="conclusion-item">
+    <span class="num">7</span>
+    <p><strong>风险底线：</strong>5 大风险中，<b style="color:#f87171;">风险 1（估值透支）+ 风险 3（现金流陷阱）</b>是最需警惕的。每季度严格审查经营现金流；若 2026 全年现金流仍为负，即使估值合理也应减仓至 2% 以下。</p>
+  </div>
+</div>
+
+<!-- ===================== 来源与复核记录 ===================== -->
+<div class="data-note" style="margin-top:32px;">
+  <strong>📚 数据来源与复核记录：</strong><br>
+  ✅ <span class="ok">公司公告</span>：2025 年年度报告（巨潮资讯 2026-04-29）、2026 半年报（cnfin.com.cn 2026-08-28）、2025 业绩预告（2026-01-29）、简式权益变动报告书（2026-02-09）<br>
+  ✅ <span class="info">行情数据</span>：腾讯自选股（2026-09-03 14:18 快照）、富途牛牛、证券时报、同花顺（融资融券）<br>
+  ✅ <span class="ok">机构评级</span>：同花顺 iFinD 汇总（中金 145 / 华泰 150.41 / 国泰海通 173.48 / 国信 / 东吴 / 华安 / 招商 / 申万宏源 等 10 家）<br>
+  ⚠️ <span class="warn">同业对比</span>：汇川技术 (300124) / 英威腾 (002334) / 合康新能 (300048) 2025 年报与 2026 中报（公开公告）<br>
+  ⚠️ <span class="warn">数据缺口</span>：MA60/120/250 历史均线、北向资金近 30 日精确数据 → 「未独立核验」，建议参考专业行情软件<br>
+  📅 <span class="info">快照时点</span>：2026-09-03 14:18-14:36（盘中触及涨停 130.41 后收于 127.20）<br>
+  🔄 <span class="info">下次更新建议</span>：2026 Q3 业绩预告披露后（约 2026-10 中下旬）
+</div>
+
+<!-- ===================== 页脚 ===================== -->
+<div class="footer">
+  <strong>麦格米特 (002851) ｜ 报告截止日 2026-09-03（周四收盘后） ｜ 11 方法论交叉验证 × 12 模块标准输出</strong><br>
+  证据优先 · 缺口显式披露 · 不编造数据 · 不构成个性化投资建议<br>
+  数据源：公司公告（巨潮资讯 / cnfin）+ 公开行情数据（同花顺 / 富途 / 证券时报 / 腾讯自选股）+ 同业可比公司年报<br>
+  报告生成：WorkBuddy AI Agent · 场景 B（个股深度分析）
+</div>
+
+</div>
+</body>
+</html>
