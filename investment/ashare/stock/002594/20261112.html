@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-11-12 比亚迪 (002594) · 11 方法论综合投资分析</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
+    color: #e8eef5; min-height: 100vh; padding: 24px; line-height: 1.6; }
+  .container { max-width: 1500px; margin: 0 auto; }
+
+  .header { background: linear-gradient(135deg, rgba(239,68,68,0.18), rgba(245,158,11,0.14), rgba(168,85,247,0.10));
+    border: 1px solid rgba(245,158,11,0.38); border-radius: 20px; padding: 36px;
+    margin-bottom: 24px; position: relative; overflow: hidden; }
+  .header::before { content:''; position:absolute; top:-50%; right:-10%; width:500px; height:500px;
+    background: radial-gradient(circle, rgba(239,68,68,0.24), transparent 70%); border-radius:50%; }
+  .header h1 { font-size: 32px; background: linear-gradient(90deg, #f87171, #fbbf24, #c084fc);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; position: relative; }
+  .header .subtitle { color: #cbd5e1; font-size: 15px; position: relative; margin-bottom: 16px; }
+  .header .badges { display: flex; gap: 8px; flex-wrap: wrap; position: relative; }
+  .badge { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 12px; }
+  .badge-success { background: rgba(16,185,129,0.22); color:#34d399; border:1px solid rgba(16,185,129,0.45); }
+  .badge-warning { background: rgba(245,158,11,0.22); color:#fbbf24; border:1px solid rgba(245,158,11,0.45); }
+  .badge-danger  { background: rgba(239,68,68,0.22); color:#fca5a5; border:1px solid rgba(239,68,68,0.45); }
+  .badge-source  { background: rgba(56,189,248,0.22); color:#38bdf8; border:1px solid rgba(56,189,248,0.45); }
+  .badge-purple  { background: rgba(168,85,247,0.22); color:#c084fc; border:1px solid rgba(168,85,247,0.45); }
+
+  .section-title { font-size: 22px; margin: 36px 0 14px 0; padding-left: 14px;
+    border-left: 4px solid #38bdf8; color: #f1f5f9; display:flex; align-items:center; gap:10px; }
+  .section-title.warn { border-left-color: #fbbf24; }
+  .section-title.ok   { border-left-color: #34d399; }
+  .section-title.danger { border-left-color: #f87171; }
+  .section-subtitle { font-size: 13px; color: #94a3b8; margin: -8px 0 16px 18px; }
+
+  .data-note { background: rgba(30,41,59,0.4); border:1px dashed rgba(148,163,184,0.3);
+    border-radius:8px; padding:14px 18px; margin-bottom:24px; font-size:12px; color:#94a3b8; line-height:1.7; }
+  .data-note strong { color:#cbd5e1; }
+  .data-note .ok { color:#34d399; font-weight:700; }
+  .data-note .warn { color:#fbbf24; font-weight:700; }
+  .data-note .danger { color:#f87171; font-weight:700; }
+  .data-note .info { color:#38bdf8; font-weight:700; }
+  .data-note .purple { color:#c084fc; font-weight:700; }
+
+  .theme-banner { background: linear-gradient(135deg, rgba(56,189,248,0.15), rgba(168,85,247,0.10));
+    border: 1px solid rgba(56,189,248,0.40); border-left: 5px solid #38bdf8;
+    border-radius:12px; padding:20px 24px; margin-bottom:24px; display:flex; align-items:center; gap:16px; }
+  .theme-banner.warn { border-color:rgba(245,158,11,0.4); border-left-color:#fbbf24;
+    background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(14,165,233,0.10)); }
+  .theme-banner.danger { border-color:rgba(239,68,68,0.4); border-left-color:#f87171;
+    background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(245,158,11,0.10)); }
+  .theme-banner .icon { font-size:32px; }
+  .theme-banner .text { flex:1; }
+  .theme-banner .text h3 { color:#7dd3fc; font-size:17px; margin-bottom:4px; }
+  .theme-banner.warn .text h3 { color:#fbbf24; }
+  .theme-banner.danger .text h3 { color:#fca5a5; }
+  .theme-banner .text p { color:#cbd5e1; font-size:13px; line-height:1.7; }
+
+  .dashboard { display:grid; grid-template-columns:repeat(7,1fr); gap:10px; margin-bottom:14px; }
+  .index-card { background: rgba(30,41,59,0.6); border:1px solid rgba(148,163,184,0.2);
+    border-radius:12px; padding:14px; transition: transform 0.3s, box-shadow 0.3s; position:relative; }
+  .index-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .index-card.avoid { border-top:3px solid #ef4444; }
+  .index-card.danger { border-top:3px solid #f87171; }
+  .index-card.warn { border-top:3px solid #fbbf24; }
+  .index-card.ok { border-top:3px solid #34d399; }
+  .index-card.mid { border-top:3px solid #38bdf8; }
+  .index-card.purple { border-top:3px solid #c084fc; }
+  .index-card .name { font-size:11px; color:#94a3b8; margin-bottom:6px; }
+  .index-card .value { font-size:20px; font-weight:800; margin-bottom:3px; }
+  .index-card .change { font-size:11px; font-weight:600; }
+  .index-card.avoid .value, .index-card.avoid .change { color:#ef4444; }
+  .index-card.danger .value, .index-card.danger .change { color:#f87171; }
+  .index-card.warn .value, .index-card.warn .change { color:#fbbf24; }
+  .index-card.ok .value, .index-card.ok .change { color:#34d399; }
+  .index-card.mid .value, .index-card.mid .change { color:#38bdf8; }
+  .index-card.purple .value, .index-card.purple .change { color:#c084fc; }
+  .index-card .label { margin-top:6px; font-size:10px; color:#64748b; line-height:1.4; }
+  .index-card .tag { position:absolute; top:10px; right:10px; padding:2px 6px;
+    border-radius:4px; font-size:10px; font-weight:700; }
+  .tag.danger { background:rgba(239,68,68,0.25); color:#fca5a5; }
+  .tag.warn   { background:rgba(245,158,11,0.25); color:#fbbf24; }
+  .tag.ok     { background:rgba(16,185,129,0.25); color:#34d399; }
+  .tag.mid    { background:rgba(56,189,248,0.25); color:#7dd3fc; }
+  .tag.purple { background:rgba(168,85,247,0.25); color:#c084fc; }
+
+  .table-card { background:rgba(30,41,59,0.6); border:1px solid rgba(148,163,184,0.2);
+    border-radius:12px; padding:18px; margin-bottom:24px; overflow-x:auto; }
+  .table-title { color:#f1f5f9; font-size:15px; font-weight:700; margin-bottom:12px;
+    display:flex; align-items:center; gap:8px; }
+  .compare-table { width:100%; border-collapse:collapse; font-size:12px; min-width:680px; }
+  .compare-table th { background:rgba(15,23,42,0.6); color:#f1f5f9; font-weight:700;
+    padding:10px 8px; text-align:left; border-bottom:2px solid rgba(148,163,184,0.3); }
+  .compare-table td { padding:9px 8px; color:#cbd5e1; border-bottom:1px dashed rgba(148,163,184,0.15); }
+  .compare-table tr:hover td { background:rgba(56,189,248,0.06); }
+  .compare-table .hl { color:#c084fc; font-weight:700; }
+  .compare-table .ok { color:#34d399; font-weight:700; }
+  .compare-table .warn { color:#fbbf24; font-weight:700; }
+  .compare-table .danger { color:#f87171; font-weight:700; }
+  .compare-table .mid { color:#38bdf8; font-weight:700; }
+
+  .fin-table { background:rgba(30,41,59,0.6); border:1px solid rgba(148,163,184,0.2);
+    border-radius:12px; padding:18px; margin-bottom:24px; }
+  .fin-row { display:grid; grid-template-columns:1.4fr 1.8fr 2.4fr; gap:14px; align-items:center;
+    padding:11px 0; border-bottom:1px dashed rgba(148,163,184,0.15); }
+  .fin-row:last-child { border-bottom:none; }
+  .fin-row.header { border-bottom:2px solid rgba(148,163,184,0.3); font-weight:700; color:#f1f5f9; }
+  .fin-name { color:#f1f5f9; font-size:13px; font-weight:700; }
+  .fin-val { color:#34d399; font-size:14px; font-weight:800; }
+  .fin-val.down { color:#f87171; }
+  .fin-val.warn { color:#fbbf24; }
+  .fin-val.mid { color:#38bdf8; }
+  .fin-val.purple { color:#c084fc; }
+  .fin-comment { color:#cbd5e1; font-size:12px; line-height:1.55; }
+
+  .score-table { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-bottom:24px; }
+  .score-item { background:rgba(30,41,59,0.6); border:1px solid rgba(148,163,184,0.2);
+    border-radius:10px; padding:12px; text-align:center; }
+  .score-num { font-size:28px; font-weight:900; margin-bottom:4px; }
+  .score-num.bad { color:#f87171; }
+  .score-num.warn { color:#fbbf24; }
+  .score-num.mid { color:#38bdf8; }
+  .score-num.good { color:#34d399; }
+  .score-num.purple { color:#c084fc; }
+  .score-name { color:#94a3b8; font-size:11px; margin-bottom:8px; }
+  .score-bar { height:6px; background:rgba(15,23,42,0.6); border-radius:3px; overflow:hidden; margin-bottom:4px; }
+  .score-fill { height:100%; border-radius:3px; }
+  .score-fill.bad { background:linear-gradient(90deg,#ef4444,#f87171); }
+  .score-fill.warn { background:linear-gradient(90deg,#f59e0b,#fbbf24); }
+  .score-fill.mid { background:linear-gradient(90deg,#0ea5e9,#38bdf8); }
+  .score-fill.good { background:linear-gradient(90deg,#10b981,#34d399); }
+  .score-fill.purple { background:linear-gradient(90deg,#a855f7,#c084fc); }
+  .score-out { font-size:10px; color:#64748b; }
+
+  .safety-bar { background:rgba(30,41,59,0.6); border:1px solid rgba(148,163,184,0.2);
+    border-radius:12px; padding:18px; margin-bottom:24px; }
+  .safety-title { color:#f1f5f9; font-size:15px; font-weight:700; margin-bottom:12px; }
+  .safety-track { height:32px; background:rgba(15,23,42,0.6); border-radius:10px;
+    overflow:hidden; position:relative; border:1px solid rgba(148,163,184,0.2); display:flex; }
+  .safety-seg { display:flex; align-items:center; justify-content:center; font-weight:700; font-size:11px; color:#0f172a; }
+  .seg-deep { background:linear-gradient(90deg,#10b981,#34d399); flex:3; }
+  .seg-current { background:linear-gradient(90deg,#fbbf24,#f59e0b); flex:4; color:#1f2937; }
+  .seg-over { background:linear-gradient(90deg,#ef4444,#dc2626); flex:3; color:#fff; }
+  .safety-marks { display:flex; justify-content:space-between; margin-top:10px; font-size:11px; color:#94a3b8; }
+  .safety-marks span strong { color:#f1f5f9; }
+
+  .risk-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+  .risk-card { background:rgba(239,68,68,0.10); border:1px solid rgba(239,68,68,0.30);
+    border-left:4px solid #ef4444; border-radius:8px; padding:14px; }
+  .risk-card.warn { background:rgba(245,158,11,0.10); border-color:rgba(245,158,11,0.30); border-left-color:#f59e0b; }
+  .risk-card.info { background:rgba(168,85,247,0.10); border-color:rgba(168,85,247,0.30); border-left-color:#c084fc; }
+  .risk-title { color:#fca5a5; font-weight:700; font-size:13px; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+  .risk-card.warn .risk-title { color:#fbbf24; }
+  .risk-card.info .risk-title { color:#c084fc; }
+  .risk-desc { color:#cbd5e1; font-size:12px; line-height:1.55; }
+
+  .method-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:24px; }
+  .method-card { background:rgba(30,41,59,0.6); border:1px solid rgba(148,163,184,0.2);
+    border-radius:12px; padding:16px; position:relative; }
+  .method-card.best { border-left:4px solid #34d399; }
+  .method-card.good { border-left:4px solid #38bdf8; }
+  .method-card.mid { border-left:4px solid #fbbf24; }
+  .method-card.weak { border-left:4px solid #94a3b8; }
+  .method-card.bad { border-left:4px solid #f87171; }
+  .method-name { color:#f1f5f9; font-size:14px; font-weight:700; margin-bottom:6px; }
+  .method-author { color:#94a3b8; font-size:11px; margin-bottom:10px; }
+  .method-score { display:inline-block; padding:4px 10px; border-radius:8px; font-weight:800; font-size:15px; }
+  .method-score.good { background:rgba(16,185,129,0.22); color:#34d399; }
+  .method-score.mid { background:rgba(245,158,11,0.22); color:#fbbf24; }
+  .method-score.bad { background:rgba(239,68,68,0.22); color:#fca5a5; }
+  .method-desc { color:#cbd5e1; font-size:12px; line-height:1.55; margin-top:10px; }
+
+  .strategy-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-bottom:24px; }
+  .strategy-card { background:rgba(30,41,59,0.6); border:1px solid rgba(148,163,184,0.2);
+    border-radius:12px; padding:18px; }
+  .strategy-card.target { border-left:4px solid #34d399; }
+  .strategy-card.stop { border-left:4px solid #ef4444; }
+  .strategy-card.position { border-left:4px solid #fbbf24; }
+  .strategy-card.cycle { border-left:4px solid #c084fc; }
+  .strategy-card.monitor { border-left:4px solid #38bdf8; }
+  .strategy-title { font-size:13px; color:#f1f5f9; font-weight:700; margin-bottom:10px;
+    display:flex; align-items:center; gap:8px; }
+  .strategy-content { color:#cbd5e1; font-size:12px; line-height:1.7; }
+  .strategy-content strong { color:#f1f5f9; }
+  .strategy-content .hl-ok { color:#34d399; font-weight:700; }
+  .strategy-content .hl-warn { color:#fbbf24; font-weight:700; }
+  .strategy-content .hl-danger { color:#f87171; font-weight:700; }
+  .strategy-content .hl-purple { color:#c084fc; font-weight:700; }
+  .strategy-content .hl-info { color:#38bdf8; font-weight:700; }
+
+  .final-verdict { background:linear-gradient(135deg, rgba(245,158,11,0.18), rgba(56,189,248,0.10), rgba(168,85,247,0.08));
+    border:1px solid rgba(245,158,11,0.45); border-radius:16px; padding:28px; margin-bottom:24px; text-align:center; }
+  .final-verdict h2 { font-size:24px; color:#fbbf24; margin-bottom:8px; }
+  .final-verdict .rating { display:inline-block; background:linear-gradient(135deg,#f59e0b,#d97706);
+    color:#fff; font-size:30px; font-weight:900; padding:12px 36px; border-radius:16px; margin:14px 0; letter-spacing:4px; }
+  .final-verdict .comment { color:#cbd5e1; font-size:13px; max-width:860px; margin:12px auto 0; line-height:1.7; }
+
+  .conclusion { background:linear-gradient(135deg, rgba(56,189,248,0.10), rgba(168,85,247,0.10));
+    border:1px solid rgba(56,189,248,0.30); border-radius:12px; padding:22px; margin-bottom:24px; }
+  .conclusion-title { font-size:16px; font-weight:700; margin-bottom:14px; color:#f1f5f9; }
+  .conclusion-item { background:rgba(15,23,42,0.4); border-radius:8px; padding:11px 14px; margin-bottom:10px; border-left:3px solid #38bdf8; }
+  .conclusion-item .num { display:inline-block; background:#38bdf8; color:#0f172a; width:22px; height:22px;
+    border-radius:50%; text-align:center; line-height:22px; font-weight:700; margin-right:8px; font-size:11px; }
+  .conclusion-item p { display:inline; color:#e2e8f0; font-size:12px; }
+  .conclusion-item strong { color:#f1f5f9; }
+
+  .footer { text-align:center; color:#64748b; font-size:12px; margin-top:32px; padding:16px;
+    border-top: 1px solid rgba(148,163,184,0.10); line-height:1.7; }
+
+  @media (max-width:1024px) {
+    .dashboard { grid-template-columns:repeat(2,1fr); }
+    .risk-grid, .method-grid, .strategy-grid { grid-template-columns:1fr; }
+    .score-table { grid-template-columns:repeat(3,1fr); }
+    .fin-row { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>🚗 比亚迪 (002594) · 11 方法论综合投资分析</h1>
+    <div class="subtitle">全球新能源销冠 · 2026Q3 单季归母 +28.08% 重启增长 · 海外销量 +91% 撑起利润修复 · 但国内零售连续两位数下滑，股价逼近近一年低点</div>
+    <div class="badges">
+      <span class="badge badge-warning">🎯 综合评级：<b>谨慎买入</b>（5.2/10）</span>
+      <span class="badge badge-source">📅 数据日期：2026-11-12（周四收盘）</span>
+      <span class="badge badge-source">📊 80.32 元 · 总市值 7322.93 亿 · PE-TTM 23.15x · PB 2.94x · 股息率 0.45%</span>
+      <span class="badge badge-purple">🧠 11 方法论 × 12 模块 · 权重归一化后加权</span>
+      <span class="badge badge-danger">⚠️ PB 处近 5 年 0.1% 分位 · 距 52 周低点仅 +4.0%</span>
+    </div>
+  </div>
+
+  <div class="data-note">
+    <strong>📌 数据来源与口径说明（截至 2026-11-12 15:00 收盘）：</strong><br>
+    ✅ 行情：<span class="info">80.32 元（-2.10%）</span>，前收 82.04 元、开盘 82.00 元、最高 82.03 元、最低 80.30 元，成交额 26.69 亿元、换手率 0.95%、量比 1.27 · 总市值 <span class="info">7322.93 亿元</span>、A 股流通市值 2800.81 亿元、总股本 91.17 亿股、A 股流通 34.87 亿股 · 来源：腾讯财经收盘快照<br>
+    ✅ 估值：<span class="ok">PE-TTM 23.15x</span>（腾讯口径，对应 TTM 归母 316.31 亿元）、<span class="ok">PB 2.94x</span>（对应普通股权益约 2490 亿元，已剔除 170.8 亿元永续债）、<span class="ok">股息率 0.45%</span>（2025 年度每 10 股派 3.58 元，除权日 2026-07-31）· 交叉核对：东方财富 PE(动) 24.58x 为 2026 年一致预期净利年化口径，与腾讯 TTM 口径差异源于分母不同，非数据冲突<br>
+    ✅ 估值分位：基于 2021-11-12 至 2026-11-11 共 1211 个交易日日频 PE-TTM / PB 样本自算——PE-TTM 区间 17.0–284.6x、中位 29.0x，当前 23.15x 对应 <span class="warn">23.1% 分位</span>；PB 区间 2.93–10.98x、中位 5.33x，当前 2.94x 对应 <span class="ok">0.1% 分位（近 5 年最低区）</span><br>
+    ✅ 价格区间与阶段涨幅（前复权）：52 周 <span class="warn">77.24–111.46 元</span>（低点 2026-06-29，高点 2026-03-23）；近 1 月 -2.33%、近 3 月 -11.16%、近 6 月 -16.02%、近 1 年 -20.02%、年初至今 -17.50%（2025-12-31 收盘 97.36 元）<br>
+    ✅ 财务口径：<span class="warn">2026 年第三季度报告（2026-10-30 披露）</span>——前三季度营收 5663.04 亿元（+0.01%）、归母 223.45 亿元（-4.24%）、扣非 210.04 亿元（+2.51%）、毛利率 18.52%、经营现金流 544.7 亿元（+33.36%）；Q3 单季营收 2214.88 亿元（+13.59%）、归母 100.20 亿元（<span class="ok">+28.08%</span>）、扣非 86.30 亿元（+25.25%）、毛利率 18.01%、非经常性损益 13.89 亿元（占归母 13.9%）<br>
+    ✅ 年度数据：2024 年营收 7771.02 亿元（+29.0%）、归母 402.54 亿元（+34.0%）；2025 年营收 8039.65 亿元（+3.5%）、归母 326.19 亿元（<span class="danger">-19.0%</span>）、扣非 294.46 亿元（-20.4%）、毛利率 17.74%、ROE 15.31%、经营现金流 591.4 亿元、资本开支 1568.1 亿元（自由现金流 <span class="danger">-976.7 亿元</span>）<br>
+    ✅ 销量：2026 年 1-9 月 <span class="warn">313.16 万辆（-3.94%）</span>，其中海外 133 万辆（<span class="ok">+91%</span>）、国内约 180.16 万辆（<span class="danger">约 -29.6%</span>）；10 月 49.02 万辆（+10.97%）、海外 16.96 万辆（+103%，占比 34.6%）；1-10 月累计 362.17 万辆（-2.16%）、海外 150.74 万辆（占 41.6%）· 来源：公司产销快报<br>
+    ✅ 行业：2026 年 10 月乘用车零售 164.3 万辆（<span class="danger">-27.1% YoY</span>、+1.5% MoM），1-10 月 1497.8 万辆（-22.3%）；10 月新能源渗透率 67.5% 创历史新高，燃油车零售 -45% · 来源：乘联会<br>
+    ✅ 同业 2026 前三季度（东方财富快照）：上汽 600104 归母 56.4 亿元（-30.4%）、长城 601633 归母 38.3 亿元（-55.7%）、长安 000625 归母 0.6 亿元（-98.1%）、赛力斯 601127 归母 -3.0 亿元（-105.6%）；比亚迪 223.45 亿元为四家合计的 2.4 倍<br>
+    ✅ 股东结构（2026-09-30）：王传福 16.90%、吕向阳 7.87% + 融捷集团 5.11%（一致行动）+ 夏佐全 2.72%，实控人方合计 <span class="info">32.60%</span>；HKSCC 40.38%、香港中央结算 1.99%、社保基金一一四组合 0.60%（5470 万股）；股东户数 71.11 万户（较 6 月末 +8.5%，散户化加剧）<br>
+    ⚠️ 资金流：近 5 日主力净流出 7.56 亿元、近 20 日净流出 16.63 亿元；11-11 单日主力净流出 4.59 亿元（超大单 -4.36 亿元）· 来源：东方财富资金流<br>
+    ⚠️ 数据缺口：① 融资余额与融券余额未取得；② 公募基金 / 社保 / QFII 2026Q3 全量持仓明细未取得（仅股东榜可见社保一一四组合）；③ 北向资金仅季度披露（HKSCC 口径），日内/月度不可得；④ 2026Q3 分部毛利率、分地区收入未披露；⑤ 2027–2028 年盈利预测仅单家券商口径，本报告另用自估情景交叉校验；⑥ 单车净利 7,573 元为券商测算值，公司未披露<br>
+    ⚠️ 口径说明：本报告价格类指标除特别注明外均为前复权价；2025 年 7 月实施「每 10 股送 8 股转增 12 股派 39.74 元」后总股本由 30.39 亿股增至 91.17 亿股（另含 H 股配售），2021–2024 年每股指标不可直接与 2025 年后比较。
+  </div>
+
+  <div class="theme-banner warn">
+    <div class="icon">🚗</div>
+    <div class="text">
+      <h3>11 方法论交叉结论：最坏时刻大概率已过，但"利润修复"尚未穿透到"估值修复" —— 加权 5.2/10（谨慎买入）</h3>
+      <p>
+        <b style="color:#34d399">基本面出现确定性拐点</b>：2026Q3 单季营收 2214.88 亿元（+13.59%）、归母 100.20 亿元（<b>+28.08%</b>），结束了连续 4 个季度的利润负增长；前三季度经营现金流 544.7 亿元（+33.36%），显著优于净利润（223.45 亿元），现金含量 2.44 倍。驱动来自结构切换而非行业回暖——1-9 月国内销量约 -29.6%，但海外 133 万辆（<b>+91%</b>）占比升至 42.5%，10 月单月海外占比已达 34.6% 且同比 +103%；高端品牌（仰望/腾势/方程豹）1-9 月 41 万辆（+75%），占比 13%。海外单车利润接近 1.6 万元、国内仅数千元，产品结构上移直接解释了毛利率从 2025Q3 的 17.61% 修复至 18.01%。<br><br>
+        <b style="color:#fbbf24">但三重压制仍未解除</b>：① <b>行业总量在收缩</b>——2026 年 10 月乘用车零售 -27.1%，1-10 月 -22.3%，购置税减半退坡后的需求真空尚未填平，价格战虽被《汽车行业价格行为合规指南》约束但未消失；② <b>资本开支吞噬自由现金流</b>——2025 年资本开支 1568 亿元、FCF -977 亿元，2026 前三季度仍为 -329 亿元，分红率从 2024 年的 30% 降至 2025 年的 10%（每 10 股 3.58 元），股息率仅 0.45%，"重资产扩张 + 低分红"的组合在利率下行期不受资金偏爱；③ <b>存货与减值压力</b>——9 月末存货 2215.8 亿元（较年初 +60%），前三季度资产减值 27.10 亿元（+67.6%，主要为存货跌价），说明渠道去库尚未结束。<br><br>
+        <b style="color:#7dd3fc">估值给出了极强的保护，但也给出了警告</b>：PB 2.94x 处于近 5 年 <b>0.1% 分位</b>（历史最低区），PE-TTM 23.15x 处 23.1% 分位，均低于 2024 年高点的一半以上。市场用"PB 历史最低"表达两件事：<b>一是资产回报率在下行</b>（ROE 从 2024 年 26.05% 降至 2025 年 15.31%、2026 前三季度年化约 11.2%），<b>二是重资产模式的估值范式在切换</b>——从"成长股 PE"向"制造业 PB"迁移。<br><br>
+        <b style="color:#7dd3fc">操作倾向：</b>现价 80.32 元<b style="color:#fbbf24">不追、不空，分批左侧</b>——均线空头排列（MA20 82.98 / MA60 85.35 / MA250 92.57 全部压制），主力资金近 20 日净流出 16.63 亿元。建议 <b>76–78 元建第一批（1.5%）、70–73 元第二批（1.5%）、国内销量同比转正后追加第三批（1.0%），单股上限 4%</b>；70 元减半、65 元清仓。真正的右侧信号是<b>国内月度销量同比转正 + 单季毛利率站稳 18.5% 以上</b>，二者未同时出现前不重仓。
+      </p>
+    </div>
+  </div>
+
+  <div class="section-title">📊 模块 1 · 基础画像（30 秒速览）</div>
+  <div class="section-subtitle">数据日期：2026-11-12 收盘 · 来源：腾讯财经 / 东方财富 / 公司三季报 / 乘联会</div>
+
+  <div class="dashboard">
+    <div class="index-card mid">
+      <div class="name">股票名称</div>
+      <div class="value" style="font-size:17px;">比亚迪</div>
+      <div class="change">代码 002594</div>
+      <div class="label">深交所主板 · A+H 两地上市</div>
+    </div>
+    <div class="index-card mid">
+      <div class="name">所属行业</div>
+      <div class="value" style="font-size:16px;">汽车整车</div>
+      <div class="change">新能源乘用车</div>
+      <div class="label">申万二级 · 全球销量第一</div>
+    </div>
+    <div class="index-card danger">
+      <div class="name">当前股价</div>
+      <div class="value">80.32</div>
+      <div class="change">-2.10%（-1.72 元）</div>
+      <div class="label">2026-11-12 收盘 · 前复权</div>
+    </div>
+    <div class="index-card mid">
+      <div class="name">总市值</div>
+      <div class="value">7322.93 亿</div>
+      <div class="change">A 股流通 2800.81 亿</div>
+      <div class="label">总股本 91.17 亿股 / 流通 34.87 亿股</div>
+    </div>
+    <div class="index-card warn">
+      <div class="name">PE-TTM</div>
+      <div class="value">23.15x</div>
+      <div class="change">5 年 23.1% 分位</div>
+      <div class="label">TTM 归母 316.31 亿元</div>
+    </div>
+    <div class="index-card ok">
+      <div class="name">PB</div>
+      <div class="value">2.94x</div>
+      <div class="change">5 年 0.1% 分位</div>
+      <div class="label">近 5 年最低区 · 剔除永续债</div>
+    </div>
+    <div class="index-card danger">
+      <div class="name">股息率</div>
+      <div class="value">0.45%</div>
+      <div class="change">派息率仅 10.0%</div>
+      <div class="label">2025 年度 10 派 3.58 元</div>
+    </div>
+    <div class="index-card danger">
+      <div class="name">52 周区间</div>
+      <div class="value" style="font-size:15px;">77.24–111.46</div>
+      <div class="change">距低点 +4.0%</div>
+      <div class="label">高点 2026-03-23 / 低点 2026-06-29</div>
+    </div>
+    <div class="index-card warn">
+      <div class="name">近 1 月 / 近 3 月</div>
+      <div class="value" style="font-size:17px;">-2.33%</div>
+      <div class="change">近 3 月 -11.16%</div>
+      <div class="label">均线空头排列</div>
+    </div>
+    <div class="index-card danger">
+      <div class="name">近 1 年 / 年初至今</div>
+      <div class="value" style="font-size:17px;">-20.02%</div>
+      <div class="change">YTD -17.50%</div>
+      <div class="label">2025-12-31 收盘 97.36 元</div>
+    </div>
+    <div class="index-card ok">
+      <div class="name">2026Q3 单季营收</div>
+      <div class="value" style="font-size:19px;">2214.88 亿</div>
+      <div class="change">+13.59% YoY</div>
+      <div class="label">环比 +11.6% · 增速转正</div>
+    </div>
+    <div class="index-card ok">
+      <div class="name">2026Q3 单季归母</div>
+      <div class="value" style="font-size:19px;">100.20 亿</div>
+      <div class="change">+28.08% YoY</div>
+      <div class="label">结束连续 4 季负增长</div>
+    </div>
+    <div class="index-card mid">
+      <div class="name">1-9 月销量</div>
+      <div class="value" style="font-size:19px;">313.16 万辆</div>
+      <div class="change">-3.94%（海外 +91%）</div>
+      <div class="label">海外 133 万辆 · 占 42.5%</div>
+    </div>
+    <div class="index-card warn">
+      <div class="name">2026E PE</div>
+      <div class="value">22.2x</div>
+      <div class="change">自估归母 330 亿元</div>
+      <div class="label">券商口径 20.7x / 354 亿元</div>
+    </div>
+  </div>
+
+  <div class="section-title warn">🎯 模块 2 · 综合评级（一句话定位）</div>
+
+  <div class="final-verdict">
+    <h2>⚖️ 11 方法论加权综合评级</h2>
+    <div class="rating">谨慎买入</div>
+    <div style="color:#fbbf24; font-size:15px; font-weight:700; margin:8px 0;">
+      （利润拐点确认 · 出海与高端化兑现 · PB 历史最低 · 但国内需求萎缩 + FCF 持续为负，只宜分批左侧）
+    </div>
+    <div class="comment">
+      加权综合得分 <b style="color:#fbbf24">5.19 / 10</b>（Σ 得分×权重 = 545，权重合计 105%，归一化后 ÷1.05）。方法论分歧极大，这是本标的的核心特征：<b>马克斯周期 7 分</b>（行业出清右侧、公司份额逆势提升）、<b>林奇 PEG 6 分</b>（PEG 约 0.75–0.80）、<b>邓普顿逆向 6 分</b>（PB 0.1% 分位、情绪冰点）、<b>巴菲特护城河 6 分</b>（垂直整合 + 规模成本优势，但 ROIC 下滑）、<b>费雪成长 5 分</b>（海外复利仍在，国内成长失速）、<b>博格 5 分 / 索罗斯 5 分</b>（不是指数标的，反身性负向循环尚未打破）、<b>达里奥 4 分 / 凯恩斯 4 分</b>（重资产 + 低分红 + 资金持续流出）、<b>格雷厄姆 3 分</b>（PE 23x、PB 2.9x 远高于格雷厄姆标准）、<b>西蒙斯 3 分</b>（动量因子全面为负）。<br>
+      <b style="color:#7dd3fc">结论落在"谨慎买入"而非"买入"的关键原因：</b>利润拐点是真的，估值保护是真的，但<b>自由现金流为负 + 分红率降至 10% + 国内销量仍在双位数下滑</b>三项叠加，使"拐点"缺乏自我强化的现金基础。5.2 分对应 ≤5% 仓位上限，本报告建议实际控制在 <b>4%</b>。
+    </div>
+  </div>
+
+  <div class="section-title info">📐 模块 3 · 估值维度（格雷厄姆 + 邓普顿）</div>
+  <div class="section-subtitle">"价格是你付出的，价值是你得到的" —— 格雷厄姆 · 当前 PE 处 5 年 23.1% 分位、PB 处 0.1% 分位</div>
+
+  <div class="safety-bar">
+    <div class="safety-title">📐 标的估值区间（PB 口径为主，PE 为辅）</div>
+    <div class="safety-track">
+      <div class="safety-seg seg-deep">&lt; 2.5x · 深度价值区</div>
+      <div class="safety-seg seg-current">2.5–4.0x · 当前 2.94x</div>
+      <div class="safety-seg seg-over">&gt; 4.0x · 偏贵 / 透支</div>
+    </div>
+    <div class="safety-marks">
+      <span><strong>深度价值区</strong> · PB &lt; 2.5x（对应股价 68 元以下）</span>
+      <span><strong>当前</strong> · PB 2.94x / PE-TTM 23.15x</span>
+      <span><strong>透支区</strong> · PB &gt; 4.0x（对应 2025 年均值）</span>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-title">📊 同业 4 家可比公司估值对比（2026 前三季度，东方财富快照 2026-11-12）</div>
+    <table class="compare-table">
+      <thead>
+        <tr><th>公司</th><th>代码</th><th>主营定位</th><th>9M 营收（亿）</th><th>9M 归母（亿）</th><th>9M 毛利率</th><th>PE-TTM</th><th>PB</th><th>总市值（亿）</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b style="color:#7dd3fc">比亚迪</b></td><td class="hl">002594</td><td>新能源乘用车 + 电池 + 电子</td>
+          <td class="ok">5663.0</td><td class="ok">223.45（-4.2%）</td><td class="mid">18.52%</td>
+          <td class="warn">23.15x</td><td class="warn">2.94x</td><td class="mid">7323</td>
+        </tr>
+        <tr>
+          <td>上汽集团</td><td class="hl">600104</td><td>合资 + 自主，燃油为主</td>
+          <td>4552.2</td><td>56.4（-30.4%）</td><td class="danger">11.9%</td>
+          <td class="ok">15.04x</td><td class="ok">0.38x</td><td>1150</td>
+        </tr>
+        <tr>
+          <td>长城汽车</td><td class="hl">601633</td><td>SUV / 皮卡 / 越野</td>
+          <td>1598.7</td><td>38.3（-55.7%）</td><td class="ok">18.0%</td>
+          <td class="warn">22.26x</td><td class="ok">1.29x</td><td>1125</td>
+        </tr>
+        <tr>
+          <td>长安汽车</td><td class="hl">000625</td><td>自主 + 合资，转型期</td>
+          <td>1018.8</td><td class="danger">0.6（-98.1%）</td><td class="warn">14.3%</td>
+          <td class="danger">63.28x</td><td class="ok">0.91x</td><td>683</td>
+        </tr>
+        <tr>
+          <td>赛力斯</td><td class="hl">601127</td><td>问界系列高端新能源</td>
+          <td>855.7</td><td class="danger">-3.0（-105.6%）</td><td class="ok">22.5%</td>
+          <td class="danger">211.77x</td><td class="warn">1.94x</td><td>736</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:12px; padding:12px; background:rgba(56,189,248,0.08); border-radius:8px; font-size:12px; color:#cbd5e1; line-height:1.65;">
+      💡 <b style="color:#7dd3fc">横向结论：</b>比亚迪 PB 2.94x 是同业最高（上汽 0.38x、长安 0.91x、长城 1.29x），PE 23.15x 则低于长安（63x）与赛力斯（212x，亏损失锚）。<b>这不是"便宜"，而是"贵得有理由但理由在变弱"</b>——高 PB 源于 2021–2024 年 ROE 峰值 26%，当 ROE 回落至 15% 时，2.94x PB 的合理性依赖"ROE 能否守住 15%"。若 ROE 进一步降至 10%，按 PB-ROE 匹配（PB ≈ ROE × 15），合理 PB 约 1.5–2.0x，对应股价 41–55 元——这是保守情景的下限来源。
+    </div>
+  </div>
+
+  <div class="theme-banner warn">
+    <div class="icon">🔍</div>
+    <div class="text">
+      <h3>安全边际测算：以 80.32 元买入，未来 12 个月三情景</h3>
+      <p>
+        <b>乐观情景（概率 25%）：</b>2026Q4 国内销量同比转正、海外全年达 180 万辆，2027E 归母 450 亿元 / PE 22–24x → <b>合理价 108–118 元（+34% ~ +47%）</b>；<br>
+        <b>中性情景（概率 45%）：</b>2027E 归母 400 亿元 / PE 18–20x → <b>合理价 79–88 元（-2% ~ +10%）</b>，即"当前价已基本反映中性预期"；<br>
+        <b>保守情景（概率 30%）：</b>国内价格战延续、2027E 归母回落至 300 亿元 / PE 14–16x → <b>合理价 46–53 元（-43% ~ -34%）</b>。<br><br>
+        <b style="color:#fbbf24">⚠️ 关键读数：</b>按概率加权（25%×113 + 45%×83.5 + 30%×49.5）= <b style="color:#34d399">80.6 元</b>，与现价 80.32 元几乎重合。这说明<b>市场定价是"公允"的，安全边际来自"乐观情景兑现"，而非"价格错杀"</b>——这是邓普顿逆向只能给 6 分而非 8 分的原因：PB 0.1% 分位描述的是"资产端情绪极值"，不是"盈利端错杀"。
+      </p>
+    </div>
+  </div>
+
+  <div class="section-title info">🚀 模块 4 · 成长性维度（费雪 + 林奇）</div>
+  <div class="section-subtitle">"寻找能持续多年销售与利润大幅增长的公司" —— 费雪 · 海外 +91% 是唯一仍在高速复利的引擎</div>
+
+  <div class="dashboard">
+    <div class="index-card ok">
+      <div class="name">PEG（自估口径）</div>
+      <div class="value">0.75–0.80</div>
+      <div class="change">PE 22.2x / 3Y 增速 28%</div>
+      <div class="label">林奇标准 &lt;1 为低估</div>
+    </div>
+    <div class="index-card warn">
+      <div class="name">营收 CAGR 2021–2025</div>
+      <div class="value">38.8%</div>
+      <div class="change">2161→8040 亿元</div>
+      <div class="label">但 2025 年仅 +3.5%（急刹）</div>
+    </div>
+    <div class="index-card danger">
+      <div class="name">归母 CAGR 2021–2025</div>
+      <div class="value">80.7%</div>
+      <div class="change">30.5→326.2 亿元</div>
+      <div class="label">2025 年 -19.0%，CAGR 已失真</div>
+    </div>
+    <div class="index-card ok">
+      <div class="name">海外销量（1-10 月）</div>
+      <div class="value">150.74 万</div>
+      <div class="change">占比 41.6%</div>
+      <div class="label">全年目标 180 万辆</div>
+    </div>
+    <div class="index-card ok">
+      <div class="name">高端品牌占比</div>
+      <div class="value">13%</div>
+      <div class="change">1-9 月 41 万辆 +75%</div>
+      <div class="label">仰望 / 腾势 / 方程豹</div>
+    </div>
+    <div class="index-card warn">
+      <div class="name">单车净利（Q3·券商测）</div>
+      <div class="value">7,573 元</div>
+      <div class="change">海外近 1.6 万 / 国内数千</div>
+      <div class="label">公司未披露，仅供参考</div>
+    </div>
+    <div class="index-card danger">
+      <div class="name">国内销量（1-9 月）</div>
+      <div class="value">约 -29.6%</div>
+      <div class="change">约 180.16 万辆</div>
+      <div class="label">行业同期 -22.3%，跑输大盘</div>
+    </div>
+  </div>
+
+  <div class="fin-table">
+    <div class="fin-row header">
+      <div>成长性指标</div>
+      <div>2023 / 2024 / 2025 / 2026 9M</div>
+      <div>费雪 + 林奇视角解读</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">营业收入（亿元）</div>
+      <div class="fin-val">6023.2 / 7771.0 / 8039.7 / 5663.0</div>
+      <div class="fin-comment">增速 42.0% → 29.0% → <b style="color:#f87171">3.5%</b> → <b style="color:#fbbf24">0.01%</b>。四年间从"高速成长"滑向"平台期"，这是费雪框架下最需警惕的形态：<b>成长股失速往往先于利润失速出现</b>（2025 年营收已失速，2026 年利润才转正）。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">归母净利润（亿元）</div>
+      <div class="fin-val">300.4 / 402.5 / 326.2 / 223.5</div>
+      <div class="fin-comment">2024 年见顶 402.5 亿元，2025 年回落 19.0%。9M2026 仍 -4.24%，但 <b style="color:#34d399">Q3 单季 +28.08%</b> 是 2025Q3 以来首个正增长季度，拐点信号确立但仍需 Q4 确认（2025Q4 归母 92.86 亿元为低基数）。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">毛利率</div>
+      <div class="fin-val">18.6% / 19.44% / 17.74% / <span style="color:#34d399">18.52%</span></div>
+      <div class="fin-comment">2025 年价格战打掉 1.7pct 毛利率，2026 年前三季度已修复 0.78pct。<b>驱动力不是涨价，而是"海外占比从 22.8% 升至 42.5% + 高端化"的产品结构上移</b>——这是可持续的（海外单车利润近 1.6 万 vs 国内数千）。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">研发费用（亿元）</div>
+      <div class="fin-val purple">395.8 / 532.0 / 579.8 / 362.8</div>
+      <div class="fin-comment">2025 年研发投入 634.41 亿元（费用化 579.78 亿元），累计研发投入超 2400 亿元、研发人员超 12 万人。<b>但 9M2026 研发费用 -17.1%</b>，是费用端"挤"出 Q3 利润的重要来源之一，需警惕技术投入节奏放缓。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">销量（万辆）</div>
+      <div class="fin-val">302.4 / 427.2 / 460.2 / 313.2</div>
+      <div class="fin-comment">2025 年 +7.73%（海外 104.9 万辆，+145%）；2026 年 1-9 月 -3.94%，<b>首次出现年度累计负增长</b>。10 月单月 +10.97% 转正，但主要由海外（+103%）贡献，国内仍为负。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">海外销量占比</div>
+      <div class="fin-val warn">约 8% / 10% / 22.8% / <span style="color:#34d399">42.5%</span></div>
+      <div class="fin-comment">三年提升 34.5pct，是费雪"15 问"中<b>唯一仍给出满分答案的成长引擎</b>。泰国（15 万辆）、匈牙利（2026Q2 投产，规避欧盟关税）、巴西、乌兹别克斯坦产能梯次落地，2027 年海外产能有望超 100 万辆。</div>
+    </div>
+  </div>
+
+  <div class="theme-banner warn">
+    <div class="icon">📈</div>
+    <div class="text">
+      <h3>成长性判断：从"高速成长"降档为"结构性成长" —— 出海复利仍在，国内进入存量博弈</h3>
+      <p>
+        <b>PEG 0.75–0.80 是"看起来便宜"的核心依据，但这个数字有两个陷阱：</b>① 分母用的是"未来 3 年净利复合增速约 28%"（券商口径 2025→2028 年 326→606 亿元），若 2027 年国内价格战延续导致净利只到 400 亿元，PEG 实为 1.1（不便宜）；② 2025 年净利是<b>下滑</b>年，用"下滑年"作基期会系统性抬高增速假设。<br>
+        <b>费雪框架的真实答案：</b>比亚迪的"研发规模 + 垂直整合 + 产品迭代速度"仍然是同业最强的，但<b>它已经不再是"能持续多年销售与利润大幅增长"的标的</b>——国内渗透率 67.5% 意味着增量空间收窄，接下来的成长必须靠"海外份额 + 高端化 + 储能/电子第二曲线"三条腿。三条腿中海外最强（+91%）、高端化次之（+75%）、储能电子尚未放量。<br>
+        <b>未来 12–24 个月催化剂：</b>① 匈牙利工厂 2026Q2 已投产，欧洲本地化降关税成本；② 第二代刀片电池 + 闪充（2026 年 3 月发布），国内 2 万座 / 海外 6000 座闪充站；③ 2026 年 5 月智能化战略（端到端智驾全系下放）；④ 硫化物全固态电池（480Wh/kg）中试线；⑤ 2027 年股东大会预告的"技术爆发"。<b>这些是"锦上添花"而非"雪中送炭"</b>——真正决定股价的是国内月销能否转正。
+      </p>
+    </div>
+  </div>
+
+  <div class="section-title info">🛡️ 模块 5 · 护城河与生意本质（巴菲特 + 费雪）</div>
+  <div class="section-subtitle">"真正伟大的生意必须有持久的护城河" —— 巴菲特 · 但 ROIC 从 18.61% 降至年化约 7.9%，护城河正在被价格战侵蚀</div>
+
+  <div class="table-card">
+    <div class="table-title">🛡️ 护城河七维评估</div>
+    <table class="compare-table">
+      <thead>
+        <tr><th>护城河类型</th><th>强度</th><th>关键证据</th><th>评级</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>垂直整合 / 成本优势</b></td><td class="ok">强</td>
+          <td>电池（弗迪）、电机、电控、IGBT / SiC 自供率行业最高；整车 BOM 成本较外购方案低约 10–15%；2026Q3 在价格战环境下毛利率仍修复至 18.01%</td>
+          <td class="ok">⭐⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+          <td><b>规模效应</b></td><td class="ok">强</td>
+          <td>2025 年销量 460.24 万辆全球新能源第一；2026 年 1-10 月 362.17 万辆，为国内第二名约 3 倍；研发费用 579.78 亿元（2025）可摊薄至单车上万元</td>
+          <td class="ok">⭐⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+          <td><b>技术迭代能力</b></td><td class="ok">中强</td>
+          <td>刀片电池 / DM-i / e 平台 3.0 / 易四方 / 云辇；第二代刀片电池 + 闪充 2026 年 3 月发布；硫化物全固态 480Wh/kg 中试；累计研发投入超 2400 亿元、研发人员超 12 万</td>
+          <td class="ok">⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+          <td><b>渠道与补能网络</b></td><td class="ok">强</td>
+          <td>国内 4000+ 门店、覆盖至县级；闪充站规划国内 2 万座 + 海外 6000 座；海外经销网络在 110+ 国家铺开</td>
+          <td class="ok">⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+          <td><b>产业链议价能力</b></td><td class="warn">中强</td>
+          <td>9M2026 应付账款 1727.1 亿元 + 应付票据 788.6 亿元，合计 2515.7 亿元，占营业成本约 55%；2025 年 6 月起公开承诺供应商账期 60 天，议价能力受政策约束</td>
+          <td class="warn">⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+          <td><b>品牌溢价</b></td><td class="warn">中等</td>
+          <td>仰望 U8/U9 打开 100 万级市场、腾势 D9 稳居 MPV 第一，但主品牌"比亚迪"仍以性价比为标签；高端品牌 1-9 月 41 万辆仅占 13%，尚未形成"品牌税"</td>
+          <td class="warn">⭐⭐⭐</td>
+        </tr>
+        <tr>
+          <td><b>转换成本 / 客户黏性</b></td><td class="danger">弱</td>
+          <td>整车为一次性购买决策，复购周期 5–8 年，无软件订阅型锁定；智驾 / 车机生态尚未形成"换车即损失"的迁移成本</td>
+          <td class="danger">⭐⭐</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fin-table">
+    <div class="fin-row header">
+      <div>回报率指标</div>
+      <div>2023 / 2024 / 2025 / 2026 9M</div>
+      <div>巴菲特视角解读</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">ROE（加权）</div>
+      <div class="fin-val">24.40% / 26.05% / 15.31% / <span style="color:#fbbf24">8.72%</span></div>
+      <div class="fin-comment">三年从 26.05% 腰斩至 15.31%，2026 前三季度年化约 11.2%。<b style="color:#f87171">巴菲特标准：ROE 连续 3 年 &gt;15% 才算优秀</b>，比亚迪 2026 年大概率失守。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">ROIC</div>
+      <div class="fin-val">17.28% / 18.61% / 10.74% / <span style="color:#f87171">5.91%</span></div>
+      <div class="fin-comment">ROIC 下滑速度快于 ROE，说明<b>问题不只在盈利端，更在资本占用端</b>——2025 年资本开支 1568 亿元（同比 +61%）形成大量在建工程（9M2026 达 791.8 亿元），尚未产生回报。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">毛利率波动率</div>
+      <div class="fin-val">18.6% → 19.44% → 17.74% → 18.52%</div>
+      <div class="fin-comment">四年区间 17.74%–19.44%，波幅仅 1.7pct，<b>在价格战年份仍能守住 17.7% 底线</b>，这是垂直整合护城河最硬的证据。但毛利率天花板已现：2026Q3 的 18.01% 低于 2024 年均值。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">净利率</div>
+      <div class="fin-val">4.99% / 5.18% / 4.20% / 3.98%</div>
+      <div class="fin-comment">净利率不足 5%，是典型"重资产制造 + 高周转"模型：<b>每 100 元收入只留 4 元利润，任何 1pct 的毛利率波动都会被放大 25%</b>。这决定了它不适合用"品质成长股"框架，只适合"周期成长"框架。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">行业地位</div>
+      <div class="fin-val ok">全球新能源第一</div>
+      <div class="fin-comment">2025 年全球新能源乘用车份额约 22%，2026 年 1-10 月国内新能源份额约 30%（乘联会口径）。<b>但份额正在被侵蚀</b>：2025 年国内份额约 33%，2026 年降至约 30%。</div>
+    </div>
+  </div>
+
+  <div class="theme-banner warn">
+    <div class="icon">🛡️</div>
+    <div class="text">
+      <h3>护城河结论：狭窄偏宽（成本型护城河），但"宽度"在收窄</h3>
+      <p>
+        <b>巴菲特框架下，比亚迪拥有的是"成本优势型护城河"而非"品牌/转换成本型护城河"。</b>成本型护城河的特点是：<b>在行业上行期能放大利润（2022–2024 年 ROE 从 3.73% 冲到 26.05%），在行业下行期只能守住份额、守不住利润率</b>——这正是 2025–2026 年发生的事：份额守住了（全球第一），利润掉了 19%，ROIC 从 18.61% 掉到年化 7.9%。<br>
+        <b>七维打分中，5 项强、1 项中、1 项弱</b>：垂直整合、规模、技术、渠道、议价都成立，品牌溢价刚起步，转换成本几乎没有。因此<b>它不是"可以永久持有的复利机器"，而是"必须在周期低位买入、周期高位卖出的成本领先者"</b>——这直接决定了本报告给巴菲特 6 分（而非 8 分）与马克斯 7 分（最高分）。
+      </p>
+    </div>
+  </div>
+
+  <div class="section-title info">💰 模块 6 · 财务质量体检（格雷厄姆 + 凯恩斯）</div>
+  <div class="section-subtitle">"股票代表企业的所有权" —— 格雷厄姆 · 利润表修复已确认，资产负债表压力仍在扩大</div>
+
+  <div class="fin-table">
+    <div class="fin-row header">
+      <div>财务指标</div>
+      <div>2024 / 2025 / 2026 9M</div>
+      <div>格雷厄姆 + 凯恩斯视角</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">营业收入（亿元）</div>
+      <div class="fin-val">7771.0 / 8039.7 / 5663.0</div>
+      <div class="fin-comment">同比 +29.0% / +3.5% / +0.01%。<b style="color:#fbbf24">营收停增</b>是凯恩斯"选美"逻辑里最致命的信号——市场交易的是"边际变化"，而边际变化为零。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">归母净利润（亿元）</div>
+      <div class="fin-val">402.5 / 326.2 / 223.5</div>
+      <div class="fin-comment">同比 +34.0% / <span style="color:#f87171">-19.0%</span> / -4.24%。但 Q3 单季 +28.08%，是拐点的第一个实锤；<b>需 Q4 再验证一个季度</b>才能确认趋势。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">扣非归母（亿元）</div>
+      <div class="fin-val">369.8 / 294.5 / 210.0</div>
+      <div class="fin-comment">9M2026 扣非 +2.51%，<b>已先于归母转正</b>（归母 -4.24%），说明主业在改善、拖累来自非经常性项目（去年同期基数含政府补助等）。Q3 非经常性 13.89 亿元占归母 13.9%，比例偏高。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">经营现金流（亿元）</div>
+      <div class="fin-val ok">1334.5 / 591.4 / 544.7</div>
+      <div class="fin-comment">9M2026 +33.36%，<b>OCF / 归母 = 2.44 倍</b>，远超"&gt;1 优秀"标准。这是本报告认为"利润拐点是真的"的核心证据：<b>利润有现金支撑，不是会计游戏</b>。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">自由现金流（亿元）</div>
+      <div class="fin-val">+360.9 / <span style="color:#f87171">-976.7</span> / -329.1</div>
+      <div class="fin-comment">2025 年资本开支 1568 亿元（+61%）导致 FCF 转负；9M2026 资本开支 873.8 亿元，FCF 仍 -329.1 亿元。<b style="color:#f87171">连续 6 个季度自由现金流为负</b>，是巴菲特框架下最大的扣分项。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">资产负债率</div>
+      <div class="fin-val warn">74.64% / 70.74% / 70.62%</div>
+      <div class="fin-comment">格雷厄姆标准 &lt;60%（制造业），比亚迪长期在 70% 以上。<b>但需拆分：有息负债率仅 11.88%（9M2026），负债主体是应付账款 + 应付票据 + 合同负债（合计 3445.2 亿元）</b>——这是"占用上游资金"的经营性负债，不是偿债风险。剔除后实际财务杠杆温和。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">有息负债（亿元）</div>
+      <div class="fin-val">— / 有息负债率 14.66% / 约 966</div>
+      <div class="fin-comment">9M2026 短期借款 186.7 + 长期借款 594.8 + 应付债券 149.9 + 一年内到期 34.9 ≈ 966 亿元，对应有息负债率 11.88%，<b>较 2025 年末下降 2.78pct</b>，是财务端的正向边际变化。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">应收账款（亿元）</div>
+      <div class="fin-val warn">623.0 / 370.0 / 564.7</div>
+      <div class="fin-comment">9M2026 较年初 <b style="color:#fbbf24">+52.6%</b>，与营收零增长背离，需跟踪（海外账期较长 + 补贴款结算节奏 <b>为推测，公司未披露明细</b>）。前三季度信用减值损失 -9.44 亿元（+204.9%），已在计提。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">存货（亿元）</div>
+      <div class="fin-val danger">1160.4 / 1384.2 / 2215.8</div>
+      <div class="fin-comment">9M2026 较年初 <b style="color:#f87171">+60.1%</b>，按营业成本测算周转天数约 130 天（2025 年约 76 天）。<b>两种解释：一是 Q4 旺季备货 + 海外海运在途；二是渠道去库不畅。</b>前三季度资产减值 -27.10 亿元（+67.6%，主要为存货跌价）倾向于后者，这是本报告给财务质量"瑕疵"定性的直接依据。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">商誉 / 总资产</div>
+      <div class="fin-val ok">44.3 亿 / 9489.4 亿 = 0.47%</div>
+      <div class="fin-comment">远低于 10% 健康线，无并购商誉减值风险。这是资产负债表难得的"干净"项。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">流动比率</div>
+      <div class="fin-val danger">0.84</div>
+      <div class="fin-comment">低于 1，短期偿债依赖"持续经营 + 供应链信用"。虽有 309.9 亿元货币资金 + 407.4 亿元交易性金融资产，但<b>流动资产覆盖流动负债能力偏紧</b>，是重资产扩张期的典型特征。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">财务费用（亿元）</div>
+      <div class="fin-val danger">9M2026 +73.68（去年 -29.36）</div>
+      <div class="fin-comment">同比 -350.98%，<b>主要来自汇兑损失</b>（海外收入占比升至 42.5%，人民币兑欧元/雷亚尔/泰铢波动放大）。这意味着<b>出海越成功，汇率波动对利润的扰动越大</b>——这是新出现的一类风险。</div>
+    </div>
+  </div>
+
+  <div class="theme-banner danger">
+    <div class="icon">💰</div>
+    <div class="text">
+      <h3>财务质量判断：财务瑕疵（利润表修复 + 现金流量表健康，但资产负债表在扩表）</h3>
+      <p>
+        <b>三张表给出的信号是分裂的：</b>利润表（Q3 归母 +28.08%、毛利率修复至 18.01%）与现金流量表（OCF 544.7 亿元、+33.36%、OCF/NP 2.44 倍）都在改善，但资产负债表在快速扩表——存货 +60.1%、应收账款 +52.6%、在建工程 791.8 亿元、总资产 9489.4 亿元。<br>
+        <b>凯恩斯框架下的判断：</b>这不是"财务造假"型风险（OCF 远超净利，排除），而是<b>"扩张期营运资本占用"型风险</b>——公司把赚到的现金全部投回产能（873.8 亿元资本开支）与库存（+831.6 亿元），因此股东拿不到自由现金流，分红率只能从 30% 降到 10%。<br>
+        <b>结论：财务瑕疵，不是财务风险。</b>关键分水岭在 2027 年：若资本开支从 1500 亿级回落到 800 亿级、存货周转恢复至 90 天以内，FCF 将转正，估值范式可从"PB 制造业"切回"PE 成长"，对应 30%+ 的重估空间；反之若存货继续膨胀，减值会持续吞噬利润。
+      </p>
+    </div>
+  </div>
+
+  <div class="section-title">👥 模块 7 · 管理层与公司治理（费雪 15 问精简版）</div>
+  <div class="section-subtitle">"管理层是否诚实、能干、以股东利益为导向" —— 费雪 · 创始人控制稳定，但分红率与质押是两块瑕疵</div>
+
+  <div class="table-card">
+    <div class="table-title">🧭 管理层与治理关键事项（截至 2026-09-30）</div>
+    <table class="compare-table">
+      <thead>
+        <tr><th>维度</th><th>关键事实</th><th>评估</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>实控人与控制权</b></td>
+          <td>王传福直接持股 16.90%（15.41 亿股，其中限售 11.56 亿股）；吕向阳 7.87% + 融捷集团 5.11%（表兄弟一致行动）+ 夏佐全 2.72%，实控人方合计 <b>32.60%</b>。HKSCC 名义持股 40.38%（H 股集合托管，非单一股东）</td>
+          <td class="ok">⭐⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+          <td><b>创始人技术背景</b></td>
+          <td>王传福为教授级高级工程师、电池专家出身，1995 年创立比亚迪，30 年主导技术路线（镍镉→锂电→刀片→固态）；技术决策链条短，战略定力强</td>
+          <td class="ok">⭐⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+          <td><b>研发投入强度</b></td>
+          <td>2025 年研发投入 634.41 亿元（费用化 579.78 亿元，占营收 7.21%）；累计研发投入超 2400 亿元；研发人员超 12 万人（全球车企最多）。但 <b style="color:#fbbf24">9M2026 研发费用 362.77 亿元，同比 -17.1%</b></td>
+          <td class="ok">⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+          <td><b>股东回报</b></td>
+          <td>2024 年度每 10 股派 39.74 元（120.77 亿元，派息率 30.0%）；<b style="color:#f87171">2025 年度降至每 10 股派 3.58 元（32.64 亿元，派息率仅 10.0%）</b>；2025 年 7 月实施 10 送 8 转增 12（总股本 30.39 亿 → 91.17 亿股）</td>
+          <td class="warn">⭐⭐⭐</td>
+        </tr>
+        <tr>
+          <td><b>员工激励</b></td>
+          <td>2025 年员工持股计划 3214 万股（覆盖核心骨干）；历次限制性股票 / 期权激励行权条件与销量、净利挂钩，历史完成率良好</td>
+          <td class="ok">⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+          <td><b>股东质押</b></td>
+          <td>吕向阳质押 1.384 亿股、融捷集团质押 4451 万股、夏佐全质押 762 万股，<b>合计约 1.905 亿股，占实控人方持股约 6.4%</b>，比例不高但需跟踪</td>
+          <td class="warn">⭐⭐⭐</td>
+        </tr>
+        <tr>
+          <td><b>重要股东变动</b></td>
+          <td>伯克希尔·哈撒韦 2025Q1 完成清仓（2008 年 2.32 亿港元入股，17 年累计减持 1.71 亿股，回报约 30 倍）；社保基金一一四组合 9 月末持股 5470 万股（0.60%），为前十唯一公募类长线资金</td>
+          <td class="warn">⭐⭐⭐</td>
+        </tr>
+        <tr>
+          <td><b>散户化程度</b></td>
+          <td>股东户数 71.11 万户（A 股 71.10 万户），较 2026 年 6 月末增加约 8.5%，<b>筹码分散度上升、机构筹码下降</b>，与股价阴跌互为因果</td>
+          <td class="danger">⭐⭐</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:14px; padding:12px; background:rgba(56,189,248,0.10); border-radius:8px; font-size:12px; color:#cbd5e1; line-height:1.65;">
+      💡 <b style="color:#7dd3fc">治理结论：基本可信，但"股东回报"是明确扣分项。</b>加分项：创始人技术出身 + 32.60% 控制权稳定 + 研发强度全球车企第一 + 无违规记录 + 商誉干净。扣分项：<b>① 分红率从 30% 骤降至 10%</b>（理由是资本开支与海外建厂，逻辑成立但对股息型资金不友好）；② 伯克希尔清仓 + 股东户数 +8.5%，说明长线资金在撤、散户在接；③ 实控人方 1.9 亿股质押虽比例不高，但在股价接近一年低位时是潜在压力点。
+    </div>
+  </div>
+
+  <div class="section-title">🌐 模块 8 · 行业与周期定位（马克斯 + 达里奥）</div>
+  <div class="section-subtitle">"周期永远不会消失，理解周期是投资最重要的事" —— 霍华德·马克斯 · 行业处于"总量收缩 + 渗透率见顶 + 格局出清"的三重拐点</div>
+
+  <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-bottom:24px;">
+    <div class="table-card" style="margin-bottom:0;">
+      <div class="table-title">📉 行业周期定位：下行末端 / 出清前夜</div>
+      <div class="fin-comment" style="line-height:1.75;">
+        <b>总量：</b>2026 年 10 月乘用车零售 164.3 万辆（<b style="color:#f87171">-27.1% YoY</b>、+1.5% MoM），1-10 月 1497.8 万辆（-22.3%）。连续 10 个月两位数负增长，10 月燃油车零售 -45%。<br>
+        <b>渗透率：</b>10 月新能源渗透率 <b style="color:#34d399">67.5% 创历史新高</b>——这是关键信号：<b>渗透率红利已基本兑现完毕</b>，2020–2024 年"新能源替代燃油"的行业 β 消失，2026 年起进入"新能源内部存量竞争"。<br>
+        <b>政策：</b>2026 年起购置税由免征改为<b>减半征收（上限 1.5 万元/辆，执行至 2027 年底）</b>，直接抬高购车成本约 1–1.5 万元，是 2026 年需求塌陷的政策主因；反面看，政策已"退坡到底"，2028 年后无进一步退坡空间。<br>
+        <b>价格战：</b>2026 年 2 月市场监管总局发布《汽车行业价格行为合规指南》，明确禁止低于成本价倾销；2025 年 6 月起主流车企集体承诺供应商 60 天账期。<b>行政约束正在替代市场出清</b>——这会让出清过程更慢、更温和，但也更可预期。<br>
+        <b>马克斯定位：</b>行业处于"<b>下行周期的后段</b>"（成交量已从峰值回落 22%，价格战被约束，弱势品牌出清中），但<b>尚未到"绝望期"</b>——龙头仍在盈利、产能仍在扩张。周期位置给 7 分（不低）的核心逻辑是：<b>买在"悲观但未绝望"，卖在"乐观但未疯狂"</b>。
+      </div>
+    </div>
+    <div class="table-card" style="margin-bottom:0;">
+      <div class="table-title">🏛️ 政策环境与产业链位置</div>
+      <div class="fin-comment" style="line-height:1.75;">
+        <b>国内政策（中性偏空）：</b>购置税减半（2026–2027）已落地；双积分政策趋严利好纯电；"反内卷"行政指导约束价格战（利好龙头利润率，利空价格弹性）；以旧换新补贴退坡。<br>
+        <b>海外政策（分化）：</b>欧盟对中国电动车加征反补贴税（比亚迪税率约 17%，为抽样企业中较低档），<b>匈牙利工厂 2026Q2 已投产</b>是规避关税的关键落子；美国市场实质封闭（100% 关税）；东南亚、拉美、中东为增量主战场（泰国 15 万辆工厂满产、巴西、乌兹别克斯坦在建）。<br>
+        <b>产业链位置（中游整车 + 上游电池自供）：</b>比亚迪同时是"整车厂"与"电池厂"，在产业链中处于<b>最有利的纵向位置</b>——上游锂价下行时电池成本受益，下游价格战时整车份额受益。这也解释了为何在 2025–2026 年行业寒冬中，比亚迪是唯一"毛利率修复 + 份额提升"同时实现的整车厂。<br>
+        <b>达里奥框架：</b>当前处于"<b>国内债务去杠杆 + 全球贸易摩擦</b>"象限，对<b>内需可选消费（汽车）不利</b>，对<b>出海制造（有海外产能者）有利</b>。比亚迪是少数同时暴露在两个象限的标的，天然具备"内需空头 + 出海多头"的对冲结构，但<b>这也意味着它无法获得纯粹的内需复苏或纯粹的出海溢价</b>。
+      </div>
+    </div>
+  </div>
+
+  <div class="theme-banner warn">
+    <div class="icon">🌐</div>
+    <div class="text">
+      <h3>行业与周期结论：趋势向下但已近底部，龙头份额逆势提升 —— 马克斯框架下"可以开始买"，费雪框架下"不能再给成长估值"</h3>
+      <p>
+        <b>两条曲线的交叉是本标的的全部故事：</b>行业总量曲线向下（1-10 月 -22.3%、购置税退坡、渗透率见顶），比亚迪海外曲线向上（1-10 月 150.74 万辆、+91%、占比 41.6%）。2026 年公司总销量 -2.16%，<b>比行业 -22.3% 好 20 个百分点</b>，这是份额提升的直接证据（国内份额从 33% 降至约 30% 但仍是第二名的三倍，海外份额快速抬升）。<br>
+        <b>周期判断的三个时间尺度：</b><br>
+        · <b>短期（0–6 个月）：</b>Q4 是传统旺季 + 2027 年购置税政策明朗，国内销量有望同比转正，是股价的第一个催化窗口；<br>
+        · <b>中期（6–18 个月）：</b>行业出清进入尾声，弱势品牌（年销 &lt;10 万辆）将批量退出，龙头份额有望回到 35%+，毛利率随价格战缓和修复至 19–20%；<br>
+        · <b>长期（18 个月以上）：</b>行业进入"低速稳态"，估值范式彻底从 PE 切换到 PB-ROE，届时 2.9x PB 需要 15% ROE 支撑，<b>这是最大的不确定性</b>。
+      </p>
+    </div>
+  </div>
+
+  <div class="section-title">📡 模块 9 · 技术面与资金流（凯恩斯 + 索罗斯）</div>
+  <div class="section-subtitle">"市场选美理论：预测他人会选什么" —— 凯恩斯 · 均线全面空头排列，主力连续净流出，反身性负循环未破</div>
+
+  <div class="table-card">
+    <div class="table-title">📊 截至 2026-11-12 收盘技术结构</div>
+    <table class="compare-table">
+      <thead>
+        <tr><th>指标</th><th>数值</th><th>含义</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>收盘价</b></td><td class="danger">80.32 元（-2.10%）</td><td>跌破 82 元整数关口，收于全日次低（最低 80.30）</td></tr>
+        <tr><td><b>MA5 / MA10</b></td><td class="danger">83.39 / 83.91</td><td>短期均线在上方，价格偏离 MA5 约 -3.7%，短期超卖</td></tr>
+        <tr><td><b>MA20</b></td><td class="danger">82.98</td><td>月度成本线压制，10 月以来 3 次上攻均未站上</td></tr>
+        <tr><td><b>MA60 / MA120</b></td><td class="danger">85.35 / 87.78</td><td>季度线与半年线均向下发散，中期趋势明确向下</td></tr>
+        <tr><td><b>MA250（年线）</b></td><td class="danger">92.57</td><td>年线高悬于价格上方 15.3%，属"深度空头排列"，历史统计中需 2–3 个月修复</td></tr>
+        <tr><td><b>52 周高 / 低</b></td><td class="warn">111.46（2026-03-23）/ 77.24（2026-06-29）</td><td>距高点 -27.9%，距低点 +4.0%；<b>77.24 是过去一年唯一被验证的支撑</b></td></tr>
+        <tr><td><b>成交额 / 换手率</b></td><td class="warn">26.69 亿元 / 0.95%</td><td>低于近 3 个月日均约 32 亿元，属"缩量阴跌"——无恐慌盘，也无接盘意愿</td></tr>
+        <tr><td><b>量比</b></td><td class="mid">1.27</td><td>略高于 1，尾盘有一定抛压释放，未出现放量砸盘</td></tr>
+        <tr><td><b>主力资金（近 5 日 / 20 日）</b></td><td class="danger">-7.56 亿 / -16.63 亿</td><td>连续净流出；11-11 单日主力 -4.59 亿元，其中超大单 -4.36 亿元，<b>机构在减不在加</b></td></tr>
+        <tr><td><b>社保基金持仓</b></td><td class="mid">一一四组合 5470 万股（0.60%）</td><td>2026Q3 进入前十大流通股东，是唯一可见的长线增量资金</td></tr>
+        <tr><td><b>股东户数</b></td><td class="danger">71.11 万户（较 6 月末 +8.5%）</td><td>筹码分散化，散户接盘特征明显，通常是底部区域的伴生现象但非充分条件</td></tr>
+        <tr><td><b>北向资金</b></td><td class="warn">数据未独立核验</td><td>A 股北向仅季度披露（HKSCC 40.38% 为 H 股集合托管口径，不可用），月度净流入缺口</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="theme-banner danger">
+    <div class="icon">📡</div>
+    <div class="text">
+      <h3>技术面与资金流判断：弱势（破位后的低位震荡，无右侧信号）</h3>
+      <p>
+        <b>结构：</b>MA5 &lt; MA10 &lt; MA20 &lt; MA60 &lt; MA120 &lt; MA250 完全空头排列，价格位于全部均线下方，是典型的"下跌趋势中继"形态，而非"底部反转"形态。11-12 的 -2.10% 发生在 11-11 主力净流出 4.59 亿元之后，属于"资金先行、价格跟随"。<br>
+        <b>关键位：</b>下方支撑 <b style="color:#34d399">77.24 元</b>（52 周低点 / 2026-06-29）→ 若失守，下一个参考位是 <b>73 元</b>（2024 年 9 月平台）与 <b>70 元</b>（PB 2.5x 深度价值线）。上方压力 <b style="color:#fbbf24">82.98 元（MA20）</b>→ <b>85.35 元（MA60）</b>→ <b>92.57 元（年线）</b>。收复 MA20 是"止跌"的最低确认，收复 MA60 才是"反转"。<br>
+        <b>索罗斯反身性视角：</b>当前存在一个清晰的负向反馈环——<b>股价下跌 → 伯克希尔清仓与机构减仓被解读为"基本面恶化" → 散户与融资盘撤离 → 股价继续下跌</b>。打破这个环需要一个外生的基本面事件（国内月销转正、Q4 利润超预期、海外大单落地），而不是技术面的自然修复。<b>在环未打破前，"抄底"本质是赌事件，不是赌趋势。</b>
+      </p>
+    </div>
+  </div>
+
+  <div class="section-title info">🎚️ 模块 10 · 多方法论视角下的最终评级</div>
+  <div class="section-subtitle">11 种方法论独立打分 · 权重合计 105% · 归一化后综合 5.19/10</div>
+
+  <div class="score-table">
+    <div class="score-item">
+      <div class="score-num mid">7</div>
+      <div class="score-name">马克斯周期</div>
+      <div class="score-bar"><div class="score-fill mid" style="width:70%"></div></div>
+      <div class="score-out">周期投资 / 10</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num mid">6</div>
+      <div class="score-name">林奇 PEG</div>
+      <div class="score-bar"><div class="score-fill mid" style="width:60%"></div></div>
+      <div class="score-out">PEG 投资 / 10</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num mid">6</div>
+      <div class="score-name">邓普顿逆向</div>
+      <div class="score-bar"><div class="score-fill mid" style="width:60%"></div></div>
+      <div class="score-out">逆向投资 / 10</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num mid">6</div>
+      <div class="score-name">巴菲特护城河</div>
+      <div class="score-bar"><div class="score-fill mid" style="width:60%"></div></div>
+      <div class="score-out">护城河 / 10</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num warn">5</div>
+      <div class="score-name">费雪成长</div>
+      <div class="score-bar"><div class="score-fill warn" style="width:50%"></div></div>
+      <div class="score-out">成长投资 / 10</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num bad">3</div>
+      <div class="score-name">格雷厄姆</div>
+      <div class="score-bar"><div class="score-fill bad" style="width:30%"></div></div>
+      <div class="score-out">深度价值 / 10</div>
+    </div>
+  </div>
+
+  <div class="method-grid">
+    <div class="method-card best">
+      <div class="method-name">🥇 马克斯周期投资</div>
+      <div class="method-author">霍华德·马克斯 · "在钟摆的两端做决策"</div>
+      <div class="method-score good">7 / 10</div>
+      <div class="method-desc">
+        行业 1-10 月零售 -22.3%、连续 10 个月两位数负增长、价格战被行政约束、弱势品牌出清中——<b>典型的下行周期后段</b>。龙头份额逆势提升（总销量 -2.16% vs 行业 -22.3%）、毛利率从 17.61% 修复至 18.01%，符合"周期底部买龙头"的教科书范式。给 7 分而非 9 分的原因：<b>尚未见"绝望期"特征</b>（龙头仍盈利、产能仍扩张、无破产潮），周期底部通常需要一次"集体亏损"来完成出清。
+      </div>
+    </div>
+
+    <div class="method-card good">
+      <div class="method-name">🥈 林奇 PEG 投资</div>
+      <div class="method-author">彼得·林奇 · "PEG &lt; 1 就值得看"</div>
+      <div class="method-score good">6 / 10</div>
+      <div class="method-desc">
+        PE-2026E 22.2x（自估归母 330 亿元）/ 未来 3 年净利复合增速约 28%（券商口径 326→606 亿元）= <b>PEG 0.75–0.80</b>，落在"低估"区间。给 6 分而非 7 分的原因：<b>分母的 28% 建立在"国内不再恶化"的假设上</b>，若 2027 年净利仅 400 亿元，PEG 升至 1.1（回到合理）。林奇本人对"周期型公司"明确建议<b>不用 PEG，用 PB 与库存周期</b>，这条纪律也压低了得分。
+      </div>
+    </div>
+
+    <div class="method-card good">
+      <div class="method-name">🥈 邓普顿逆向投资</div>
+      <div class="method-author">约翰·邓普顿 · "在最悲观点买入"</div>
+      <div class="method-score good">6 / 10</div>
+      <div class="method-desc">
+        PB <b>2.94x 处近 5 年 0.1% 分位</b>（历史最低区）、股价距 52 周高点 -27.9%、伯克希尔清仓、股东户数 +8.5%——情绪与筹码都在极值。<b>但邓普顿要求的"最悲观点"要同时满足"价格极值 + 基本面即将反转"</b>：价格极值成立（PB 0.1% 分位），基本面反转仅"半个"成立（Q3 利润 +28%，但营收零增长、国内销量仍负）。故 6 分，不给 8 分。
+      </div>
+    </div>
+
+    <div class="method-card good">
+      <div class="method-name">🥉 巴菲特护城河</div>
+      <div class="method-author">沃伦·巴菲特 · "护城河 + 高 ROIC"</div>
+      <div class="method-score good">6 / 10</div>
+      <div class="method-desc">
+        垂直整合 + 规模 + 技术迭代构成真实的成本护城河，毛利率在价格战年份仍守住 17.7% 底线是硬证据。<b>但 ROIC 从 18.61%（2024）降至年化约 7.9%（2026），已跌破巴菲特"&gt;15% 优秀"的门槛</b>；自由现金流连续 6 个季度为负、分红率降至 10%，不符合"现金奶牛"标准。护城河"有"但"正在收窄"，6 分。
+      </div>
+    </div>
+
+    <div class="method-card mid">
+      <div class="method-name">费雪成长投资</div>
+      <div class="method-author">菲利普·费雪 · "15 问找复利机器"</div>
+      <div class="method-score mid">5 / 10</div>
+      <div class="method-desc">
+        研发强度（7.21%）、研发人员（12 万）、产品迭代速度都远超同业，"管理层是否具备决心开发新产品"一问可得满分。但费雪的核心是<b>"销售能否持续多年大幅增长"</b>——营收从 +42% → +29% → +3.5% → +0.01%，国内市场渗透率 67.5% 见顶，唯一的高增长引擎（海外 +91%）面临欧盟关税与地缘风险。成长故事从"多引擎"退化为"单引擎"，5 分。
+      </div>
+    </div>
+
+    <div class="method-card bad">
+      <div class="method-name">格雷厄姆深度价值</div>
+      <div class="method-author">本杰明·格雷厄姆 · "安全边际优先"</div>
+      <div class="method-score bad">3 / 10</div>
+      <div class="method-desc">
+        PE-TTM 23.15x（格雷厄姆标准 &lt;15x）、PB 2.94x（标准 &lt;1.5x）、股息率 0.45%（标准 &gt;3%）、流动比率 0.84（标准 &gt;2）——<b>四项核心指标全部不达标</b>。唯一的吻合点是"股价接近净资产重估区间"，但 2.94x PB 距"清算价值"仍有巨大距离。格雷厄姆框架下这是明确的高估标的，3 分（保留 3 分是因为资产负债表无商誉雷、无债务违约风险）。
+      </div>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-title">📋 其余 5 种方法论打分（辅助项，各 5% 权重）</div>
+    <table class="compare-table">
+      <thead>
+        <tr><th>方法论</th><th>得分</th><th>权重</th><th>核心判据</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>博格指数投资</b></td><td class="warn">5 / 10</td><td>5%</td><td>不是宽基 / 红利标的，个股波动率远高于指数；但作为新能源车 ETF 的第一大权重股（占比常超 8%），配置型资金被动买入是长期支撑</td></tr>
+        <tr><td><b>索罗斯反身性</b></td><td class="warn">5 / 10</td><td>5%</td><td>存在清晰的负向反身性环（股价跌→机构减仓→解读为基本面恶化→继续跌），尚未出现打破该环的外生事件；一旦打破（如国内月销转正），向上弹性极大</td></tr>
+        <tr><td><b>凯恩斯选美</b></td><td class="warn">4 / 10</td><td>5%</td><td>"别人会选什么"——机构在减、散户在接、伯克希尔清仓，主流偏见明确向下；短期缺乏"选美"叙事</td></tr>
+        <tr><td><b>达里奥全天候</b></td><td class="warn">4 / 10</td><td>5%</td><td>处于"国内去杠杆 + 全球贸易摩擦"象限，对内需可选消费不利；出海产能对冲部分风险，但无法获得纯内需复苏或纯出海溢价</td></tr>
+        <tr><td><b>西蒙斯量化</b></td><td class="bad">3 / 10</td><td>5%</td><td>动量因子（1M/3M/6M/1Y 全负）、资金流因子（20 日净流出 16.63 亿）均为负；仅"低 PB 分位反转因子"给出买入信号，多空信号冲突，统计上不具备优势</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="conclusion">
+    <div class="conclusion-title">📌 方法论冲突处理与最终倾向</div>
+    <div class="conclusion-item">
+      <span class="num">1</span>
+      <p><strong>冲突点：</strong>价值派（格雷厄姆 3 分）与逆向派（邓普顿 6 分）严重背离——格雷厄姆看到的是"PE 23x、PB 2.9x、股息 0.45% 全不达标"，邓普顿看到的是"PB 0.1% 分位、情绪极值、周期底部"。<b>同一组数据，两种结论。</b></p>
+    </div>
+    <div class="conclusion-item">
+      <span class="num">2</span>
+      <p><strong>分析原因：</strong>分歧的根源是<b>"绝对估值锚"与"相对估值锚"的差异</b>。格雷厄姆用绝对标准（PB&lt;1.5），比亚迪是"重资产制造 + 高周转"模型，天生不可能满足；邓普顿用历史分位（PB 0.1%），衡量的只是"比过去 5 年便宜"。<b>二者都对，但都不完整</b>——真正的判断标准是"ROE 能否守住 15%"，因为 PB-ROE 匹配决定合理区间，而 ROE 取决于"海外能否继续以 40%+ 的毛利贡献对冲国内价格战"。</p>
+    </div>
+    <div class="conclusion-item">
+      <span class="num">3</span>
+      <p><strong>冲突点 2：</strong>成长派（费雪 5 分、林奇 6 分）与周期派（马克斯 7 分）也背离——费雪看到"营收零增长、单引擎"，马克斯看到"行业出清、龙头份额提升"。</p>
+    </div>
+    <div class="conclusion-item">
+      <span class="num">4</span>
+      <p><strong>分析原因：</strong>这只股票的"身份"正在从<b>成长股</b>切换为<b>周期成长股</b>。用成长股框架（PE 成长、PEG）估值会得出"便宜"（PEG 0.78）；用周期股框架（PB-ROE、库存周期）估值会得出"公允"（PB 2.94 对应 ROE 15% 的合理 PB 约 2.9x）。<b>两种框架的结论差异，本质是"范式切换过程中估值锚的漂移"。</b></p>
+    </div>
+    <div class="conclusion-item">
+      <span class="num">5</span>
+      <p><strong>最终倾向：</strong>采纳<b>马克斯周期（7 分）为主锚、林奇 PEG 与邓普顿逆向（各 6 分）为辅助、巴菲特护城河（6 分）为质量底线</b>，格雷厄姆 3 分作为"不要重仓"的纪律约束。<b>综合得分 5.19 / 10</b>（Σ 得分×权重 = 5.45，权重合计 105%，÷1.05 归一化），对应评级 <b style="color:#fbbf24">谨慎买入</b>，仓位上限 5%，<b>本报告建议实际控制在 4%</b>。持有周期定为中线（6–18 个月），不适用"长期持有"框架。</p>
+    </div>
+  </div>
+
+  <div class="section-title">💡 模块 11 · 操作策略与建议（核心输出）</div>
+  <div class="section-subtitle">凯恩斯 + 博格原则：单股 ≤ 10%，本标的建议 ≤ 4% · 分批左侧、条件加仓、硬止损</div>
+
+  <div class="strategy-grid">
+    <div class="strategy-card position">
+      <div class="strategy-title">🎯 仓位与分批建仓（总仓位上限 4%）</div>
+      <div class="strategy-content">
+        <table class="compare-table">
+          <thead><tr><th>批次</th><th>价格 / 触发条件</th><th>建议仓位</th></tr></thead>
+          <tbody>
+            <tr><td><b>第一批</b></td><td><b>76–78 元</b>（52 周低点 77.24 附近）</td><td class="warn">1.5%</td></tr>
+            <tr><td><b>第二批</b></td><td><b>70–73 元</b>（PB 约 2.6x / 2024 年 9 月平台）</td><td class="warn">1.5%</td></tr>
+            <tr><td><b>第三批</b></td><td><b>条件触发</b>：国内月度销量同比转正 + 单季毛利率 ≥ 18.5%</td><td class="warn">1.0%</td></tr>
+            <tr><td><b>上限</b></td><td>凯恩斯 + 博格原则单股 ≤ 10%，本标的 <b>4%</b></td><td class="ok">不追高、不满仓</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:10px; color:#cbd5e1; font-size:12px; line-height:1.6;">
+          <b>为什么现价 80.32 元不建第一批：</b>均线全空头排列 + 主力 20 日净流出 16.63 亿元 + 距 52 周低点仅 4.0%，<b>下行风险 &gt; 上行空间（到 77.24 仅 -3.8%，到 MA60 需 +6.3%）</b>，等价格进入 76–78 元的"低点验证区"再动手，风险收益比更优。
+        </div>
+      </div>
+    </div>
+
+    <div class="strategy-card stop">
+      <div class="strategy-title">🚨 止损位（先减仓，不硬扛）</div>
+      <div class="strategy-content">
+        <table class="compare-table">
+          <thead><tr><th>价位</th><th>动作</th><th>对应逻辑</th></tr></thead>
+          <tbody>
+            <tr><td class="danger"><b>70 元</b></td><td><b>减半</b>至总仓位 2%</td><td>PB 2.56x，跌破 2024 年 9 月平台，周期底部假设失效</td></tr>
+            <tr><td class="danger"><b>65 元</b></td><td><b>清仓</b></td><td>PB 2.38x，对应年化 ROE 约 9%，PB-ROE 匹配已不支持当前价格</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:10px; color:#cbd5e1; font-size:12px; line-height:1.6;">
+          <b>相对止损（若在 77 元建仓）：</b>自建仓成本回撤 <b>-9%</b>（即 70 元附近）减半，回撤 <b>-15%</b>（65 元附近）清仓。不设"补仓摊薄"，只设"条件追加"（见左侧第三批）。
+        </div>
+      </div>
+    </div>
+
+    <div class="strategy-card target">
+      <div class="strategy-title">📈 目标价（参考，非承诺）</div>
+      <div class="strategy-content">
+        <table class="compare-table">
+          <thead><tr><th>周期</th><th>保守</th><th>中性</th><th>乐观</th></tr></thead>
+          <tbody>
+            <tr><td><b>12 个月</b></td><td class="danger">46–53 元</td><td class="warn">79–88 元</td><td class="ok">108–118 元</td></tr>
+            <tr><td><b>24 个月</b></td><td class="warn">60–68 元</td><td class="ok">100–112 元</td><td class="ok">140–152 元</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:10px; color:#cbd5e1; font-size:12px; line-height:1.6;">
+          <b>推导口径：</b>保守 = 2027E 归母 300 亿元 × PE 14–16x；中性 = 400 亿元 × 18–20x；乐观 = 450 亿元 × 22–24x（总股本 91.17 亿股）。<b>注意中性情景 79–88 元的中值 83.5 元仅比现价高 4%</b>——这正是"公允定价"的含义：<b>赚的是乐观情景的钱，不是估值修复的钱。</b>
+        </div>
+      </div>
+    </div>
+
+    <div class="strategy-card cycle">
+      <div class="strategy-title">⏳ 持有周期：中线（6–18 个月）</div>
+      <div class="strategy-content">
+        <b>不适用"长期持有"框架</b>——原因是：① 行业渗透率 67.5% 见顶，成长 β 消失；② ROIC 已跌破 15%，不符合复利机器标准；③ 分红率 10%、股息率 0.45%，无"类债券"持有价值。<br><br>
+        <b>适用"周期成长"框架：</b>买在行业出清的悲观期（当前），卖在毛利率修复至 20%+ 且国内销量转正的乐观期。<b>若 18 个月内三个核验点（Q4 利润、国内月销转正、FCF 转正）均未兑现，视为逻辑失效，无论盈亏均应退出。</b>
+      </div>
+    </div>
+
+    <div class="strategy-card monitor">
+      <div class="strategy-title">📡 关键监测指标（每季度必看 3 项）</div>
+      <div class="strategy-content">
+        <b>① 国内月度销量同比</b>：乘联会周度数据 + 公司产销快报（每月 1–3 日）。<b>转正是最关键的右侧信号</b>，连续 3 个月同比转正才可认定趋势确立。<br><br>
+        <b>② 单季毛利率与存货余额</b>：毛利率守住 18% 说明结构上移可持续；存货若在 2026 年末仍 &gt;2000 亿元，说明去库失败，减值压力将延续到 2027 年。<br><br>
+        <b>③ 经营现金流 − 资本开支（FCF）</b>：2026 年报若 FCF 转正（资本开支降至 1000 亿元以下），意味着扩张期结束，估值范式有望切换，这是 30%+ 重估的必要条件。
+      </div>
+    </div>
+
+    <div class="strategy-card stop">
+      <div class="strategy-title">🛑 卖出信号（任一触发即减至 ≤1%）</div>
+      <div class="strategy-content">
+        <b>① 需求二次恶化：</b>国内月销连续 3 个月同比 -20% 以上，<b>且</b>海外增速从 40%+ 降至 30% 以下（双引擎同时熄火）。<br><br>
+        <b>② 盈利质量破位：</b>单季毛利率跌破 16.5%（低于 2025 年价格战最差水平），<b>或</b>单季资产减值超 40 亿元（存货跌价失控）。<br><br>
+        <b>③ 出海逻辑受损：</b>欧盟关税进一步上调至 30% 以上导致匈牙利产能无法对冲，<b>或</b>实控人方新增质押超总股本 5%、出现大额减持。<br><br>
+        <b>④ 估值端：</b>PB 回升至 4.5x 以上（对应股价约 123 元）且 ROE 仍低于 15%，即"用成长股价格买周期股资产"，无条件止盈。
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title danger">⚠️ 模块 12 · 核心风险揭示（5 条）</div>
+  <div class="section-subtitle">每条含触发条件 / 影响幅度 / 应对策略</div>
+
+  <div class="risk-grid">
+    <div class="risk-card">
+      <div class="risk-title">🔻 1. 国内需求萎缩与价格战反复（核心业务风险）</div>
+      <div class="risk-desc">
+        <strong>触发条件：</strong>购置税减半（2026–2027）继续压制需求，2027 年政策退出前出现"抢装前置"，或《价格行为合规指南》执行松动引发新一轮降价；国内月销同比连续 3 个月低于 -20%。<br>
+        <strong>影响幅度：</strong>国内销量占 57.5%（1-9 月），国内单车利润仅数千元；若国内销量再降 15%，对应年化利润减少约 60–80 亿元（约 -20%），估值下修至 PB 2.4x，<b>对应股价 65 元（-19%）</b>。<br>
+        <strong>应对策略：</strong>以国内月销同比为第一监控指标；连续 3 个月 -20% 触发卖出信号①；仓位始终不超过 4%。
+      </div>
+    </div>
+
+    <div class="risk-card">
+      <div class="risk-title">🔻 2. 存货高企与跌价减值（财务风险）</div>
+      <div class="risk-desc">
+        <strong>触发条件：</strong>9 月末存货 2215.8 亿元（较年初 +60.1%），周转天数约 130 天 vs 2025 年约 76 天；若 Q4 旺季未能有效去库（年末存货仍 &gt;2000 亿元），或 2027 年新车型切换导致老款滞销。<br>
+        <strong>影响幅度：</strong>前三季度资产减值 27.10 亿元（+67.6%）；若存货跌价计提比例从当前约 1.2% 升至 2.5%，将额外计提约 28 亿元，<b>直接吞噬单季利润的 28%</b>。<br>
+        <strong>应对策略：</strong>每季度跟踪存货余额与减值计提；单季减值 &gt;40 亿元触发卖出信号②；同时关注应收账款 564.7 亿元（较年初 +52.6%）的同步恶化。
+      </div>
+    </div>
+
+    <div class="risk-card warn">
+      <div class="risk-title">⚠️ 3. 出海政策与汇率波动（外部环境风险）</div>
+      <div class="risk-desc">
+        <strong>触发条件：</strong>欧盟反补贴税（比亚迪约 17%）进一步上调、美国市场维持封闭、新兴市场（巴西/土耳其/印度）跟进加税；或人民币兑欧元/雷亚尔/泰铢大幅波动。<br>
+        <strong>影响幅度：</strong>海外销量占比已达 41.6%（1-10 月）、单车利润近 1.6 万元，是当前唯一的高增长引擎；9M2026 财务费用 +73.68 亿元（去年 -29.36 亿元）<b>已实证汇率对利润的扰动可达 100 亿元级</b>。<br>
+        <strong>应对策略：</strong>跟踪匈牙利（2026Q2 已投产）、泰国（15 万辆）、巴西、乌兹别克斯坦产能落地进度；关注公司外汇套保比例；海外增速降至 30% 以下视为逻辑减半。
+      </div>
+    </div>
+
+    <div class="risk-card warn">
+      <div class="risk-title">⚠️ 4. 资本开支与自由现金流（股东回报风险）</div>
+      <div class="risk-desc">
+        <strong>触发条件：</strong>2025 年资本开支 1568 亿元、FCF -976.7 亿元；9M2026 资本开支 873.8 亿元、FCF -329.1 亿元；若 2027 年资本开支仍维持 1200 亿元以上，FCF 难以转正。<br>
+        <strong>影响幅度：</strong>直接导致分红率从 30.0%（2024 年度）降至 10.0%（2025 年度），股息率仅 0.45%；<b>在利率下行、红利资产受追捧的环境下，低分红意味着失去一类重要的边际买盘</b>，估值中枢被系统性压低 10–15%。<br>
+        <strong>应对策略：</strong>以"FCF 转正"作为估值范式切换的必要条件；若 2026 年报 FCF 仍为负且资本开支指引未下调，将评级下调至"持有观察"。
+      </div>
+    </div>
+
+    <div class="risk-card info">
+      <div class="risk-title">🛡️ 5. 估值范式切换与筹码结构（市场风险）</div>
+      <div class="risk-desc">
+        <strong>触发条件：</strong>PB 2.94x 处 5 年 0.1% 分位，看似"历史最低"，但若市场认定 ROE 中枢从 26% 下移至 10–12%，则合理 PB 应为 1.5–2.0x；同时股东户数 71.11 万户（+8.5%）、伯克希尔清仓、公募筹码下降，<b>"低估值"可能是"价值陷阱"而非"错杀"</b>。<br>
+        <strong>影响幅度：</strong>若 PB 向 2.0x 收敛，对应股价 54.6 元（<b>-32%</b>）；这是保守情景 46–53 元的核心来源。<br>
+        <strong>应对策略：</strong>用"ROE 是否守住 15%"作为唯一判据（每季度核验）；不因为"PB 历史最低"而重仓；严格执行 70 元减半、65 元清仓的纪律；单股仓位上限 4%。
+      </div>
+    </div>
+  </div>
+
+  <div class="data-note" style="margin-top:24px;">
+    <strong>📌 数据来源与复核记录：</strong><br>
+    行情 / 估值 / 资金流：腾讯财经 <span class="info">qt.gtimg.cn</span>（2026-11-12 15:00 收盘快照）、东方财富 <span class="info">push2his / push2</span>（日线与资金流）、东方财富 <span class="info">RPT_VALUEANALYSIS_DET</span>（PE/PB 分位自算，样本 1211 个交易日）<br>
+    财务数据：<span class="ok">比亚迪 2026 年第三季度报告（2026-10-30 披露，巨潮资讯 PDF 原文）</span>、2025 年年度报告、2024 年年度报告、2021–2023 年年报<br>
+    销量数据：公司月度产销快报（2025-01 至 2026-10）；行业数据：乘联会月度零售数据<br>
+    同业对比：东方财富个股 F10 财务快照（2026 三季报，2026-11-12 取数）<br>
+    股东结构：2026 年三季报「前十名股东持股情况」原文（PDF 第 4 页）<br>
+    <span class="warn">⚠️ 未独立核验项：融资余额、公募基金 / QFII 2026Q3 全量持仓、北向资金月度流向、2026Q3 分部毛利率与分地区收入、单车净利（券商测算值）、2027–2028 年盈利预测（单家券商口径，已用自估情景交叉校验）。</span>
+  </div>
+
+  <div class="footer">
+    比亚迪（002594）｜报告截止日 2026-11-12（周四收盘）｜11 方法论交叉验证 × 12 模块标准输出<br>
+    证据优先 · 缺口显式披露 · 不编造数据 · 不构成个性化投资建议<br>
+    数据源：公司定期报告（巨潮资讯）+ 腾讯财经 / 东方财富快照 + 乘联会行业数据
+  </div>
+
+</div>
+</body>
+</html>
