@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-11-27 新希望(000876) · 11 方法论综合投资分析</title>
+<style>
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
+    color: #e8eef5; min-height: 100vh; padding: 24px; line-height: 1.6; }
+  .container { max-width: 1500px; margin: 0 auto; }
+
+  .header { background: linear-gradient(135deg, rgba(245,158,11,0.22), rgba(56,189,248,0.16), rgba(168,85,247,0.10));
+    border: 1px solid rgba(245,158,11,0.40); border-radius: 20px; padding: 36px;
+    margin-bottom: 24px; position: relative; overflow: hidden; }
+  .header::before { content:''; position:absolute; top:-50%; right:-10%; width:500px; height:500px;
+    background: radial-gradient(circle, rgba(245,158,11,0.28), transparent 70%); border-radius:50%; }
+  .header h1 { font-size: 32px; background: linear-gradient(90deg, #fbbf24, #38bdf8, #c084fc);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 8px; position: relative; }
+  .header .subtitle { color: #cbd5e1; font-size: 15px; position: relative; margin-bottom: 16px; }
+  .header .badges { display: flex; gap: 8px; flex-wrap: wrap; position: relative; }
+  .badge { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 12px; }
+  .badge-success { background: rgba(16,185,129,0.22); color:#34d399; border:1px solid rgba(16,185,129,0.45); }
+  .badge-warning { background: rgba(245,158,11,0.22); color:#fbbf24; border:1px solid rgba(245,158,11,0.45); }
+  .badge-danger  { background: rgba(239,68,68,0.22); color:#fca5a5; border:1px solid rgba(239,68,68,0.45); }
+  .badge-source  { background: rgba(56,189,248,0.22); color:#38bdf8; border:1px solid rgba(56,189,248,0.45); }
+  .badge-purple  { background: rgba(168,85,247,0.22); color:#c084fc; border:1px solid rgba(168,85,247,0.45); }
+
+  .section-title { font-size: 22px; margin: 36px 0 14px 0; padding-left: 14px;
+    border-left: 4px solid #38bdf8; color: #f1f5f9; display:flex; align-items:center; gap:10px; }
+  .section-title.warn { border-left-color: #fbbf24; }
+  .section-title.ok   { border-left-color: #34d399; }
+  .section-title.danger { border-left-color: #f87171; }
+  .section-title.info { border-left-color: #38bdf8; }
+  .section-subtitle { font-size: 13px; color: #94a3b8; margin: -8px 0 16px 18px; }
+
+  .data-note { background: rgba(30,41,59,0.4); border:1px dashed rgba(148,163,184,0.3);
+    border-radius:8px; padding:14px 18px; margin-bottom:24px; font-size:12px; color:#94a3b8; line-height:1.7; }
+  .data-note strong { color:#cbd5e1; }
+  .data-note .ok { color:#34d399; font-weight:700; }
+  .data-note .warn { color:#fbbf24; font-weight:700; }
+  .data-note .danger { color:#fca5a5; font-weight:700; }
+  .data-note .info { color:#38bdf8; font-weight:700; }
+  .data-note .purple { color:#c084fc; font-weight:700; }
+
+  .theme-banner { background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(56,189,248,0.10));
+    border: 1px solid rgba(16,185,129,0.45); border-left: 5px solid #34d399;
+    border-radius:12px; padding:20px 24px; margin-bottom:24px; display:flex; align-items:center; gap:16px; }
+  .theme-banner.warn { border-color:rgba(245,158,11,0.4); border-left-color:#fbbf24;
+    background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(14,165,233,0.10)); }
+  .theme-banner.danger { border-color:rgba(239,68,68,0.4); border-left-color:#f87171;
+    background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(245,158,11,0.10)); }
+  .theme-banner.info { border-color:rgba(56,189,248,0.4); border-left-color:#38bdf8;
+    background: linear-gradient(135deg, rgba(14,165,233,0.15), rgba(168,85,247,0.10)); }
+  .theme-banner .icon { font-size:32px; }
+  .theme-banner .text { flex:1; }
+  .theme-banner .text h3 { color:#34d399; font-size:17px; margin-bottom:4px; }
+  .theme-banner.warn .text h3 { color:#fbbf24; }
+  .theme-banner.danger .text h3 { color:#fca5a5; }
+  .theme-banner.info .text h3 { color:#7dd3fc; }
+  .theme-banner .text p { color:#cbd5e1; font-size:13px; line-height:1.7; }
+
+  .dashboard { display:grid; grid-template-columns:repeat(7,1fr); gap:10px; margin-bottom:14px; }
+  .index-card { background: rgba(30,41,59,0.6); border:1px solid rgba(148,163,184,0.2);
+    border-radius:12px; padding:14px; transition: transform 0.3s, box-shadow 0.3s; position:relative; }
+  .index-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .index-card.avoid { border-top:3px solid #ef4444; }
+  .index-card.danger { border-top:3px solid #f87171; }
+  .index-card.warn { border-top:3px solid #fbbf24; }
+  .index-card.ok { border-top:3px solid #34d399; }
+  .index-card.mid { border-top:3px solid #38bdf8; }
+  .index-card.purple { border-top:3px solid #c084fc; }
+  .index-card .name { font-size:11px; color:#94a3b8; margin-bottom:6px; }
+  .index-card .value { font-size:20px; font-weight:800; margin-bottom:3px; }
+  .index-card .change { font-size:11px; font-weight:600; }
+  .index-card.avoid .value, .index-card.avoid .change { color:#ef4444; }
+  .index-card.danger .value, .index-card.danger .change { color:#f87171; }
+  .index-card.warn .value, .index-card.warn .change { color:#fbbf24; }
+  .index-card.ok .value, .index-card.ok .change { color:#34d399; }
+  .index-card.mid .value, .index-card.mid .change { color:#38bdf8; }
+  .index-card.purple .value, .index-card.purple .change { color:#c084fc; }
+  .index-card .label { margin-top:6px; font-size:10px; color:#64748b; line-height:1.4; }
+  .index-card .tag { position:absolute; top:10px; right:10px; padding:2px 6px;
+    border-radius:4px; font-size:10px; font-weight:700; }
+  .tag.danger { background:rgba(239,68,68,0.25); color:#fca5a5; }
+  .tag.warn   { background:rgba(245,158,11,0.25); color:#fbbf24; }
+  .tag.ok     { background:rgba(16,185,129,0.25); color:#34d399; }
+  .tag.mid    { background:rgba(56,189,248,0.25); color:#7dd3fc; }
+  .tag.purple { background:rgba(168,85,247,0.25); color:#c084fc; }
+
+  .table-card { background:rgba(30,41,59,0.6); border:1px solid rgba(148,163,184,0.2);
+    border-radius:12px; padding:18px; margin-bottom:24px; overflow-x:auto; }
+  .table-title { color:#f1f5f9; font-size:15px; font-weight:700; margin-bottom:12px;
+    display:flex; align-items:center; gap:8px; }
+  .compare-table { width:100%; border-collapse:collapse; font-size:12px; min-width:680px; }
+  .compare-table th { background:rgba(15,23,42,0.6); color:#f1f5f9; font-weight:700;
+    padding:10px 8px; text-align:left; border-bottom:2px solid rgba(148,163,184,0.3); }
+  .compare-table td { padding:9px 8px; color:#cbd5e1; border-bottom:1px dashed rgba(148,163,184,0.15); }
+  .compare-table tr:hover td { background:rgba(56,189,248,0.06); }
+  .compare-table .hl { color:#c084fc; font-weight:700; }
+  .compare-table .ok { color:#34d399; font-weight:700; }
+  .compare-table .warn { color:#fbbf24; font-weight:700; }
+  .compare-table .danger { color:#f87171; font-weight:700; }
+  .compare-table .mid { color:#38bdf8; font-weight:700; }
+
+  .fin-table { background:rgba(30,41,59,0.6); border:1px solid rgba(148,163,184,0.2);
+    border-radius:12px; padding:18px; margin-bottom:24px; }
+  .fin-row { display:grid; grid-template-columns:1.4fr 1.8fr 2.4fr; gap:14px; align-items:center;
+    padding:11px 0; border-bottom:1px dashed rgba(148,163,184,0.15); }
+  .fin-row:last-child { border-bottom:none; }
+  .fin-row.header { border-bottom:2px solid rgba(148,163,184,0.3); font-weight:700; color:#f1f5f9; }
+  .fin-name { color:#f1f5f9; font-size:13px; font-weight:700; }
+  .fin-val { color:#34d399; font-size:14px; font-weight:800; }
+  .fin-val.down { color:#f87171; }
+  .fin-val.warn { color:#fbbf24; }
+  .fin-val.mid { color:#38bdf8; }
+  .fin-val.purple { color:#c084fc; }
+  .fin-comment { color:#cbd5e1; font-size:12px; line-height:1.55; }
+
+  .score-table { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-bottom:24px; }
+  .score-item { background:rgba(30,41,59,0.6); border:1px solid rgba(148,163,184,0.2);
+    border-radius:10px; padding:12px; text-align:center; }
+  .score-num { font-size:28px; font-weight:900; margin-bottom:4px; }
+  .score-num.bad { color:#f87171; }
+  .score-num.warn { color:#fbbf24; }
+  .score-num.mid { color:#38bdf8; }
+  .score-num.good { color:#34d399; }
+  .score-num.purple { color:#c084fc; }
+  .score-name { color:#94a3b8; font-size:11px; margin-bottom:8px; }
+  .score-bar { height:6px; background:rgba(15,23,42,0.6); border-radius:3px; overflow:hidden; margin-bottom:4px; }
+  .score-fill { height:100%; border-radius:3px; }
+  .score-fill.bad { background:linear-gradient(90deg,#ef4444,#f87171); }
+  .score-fill.warn { background:linear-gradient(90deg,#f59e0b,#fbbf24); }
+  .score-fill.mid { background:linear-gradient(90deg,#0ea5e9,#38bdf8); }
+  .score-fill.good { background:linear-gradient(90deg,#10b981,#34d399); }
+  .score-fill.purple { background:linear-gradient(90deg,#a855f7,#c084fc); }
+  .score-out { font-size:10px; color:#64748b; }
+
+  .safety-bar { background:rgba(30,41,59,0.6); border:1px solid rgba(148,163,184,0.2);
+    border-radius:12px; padding:18px; margin-bottom:24px; }
+  .safety-title { color:#f1f5f9; font-size:15px; font-weight:700; margin-bottom:12px; }
+  .safety-track { height:32px; background:rgba(15,23,42,0.6); border-radius:10px;
+    overflow:hidden; position:relative; border:1px solid rgba(148,163,184,0.2); display:flex; }
+  .safety-seg { display:flex; align-items:center; justify-content:center; font-weight:700; font-size:11px; color:#0f172a; }
+  .seg-deep { background:linear-gradient(90deg,#10b981,#34d399); flex:3; }
+  .seg-current { background:linear-gradient(90deg,#fbbf24,#f59e0b); flex:4; color:#1f2937; }
+  .seg-over { background:linear-gradient(90deg,#ef4444,#dc2626); flex:3; color:#fff; }
+  .safety-marks { display:flex; justify-content:space-between; margin-top:10px; font-size:11px; color:#94a3b8; flex-wrap:wrap; gap:6px; }
+  .safety-marks span strong { color:#f1f5f9; }
+
+  .risk-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+  .risk-card { background:rgba(239,68,68,0.10); border:1px solid rgba(239,68,68,0.30);
+    border-left:4px solid #ef4444; border-radius:8px; padding:14px; }
+  .risk-card.warn { background:rgba(245,158,11,0.10); border-color:rgba(245,158,11,0.30); border-left-color:#f59e0b; }
+  .risk-card.info { background:rgba(168,85,247,0.10); border-color:rgba(168,85,247,0.30); border-left-color:#c084fc; }
+  .risk-title { color:#fca5a5; font-weight:700; font-size:13px; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+  .risk-card.warn .risk-title { color:#fbbf24; }
+  .risk-card.info .risk-title { color:#c084fc; }
+  .risk-desc { color:#cbd5e1; font-size:12px; line-height:1.55; }
+
+  .method-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:24px; }
+  .method-card { background:rgba(30,41,59,0.6); border:1px solid rgba(148,163,184,0.2);
+    border-radius:12px; padding:16px; position:relative; }
+  .method-card.best { border-left:4px solid #34d399; }
+  .method-card.mid { border-left:4px solid #fbbf24; }
+  .method-card.weak { border-left:4px solid #94a3b8; }
+  .method-card.bad { border-left:4px solid #f87171; }
+  .method-name { color:#f1f5f9; font-size:14px; font-weight:700; margin-bottom:6px; }
+  .method-author { color:#94a3b8; font-size:11px; margin-bottom:10px; }
+  .method-score { display:inline-block; padding:4px 10px; border-radius:8px; font-weight:800; font-size:15px; }
+  .method-score.good { background:rgba(16,185,129,0.22); color:#34d399; }
+  .method-score.warn { background:rgba(245,158,11,0.22); color:#fbbf24; }
+  .method-score.bad { background:rgba(239,68,68,0.22); color:#fca5a5; }
+  .method-desc { color:#cbd5e1; font-size:12px; line-height:1.55; margin-top:10px; }
+
+  .strategy-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-bottom:24px; }
+  .strategy-card { background:rgba(30,41,59,0.6); border:1px solid rgba(148,163,184,0.2);
+    border-radius:12px; padding:18px; }
+  .strategy-card.target { border-left:4px solid #34d399; }
+  .strategy-card.stop { border-left:4px solid #ef4444; }
+  .strategy-card.position { border-left:4px solid #fbbf24; }
+  .strategy-card.cycle { border-left:4px solid #c084fc; }
+  .strategy-card.monitor { border-left:4px solid #38bdf8; }
+  .strategy-title { font-size:13px; color:#f1f5f9; font-weight:700; margin-bottom:10px;
+    display:flex; align-items:center; gap:8px; }
+  .strategy-content { color:#cbd5e1; font-size:12px; line-height:1.7; }
+  .strategy-content strong { color:#f1f5f9; }
+  .strategy-content .hl-ok { color:#34d399; font-weight:700; }
+  .strategy-content .hl-warn { color:#fbbf24; font-weight:700; }
+  .strategy-content .hl-danger { color:#f87171; font-weight:700; }
+  .strategy-content .hl-purple { color:#c084fc; font-weight:700; }
+  .strategy-content .hl-info { color:#38bdf8; font-weight:700; }
+
+  .final-verdict { background:linear-gradient(135deg, rgba(245,158,11,0.18), rgba(56,189,248,0.10), rgba(168,85,247,0.08));
+    border:1px solid rgba(245,158,11,0.45); border-radius:16px; padding:28px; margin-bottom:24px; text-align:center; }
+  .final-verdict h2 { font-size:24px; color:#fbbf24; margin-bottom:8px; }
+  .final-verdict .rating { display:inline-block; background:linear-gradient(135deg,#f59e0b,#d97706);
+    color:#fff; font-size:30px; font-weight:900; padding:12px 36px; border-radius:16px; margin:14px 0; letter-spacing:4px; }
+  .final-verdict .comment { color:#cbd5e1; font-size:13px; max-width:820px; margin:12px auto 0; line-height:1.7; }
+
+  .conclusion { background:linear-gradient(135deg, rgba(245,158,11,0.10), rgba(56,189,248,0.10));
+    border:1px solid rgba(56,189,248,0.30); border-radius:12px; padding:22px; margin-bottom:24px; }
+  .conclusion-title { font-size:16px; font-weight:700; margin-bottom:14px; color:#f1f5f9; }
+  .conclusion-item { background:rgba(15,23,42,0.4); border-radius:8px; padding:11px 14px; margin-bottom:10px; border-left:3px solid #fbbf24; }
+  .conclusion-item .num { display:inline-block; background:#fbbf24; color:#0f172a; width:22px; height:22px;
+    border-radius:50%; text-align:center; line-height:22px; font-weight:700; margin-right:8px; font-size:11px; }
+  .conclusion-item p { display:inline; color:#e2e8f0; font-size:12px; }
+  .conclusion-item strong { color:#f1f5f9; }
+
+  .footer { text-align:center; color:#64748b; font-size:12px; margin-top:32px; padding:16px;
+    border-top: 1px solid rgba(148,163,184,0.10); line-height:1.7; }
+
+  @media (max-width:1024px) {
+    .dashboard { grid-template-columns:repeat(2,1fr); }
+    .risk-grid, .method-grid, .strategy-grid { grid-template-columns:1fr; }
+    .score-table { grid-template-columns:repeat(3,1fr); }
+    .fin-row { grid-template-columns:1fr; }
+  }
+
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>🐷 新希望 (000876) · 11 方法论综合投资分析</h1>
+    <div class="subtitle">饲料 + 生猪养殖 + 屠宰全产业链 · 猪周期底部左侧 · 饲料业务托底、养殖端仍在失血</div>
+    <div class="badges">
+      <span class="badge badge-warning">🎯 综合评级：<b>持有观察</b>（周期左侧 + 报表未见拐点）</span>
+      <span class="badge badge-source">📅 数据日期：2026-11-26 收盘（周四）· 11-27 盘中快照</span>
+      <span class="badge badge-source">📊 股价 6.63 元 · 总市值 325.5 亿 · PE-TTM 亏损 · PB 1.67</span>
+      <span class="badge badge-purple">🧠 11 方法论 × 12 模块 · 加权 4.67/10</span>
+      <span class="badge badge-success">✅ 催化：11 月猪价触底反弹（周度 9.95 元/kg，环比 +1.4%）</span>
+    </div>
+  </div>
+
+  <div class="data-note">
+    <strong>📌 数据来源与口径说明（截至 2026-11-27 09:57 盘中；行情基准日 2026-11-26 收盘）：</strong><br>
+    ✅ <span class="info">行情 / 市值 / PE / PB</span> —— 腾讯行情接口（qt.gtimg.cn）与东方财富行情接口（push2.eastmoney.com）双源一致：收盘 6.63 元、总市值 325.52 亿、流通市值 295.19 亿、PE-TTM -6.37、PE 静态 -18.24、PE 动态 -9.51、PB 1.67<br>
+    ✅ <span class="ok">财务数据</span> —— 巨潮资讯《2026 年第三季度报告》（2026-10-31 披露）、《2026 年半年度报告》（2026-08-29 披露）、《关于计提资产减值准备的公告》（2026-10-31）、《2026 年 10 月销售情况简报》（2026-11-07）、《向特定对象发行股票上市公告书》（2026-08-29）、《关于履行部分担保责任的公告》（2026-11-24 / 11-26）、《关于控股股东拟非公开发行 2026 年可交换公司债券办理完成持有股份质押登记的公告》（2026-11-24）<br>
+    ✅ <span class="info">行业数据</span> —— 农业农村部能繁母猪存栏与周度生猪价格（经新华社 / 21 世纪经济报道 / 饲料市场转载），2026 年 11 月第三周全国生猪价格 9.95 元/公斤<br>
+    ⚠️ <span class="warn">估算项</span> —— 完全成本（12.0–12.2 元/公斤）、头均亏损（207–240 元/头）、2026 年末每股净资产、2027 年目标价情景模型，均为基于公告数据的<span class="warn">推算值</span>，非公司披露口径<br>
+    🔴 <span class="danger">数据缺口</span> —— 「近 30 日北向净流入」不可得（北向个股持股自 2024-08 起改为季度披露）；2026 年券商一致盈利预测不可得（标的处于亏损期，PE 口径失效）；机构持仓明细接口未返回明细字段<br>
+    ⚠️ 口径提示：2024 年营收同比 -27.27% 系白羽肉禽与食品深加工板块引入战略投资者后出表所致，<span class="warn">非经营性萎缩</span>（2023 年 12 月以 27 亿元向中牧集团转让中新食品 51% 股权等）<br>
+    ⚠️ 每股净资产口径：归母所有者权益 221.12 亿元中含<span class="warn">其他权益工具（永续债）约 26 亿元</span>，扣除后普通股每股净资产 3.93 元，PB 1.67 按此口径计算
+  </div>
+
+  <div class="theme-banner danger">
+    <div class="icon">🚨</div>
+    <div class="text">
+      <h3>核心定性：周期底部已现，但报表拐点尚未兑现 —— 这是「左侧」而非「右侧」</h3>
+      <p>行业侧：能繁母猪存栏自 2026Q2 末 3,780 万头（同比 -6.5%）进一步去化至 Q3 末 3,602 万头；外三元猪价 11 月上旬一度跌至 8.52 元/公斤（近十年新低），11/23 反弹至 9.77 元/公斤（较 11/9 +14.72%），农业农村部 11 月第三周均价 9.95 元/公斤、环比 +1.4%，结束连续 6 周下跌。<br>
+      公司侧：2026 年 1-9 月营收 876.98 亿元（+8.94%）、归母净利 <strong>-25.68 亿元</strong>（同比 -437.90%），10 月商品猪均价已跌至 9.54 元/公斤；1-9 月计提减值 13.03 亿元（其中存货跌价 12.43 亿元）。经营现金流尚为正（+26.00 亿元），经营杠杆的「缓冲垫」尚在，但利润表的「失血」在扩大。<br>
+      结论：11 方法论加权 <strong>4.67/10</strong>（权重归一化 ÷1.05），落在「持有观察」区间（3.5–4.9）。<strong>不构成买入建议</strong>，仅适合以 ≤3% 仓位跟踪周期拐点。</p>
+    </div>
+  </div>
+
+  <div class="section-title">📊 一、基础画像（30 秒速览）</div>
+  <div class="section-subtitle">14 项基础指标 · 行情基准 2026-11-26 收盘，双源核验</div>
+  <div class="dashboard">
+    <div class="index-card mid">
+      <div class="tag mid">深主板</div>
+      <div class="name">股票名称 / 代码</div>
+      <div class="value">新希望</div>
+      <div class="change">000876.SZ</div>
+      <div class="label">1998-03-11 深交所上市<br>注册资本 49.62 亿元</div>
+    </div>
+    <div class="index-card purple">
+      <div class="name">所属行业</div>
+      <div class="value">饲料 / 生猪</div>
+      <div class="change">饲料 + 猪 + 屠宰</div>
+      <div class="label">业务分布 15 国<br>2025《财富》世界 500 强第 426 位</div>
+    </div>
+    <div class="index-card mid">
+      <div class="name">当前股价</div>
+      <div class="value">6.63 元</div>
+      <div class="change">-0.07 元 / -1.06%</div>
+      <div class="label">11-27 盘中 6.56–6.57<br>11-26 收 6.63 / 高 6.80 / 低 6.57</div>
+    </div>
+    <div class="index-card mid">
+      <div class="name">总市值 / 流通市值</div>
+      <div class="value">325.5 亿</div>
+      <div class="change">流通 295.2 亿</div>
+      <div class="label">总股本 49.62 亿股<br>流通 45.00 亿股</div>
+    </div>
+    <div class="index-card warn">
+      <div class="name">52 周区间</div>
+      <div class="value">5.82 – 9.48</div>
+      <div class="change">距低点 +13.9%</div>
+      <div class="label">近 120 日低点 5.82<br>近 120 日高点 8.02</div>
+    </div>
+    <div class="index-card danger">
+      <div class="tag danger">亏损</div>
+      <div class="name">PE-TTM / 静态 / 动态</div>
+      <div class="value">-6.37</div>
+      <div class="change">-18.24 / -9.51</div>
+      <div class="label">TTM 归母 -51.1 亿<br>PE 口径全部失效</div>
+    </div>
+    <div class="index-card warn">
+      <div class="name">PB（普通股口径）</div>
+      <div class="value">1.67</div>
+      <div class="change">每股净资产 3.93 元</div>
+      <div class="label">归母权益 221.12 亿<br>含永续债约 26 亿</div>
+    </div>
+    <div class="index-card danger">
+      <div class="name">股息率</div>
+      <div class="value">0.36%</div>
+      <div class="change">2024 年度 0.2412 元/股</div>
+      <div class="label">2025 年度亏损未分配<br>2026 中期不派息</div>
+    </div>
+    <div class="index-card danger">
+      <div class="name">近 1 月涨跌幅</div>
+      <div class="value">-2.50%</div>
+      <div class="change">6.80 → 6.63</div>
+      <div class="label">基准 2026-10-26 收盘</div>
+    </div>
+    <div class="index-card danger">
+      <div class="name">近 1 年涨跌幅</div>
+      <div class="value">-29.24%</div>
+      <div class="change">9.37 → 6.63</div>
+      <div class="label">年初至今 -28.01%</div>
+    </div>
+    <div class="index-card ok">
+      <div class="name">2026Q1-Q3 营收</div>
+      <div class="value">876.98 亿</div>
+      <div class="change">+8.94% YoY</div>
+      <div class="label">毛利率 4.65%<br>加权 ROE -13.89%</div>
+    </div>
+    <div class="index-card danger">
+      <div class="name">2026Q1-Q3 归母净利</div>
+      <div class="value">-25.68 亿</div>
+      <div class="change">-437.90% YoY</div>
+      <div class="label">扣非 -25.53 亿<br>Q3 单季 -8.66 亿</div>
+    </div>
+    <div class="index-card warn">
+      <div class="name">资产负债率</div>
+      <div class="value">69.71%</div>
+      <div class="change">流动比率 0.755</div>
+      <div class="label">速动比率 0.334<br>净营运资本 -152.56 亿</div>
+    </div>
+    <div class="index-card mid">
+      <div class="name">经营现金流（1-9M）</div>
+      <div class="value">+26.00 亿</div>
+      <div class="change">同比 -66.81%</div>
+      <div class="label">2025 全年 +93.78 亿<br>1-9M 资本开支 17.09 亿</div>
+    </div>
+  </div>
+
+  <div class="section-title">🎯 二、综合评级（一句话定位）</div>
+  <div class="final-verdict">
+    <h2>⚖️ 11 方法论加权综合评级</h2>
+    <div class="rating">持有观察</div>
+    <div style="color:#fbbf24; font-size:15px; font-weight:700; margin:8px 0;">
+      （周期底部左侧 · 饲料业务托底 · 养殖报表尚未见拐点）
+    </div>
+    <div class="comment">
+      加权原始得分 4.90 / 权重合计 105% → <strong>归一化后 4.67 / 10</strong>（口径：Σ(方法论得分 × 权重) ÷ 1.05，与本工作空间各期报告一致）。<br>
+      定价逻辑：<strong>不是「买猪周期反弹」，而是「买一个用饲料与海外业务自我输血、等待猪价反转的资产负债表」</strong>。饲料板块（2026H1 收入 414.41 亿、毛利率 5.23%、销量 1,625 万吨创半年度历史新高）提供约 20 亿元级别的稳定毛利垫，民生银行权益法投资收益半年 6.93 亿元提供另一层缓冲，这两项共同决定了它<strong>大概率能活到周期反转</strong>（邓普顿视角的关键前提）。但养殖端的亏损仍在扩大、净资产被减值侵蚀、控股股东 68.15% 的持股已质押 —— 这些决定了<strong>当前价格（PB 1.67）并未提供足够的安全边际</strong>。
+    </div>
+  </div>
+  <div class="section-title">🎚️ 三、估值维度（格雷厄姆 + 邓普顿）</div>
+  <div class="section-subtitle">亏损股估值三腿全废 → 以 PB / 每股净资产 / 安全边际 / 同业对比四维替代</div>
+
+  <div class="theme-banner info">
+    <div class="icon">🎚️</div>
+    <div class="text">
+      <h3>估值结论：偏贵（周期底部的「合理价」并未自动等于「便宜」）</h3>
+      <p>PE-TTM / 静态 / 动态均为负（-6.37 / -18.24 / -9.51），PE 口径彻底失效；PB 1.67 高于 1 倍，即市场已经为「周期反转预期」支付了溢价，而<strong>表观净资产里还含 320.94 亿元权益法核算的长期股权投资（占总资产 27.44%，主体为民生银行等联营企业），这部分在周期低谷中难以按账面变现</strong>。以「每股净资产 × 合理 PB」反推，现价缺乏安全边际。</p>
+    </div>
+  </div>
+
+  <div class="safety-bar">
+    <div class="safety-title">估值区间与安全边际测算（以每股净资产为锚，单位：元）</div>
+    <div class="safety-track">
+      <div class="safety-seg seg-deep">深度价值区 3.00–4.00（PB 0.8–1.05）</div>
+      <div class="safety-seg seg-current">合理区 4.50–5.50（PB 1.15–1.40）</div>
+      <div class="safety-seg seg-over">偏贵区 6.00–7.60（PB 1.50–1.95）</div>
+    </div>
+    <div class="safety-marks">
+      <span>悲观目标价 <strong>3.00 元</strong>（2027 猪价 ≤10.5 元/kg）</span>
+      <span>中性目标价 <strong>5.00 元</strong>（2027 猪价 12.5 元/kg）</span>
+      <span>乐观目标价 <strong>10.40 元</strong>（2027 猪价 15 元/kg）</span>
+      <span>当前价 <strong>6.63 元</strong>（PB 1.67，落在偏贵区）</span>
+    </div>
+  </div>
+
+  <div class="fin-table">
+    <div class="fin-row header">
+      <div>估值子项</div><div>当前读数</div><div>解读</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">① PE / PB 近 5 年分位</div>
+      <div class="fin-val down">PE 失效 / PB 1.67</div>
+      <div class="fin-comment">PE 因连续亏损无法构造分位数；PB 1.67 高于净资产，<span class="warn">无法确认历史分位（近 5 年 PB 序列未独立核验）</span>。公司 2023 年起累计扣非亏损（2023 扣非 -46.08 亿），PE 锚定长期失锚。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">② 安全边际（12 个月三情景）</div>
+      <div class="fin-val down">-55% / -25% / +57%</div>
+      <div class="fin-comment">悲观 3.00 元（30% 概率）／中性 5.00 元（45%）／乐观 10.40 元（25%），<strong>概率加权 5.75 元，低于现价 6.63 元约 13%</strong>。安全边际为负。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">③ 隐蔽资产 / 清算价值</div>
+      <div class="fin-val warn">约 2.7–3.3 元/股</div>
+      <div class="fin-comment">粗算：长期股权投资 320.94 亿 + 固定资产 443.91 亿 + 存货 126.51 亿 + 现金 94.88 亿 + 应收 23.15 亿 ≈ 1,009 亿，减总负债 823.66 亿 ≈ 185 亿（扣永续债后约 160 亿），约 <span class="warn">3.2 元/股（普通股口径约 2.7–3.3 元）</span>，远低于股价 6.63 元。此为<span class="warn">静态估算</span>：固定资产变现折扣、存货猪只折价、长期股权无法按面值退出，均会进一步压低实际清算值。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">④ 权益法资产折价（民生银行）</div>
+      <div class="fin-val purple">账 320.9 亿 / 市 ~64.6 亿</div>
+      <div class="fin-comment">新希望持民生银行 4.18%（来源：本工作空间 600016 报告，2026-11-02）。民生银行 2026-11-27 A 股 3.53 元、总市值 1,545.52 亿，对应持股市值约 <span class="purple">64.6 亿元</span>，而该资产以权益法列账于长期股权投资 320.94 亿元内。<strong>账面与市价差是「潜在价值」也是「不可变现的账面繁荣」</strong>：市场给了民生银行约 0.3 倍 PB，新希望账上按权益法体现的差额既不能变现，又在持续贡献权益法投资收益（2026H1 对联营合营投资收益 6.93 亿元）。</div>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-title">📊 同行业可比公司估值对比（2026-11-27 盘中，腾讯行情接口）</div>
+    <table class="compare-table">
+      <thead><tr><th>公司</th><th>代码</th><th>股价(元)</th><th>总市值(亿)</th><th>PE-TTM</th><th>PB</th><th>换手率</th><th>点评</th></tr></thead>
+      <tbody>
+        <tr><td class="hl">新希望</td><td>000876</td><td>6.57</td><td>326.0</td><td class="danger">-6.38</td><td class="warn">1.67</td><td>0.10%</td><td>PB 最低，饲料业务托底，但杠杆与规模暴露最大</td></tr>
+        <tr><td>牧原股份</td><td>002714</td><td>42.91</td><td>2477.2</td><td class="danger">-28.77</td><td class="danger">3.24</td><td>0.24%</td><td>行业成本标杆，PB 已反映反转预期</td></tr>
+        <tr><td>温氏股份</td><td>300498</td><td>16.79</td><td>1117.2</td><td class="danger">-22.57</td><td class="danger">3.24</td><td>0.22%</td><td>黄羽 + 猪，估值同样偏高</td></tr>
+        <tr><td>神农集团</td><td>605296</td><td>31.08</td><td>163.6</td><td class="danger">-14.95</td><td class="danger">4.10</td><td>0.08%</td><td>小市值高弹性，估值最贵</td></tr>
+        <tr><td>巨星农牧</td><td>603477</td><td>14.42</td><td>75.4</td><td class="danger">-6.14</td><td class="danger">3.44</td><td>0.43%</td><td>成本改善叙事强，静态 PE 失真</td></tr>
+        <tr><td>华统股份</td><td>002840</td><td>7.07</td><td>56.7</td><td class="danger">-8.40</td><td class="warn">1.68</td><td>0.43%</td><td>PB 与新希望接近，规模与成本均弱于龙头</td></tr>
+        <tr><td>唐人神</td><td>002567</td><td>3.79</td><td>54.3</td><td class="danger">-2.55</td><td class="ok">1.55</td><td>0.64%</td><td>全行业 PB 最低，深度亏损</td></tr>
+      </tbody>
+    </table>
+    <div class="data-note" style="margin-top:14px; margin-bottom:0;">
+      <strong>📌 同业口径说明：</strong>全部为同一接口（腾讯行情）同一时点（2026-11-27 盘中）快照，横向可比。<span class="warn">PE 全部为负，不可用于相对估值</span>；<span class="info">PB 是唯一可横向比较的锚</span>。新希望 1.67 倍 PB 在 7 家中最低（主因是净资产中含 320.94 亿权益法资产 + 亏损对净资产的侵蚀），这既是折价理由，也是「低 PB 不等于便宜」的典型样本——它的分母质量明显差于牧原、温氏。
+    </div>
+  </div>
+
+  <div class="section-title">📈 四、成长性维度（费雪 + 林奇）</div>
+  <div class="section-subtitle">结论：周期波动（营收在增长，但利润与股东回报在倒退）</div>
+
+  <div class="fin-table">
+    <div class="fin-row header">
+      <div>成长子项</div><div>读数</div><div>解读</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">① PEG 比率</div>
+      <div class="fin-val down">不可用</div>
+      <div class="fin-comment">基期利润为负（TTM 归母 -51.1 亿、2026 前三季 -25.68 亿），<span class="danger">PEG 失真，不予采用</span>。在归母恢复为正之前，PEG 不具备任何决策意义。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">② 营收 CAGR</div>
+      <div class="fin-val warn">口径断裂</div>
+      <div class="fin-comment">2023A 1,417.03 亿 → 2024A 1,030.63 亿（-27.27%，<span class="warn">禽产业出表导致的口径断裂</span>）→ 2025A 1,068.56 亿（+3.68%）→ 2026 前三季 876.98 亿（+8.94%）。<strong>在可比口径（2024 年后）下营收 CAGR 约 +4%/年</strong>，属低速增长；2026 年提速主要来自饲料外销量与海外业务（海外收入 128.11 亿、+18.61%，毛利率 9.65% vs 国内 3.26%）。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">③ 净利润 CAGR</div>
+      <div class="fin-val down">负增长</div>
+      <div class="fin-comment">2023A +2.49 亿 → 2024A +4.74 亿 → 2025A <strong>-17.84 亿</strong> → 2026 前三季 <strong>-25.68 亿</strong>。归母连续两年下台阶，且 2026 年亏损仍在扩大（Q1 -8.98 亿 → H1 -17.02 亿 → 前三季 -25.68 亿，Q3 单季 -8.66 亿）。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">④ 主营驱动力拆解</div>
+      <div class="fin-val mid">量增 + 结构改善</div>
+      <div class="fin-comment">饲料：2025 年总销量 2,974 万吨（占全国总产量 8.7%，禽料 1,687 / 猪料 1,020 / 水产料 197 / 反刍料 53 万吨），2026H1 销量 1,625 万吨、外销 1,316 万吨，创半年度历史新高；海外 14 国 60+ 分子公司，印尼 / 越南 / 埃及销量已进入本国前四。<br>养殖：2025 年出栏 1,755 万头（国内上市公司第三），2026 年主动下调至 1,600 万头计划量并挑战成本再降 1.5 元/公斤；2026 年 6 月末自养 : 放养 = 40 : 60，自养占比继续提升。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">⑤ 未来 12–24 个月催化剂</div>
+      <div class="fin-val ok">猪价反转是主变量</div>
+      <div class="fin-comment">① 猪价：11/23 外三元 9.77 元/kg、农业农村部第三周 9.95 元/kg，机构普遍预期 2027 年迎拐点；② 能繁母猪去化（Q2 末 3,780 → Q3 末 3,602 万头）；③ 成本下降节奏（公司目标 2026 年降 1.5 元/kg）；④ 2027-03-01 定增解禁前后情绪修复；⑤ 政策端中央储备冻猪肉收储与产能调控制度化。</div>
+    </div>
+  </div>
+  <div class="section-title">🛡️ 五、护城河与生意本质（巴菲特 + 费雪）</div>
+  <div class="section-subtitle">结论：饲料端「狭窄但真实」的护城河 + 养殖端「无护城河」的组合体</div>
+
+  <div class="table-card">
+    <div class="table-title">🛡️ 护城河六维评估</div>
+    <table class="compare-table">
+      <thead><tr><th>维度</th><th>评级</th><th>证据</th><th>评价</th></tr></thead>
+      <tbody>
+        <tr><td>品牌</td><td class="warn">中</td><td>「六和」为国内饲料与屠宰领域头部品牌；1998 年上市，2025《财富》世界 500 强第 426 位、中国农业企业 500 强第二</td><td>养殖端品牌溢价极弱（B 端白条），饲料端有一定溢价能力</td></tr>
+        <tr><td>网络效应</td><td class="danger">无</td><td>饲料为单向采购关系，不存在用户网络</td><td>不适用</td></tr>
+        <tr><td>规模优势</td><td class="ok">强</td><td>2025 年饲料销量 2,974 万吨、占全国总产量 8.7%；2025 年生猪出栏 1,755 万头、行业第三；屠宰 2026H1 196.04 万头</td><td>饲料的采购、物流与配方摊薄是真实壁垒</td></tr>
+        <tr><td>技术</td><td class="warn">中</td><td>三元杂交为主 + PIC 五元辅以「金字塔」育种体系；养猪 AI 助手「猪小新」迭代；研发投入 2026H1 仅 0.91 亿元（占营收 0.16%）</td><td>育种与配方有积累，但研发强度低，不构成技术壁垒</td></tr>
+        <tr><td>牌照 / 准入</td><td class="warn">中</td><td>农业产业化国家重点龙头企业、饲料行业头部；出口配额与食品安全生产许可构成准入门槛</td><td>有一定保护，但不是排他性</td></tr>
+        <tr><td>转换成本</td><td class="danger">无</td><td>养殖客户切换饲料供应商成本极低，赊销模式下反而形成信用敞口（应收账款较年初 +121.36%）</td><td>缺乏黏性，饲料提价传导不畅</td></tr>
+        <tr><td>成本优势</td><td class="ok">饲料强 / 养殖弱</td><td>饲料海外毛利率 9.65% vs 国内 3.26%；养殖成本在行业内处中游，公司自身仍在以 1.5 元/kg 为目标压降</td><td>饲料端有成本优势，养殖端尚未证明</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fin-table">
+    <div class="fin-row header">
+      <div>护城河子项</div><div>读数</div><div>解读</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">ROIC / ROE 近 4 年</div>
+      <div class="fin-val down">全面为负</div>
+      <div class="fin-comment">加权 ROE：2023A 0.71% → 2024A 1.73% → 2025A -8.85% → 2026 前三季 <strong>-13.89%</strong>。ROIC 更差（重资产 + 减值），<span class="danger">不满足巴菲特「资本创造回报」的前提</span>。这是本次评级不给「巴菲特护城河」高分的核心原因。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">毛利率 / 净利率稳定性</div>
+      <div class="fin-val warn">波动剧烈</div>
+      <div class="fin-comment">综合毛利率：2023A 2.75% → 2024A 6.71% → 2025A 6.28% → 2026 前三季 <strong>4.65%</strong>；净利率 -0.67% → 0.20% → -1.64% → -3.01%。周期股的正常表现，但波动区间过大意味着<span class="warn">盈利预测置信度低</span>。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">行业地位</div>
+      <div class="fin-val ok">饲料前三 / 养殖第三</div>
+      <div class="fin-comment">饲料销量全国 8.7% 份额、海外多国前四；生猪出栏量 2025 年 1,755 万头居国内上市公司第三；屠宰业务 2026H1 收入 34.78 亿元。<strong>行业地位稳固</strong>，是「活得下来」的保证，但第三名的位置意味着它在成本曲线中游。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">产业链一体化价值</div>
+      <div class="fin-val mid">对冲有效</div>
+      <div class="fin-comment">公司自述逻辑成立：猪价低位时上游饲料销量更大、下游屠宰收购成本更低且负荷率高。2026H1 数据验证了这一机制 —— 猪价暴跌时，饲料收入 <span class="ok">+16.80%</span>、屠宰收入 34.78 亿仍维持规模。<strong>一体化是这轮周期里公司区别于纯养殖标的的关键缓冲。</strong></div>
+    </div>
+  </div>
+
+  <div class="section-title">💰 六、财务质量体检（格雷厄姆 + 凯恩斯）</div>
+  <div class="section-subtitle">结论：财务风险（亏损 + 高杠杆 + 负营运资本），但现金流尚未击穿</div>
+
+  <div class="table-card">
+    <div class="table-title">💰 13 项核心财务指标（近 4 期，含 2026 年三季报）</div>
+    <table class="compare-table">
+      <thead><tr><th>指标</th><th>2023A</th><th>2024A</th><th>2025A</th><th>2026Q1-Q3</th><th>评价</th></tr></thead>
+      <tbody>
+        <tr><td>营业收入（亿元）</td><td>1,417.03</td><td>1,030.63</td><td>1,068.56</td><td class="ok">876.98（+8.94%）</td><td class="ok">规模在增</td></tr>
+        <tr><td>营收 YoY</td><td class="mid">+0.14%</td><td class="warn">-27.27%</td><td class="ok">+3.68%</td><td class="ok">+8.94%</td><td class="warn">2024 为出表口径</td></tr>
+        <tr><td>归母净利润（亿元）</td><td>+2.49</td><td>+4.74</td><td class="danger">-17.84</td><td class="danger">-25.68</td><td class="danger">持续恶化</td></tr>
+        <tr><td>扣非归母（亿元）</td><td class="danger">-46.08</td><td>+6.14</td><td class="danger">-14.74</td><td class="danger">-25.53</td><td class="danger">主业亏损</td></tr>
+        <tr><td>经营活动现金流（亿元）</td><td class="mid">—</td><td class="ok">+91.27</td><td class="ok">+93.78</td><td class="warn">+26.00（-66.81%）</td><td class="warn">仍为正但在下滑</td></tr>
+        <tr><td>自由现金流（估算，亿元）</td><td class="mid">—</td><td class="ok">约 +69</td><td class="ok">约 +72</td><td class="warn">约 +8.9</td><td class="warn">FCF 缓冲显著收窄</td></tr>
+        <tr><td>资产负债率</td><td>72.28%</td><td>69.01%</td><td>69.89%</td><td class="warn">69.71%</td><td class="warn">高位持平</td></tr>
+        <tr><td>有息负债（亿元，估算）</td><td class="mid">—</td><td class="mid">—</td><td class="mid">约 548</td><td class="danger">548.97</td><td class="danger">短借 107.31 + 长借 267.15 + 应付债券 98.51 + 一年内到期 76.00</td></tr>
+        <tr><td>应收账款周转天数</td><td class="mid">—</td><td class="mid">—</td><td class="mid">—</td><td class="warn">5.17 天</td><td class="warn">较年初 +121.36%（饲料赊销）</td></tr>
+        <tr><td>存货周转天数</td><td class="mid">—</td><td class="mid">—</td><td class="mid">—</td><td class="danger">357.74 天</td><td class="danger">消耗性生物资产占用极重</td></tr>
+        <tr><td>经营现金流 / 净利润</td><td class="mid">—</td><td class="mid">—</td><td class="mid">—</td><td class="danger">-1.01（比值失真）</td><td class="danger">亏损口径下比值无意义；现金流为正源于折旧摊销与减值回加</td></tr>
+        <tr><td>商誉 / 总资产</td><td class="ok">—</td><td class="ok">0.96%</td><td class="ok">0.99%</td><td class="ok">0.95%</td><td class="ok">远低于 10% 健康线</td></tr>
+        <tr><td>流动比率 / 速动比率</td><td class="mid">—</td><td class="mid">—</td><td class="mid">—</td><td class="danger">0.755 / 0.334</td><td class="danger">净营运资本 -152.56 亿元</td></tr>
+      </tbody>
+    </table>
+    <div class="data-note" style="margin-top:14px; margin-bottom:0;">
+      <strong>📌 口径与推导说明：</strong>① 自由现金流 = 经营现金流 − 购建长期资产支付的现金（2024 年 21.84 亿、2025 年 21.32 亿、2026 前三季 17.09 亿），为<span class="warn">估算值</span>；② 有息负债按「短期借款 + 长期借款 + 应付债券 + 一年内到期的非流动负债」加总，未含租赁负债 27.51 亿，实际口径更高；③ 应收 / 存货周转天数取东财 F10 口径（应收账款周转天数基于营业收入，存货周转天数基于营业成本），与公司自算口径可能存在差异；④ 经营现金流为正但净利为负，差异主要来自折旧摊销（约 30 亿元量级）、存货跌价准备计提 13.03 亿元（1-9 月）等非付现项目。
+    </div>
+  </div>
+
+  <div class="theme-banner danger">
+    <div class="icon">💰</div>
+    <div class="text">
+      <h3>财务结论：财务风险（不是「财务瑕疵」）——三个红色信号</h3>
+      <p>① <strong>连续亏损且扩大</strong>：2025 年归母 -17.84 亿、2026 前三季 -25.68 亿，扣非连续为负；② <strong>资产负债表紧绷</strong>：有息负债约 549 亿、资产负债率 69.71%、流动比率 0.755、速动比率 0.334、净营运资本 -152.56 亿（短期偿债依赖再融资滚动）；③ <strong>资产质量在被动消耗</strong>：2026 年 1-9 月计提减值 13.03 亿元（存货跌价 12.43 亿 + 信用减值 0.59 亿），其中大部分是消耗性生物资产跌价 —— 猪价下跌直接变成账面减记。<br>
+      缓释项：① 经营现金流 1-9 月仍为 +26.00 亿；② 定增 25.85 亿元净额已于 2026 年 9 月到账；③ 金融机构授信近 800 亿元、用信率约 55%；④ 商誉仅占总资产 0.95%，无商誉爆雷风险；⑤ 主体信用 AAA 级。</p>
+    </div>
+  </div>
+
+  <div class="section-title">🏛️ 七、管理层与公司治理（费雪 15 问精简版）</div>
+  <div class="section-subtitle">结论：需要警惕（质押 + 担保代偿 + 关联交易规模大）</div>
+
+  <div class="fin-table">
+    <div class="fin-row header">
+      <div>治理子项</div><div>读数</div><div>解读</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">① 实控人与持股结构</div>
+      <div class="fin-val mid">刘永好家族</div>
+      <div class="fin-comment">实控人刘永好，董事长<b>刘畅</b>（女儿）。控股股东新希望集团有限公司持股 22.77%（11.30 亿股），一致行动人南方希望实业持股 26.78%（13.29 亿股），<strong>合计 49.55%</strong>，控制权稳固。2026 年 8 月定增后因被动稀释触及 1% 整数倍（已披露）。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">② 控股股东股权质押</div>
+      <div class="fin-val danger">68.15% 已质押</div>
+      <div class="fin-comment">截至 2026-11-20，新希望集团累计质押 <strong>7.70 亿股</strong>，占其所持股份 <strong>68.15%</strong>、占总股本 15.52%；南方希望实业质押 0 股。本次新增 1.80 亿股用于 2026 年可交换债（第二期）担保。<span class="danger">这是本报告最刺眼的治理风险点</span>：股价若继续下行，质押平仓压力会与「护盘增持」形成正反馈。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">③ 对外担保与担保代偿</div>
+      <div class="fin-val danger">连续代偿 4 笔</div>
+      <div class="fin-comment">2026-11-19 安岳公司 327.62 万、11-20 及 11-23 荣县公司 2,419.70 万、11-23 兴新鑫农牧 178.93 万、11-24 兴新鑫农牧 376.67 万，合计代偿约 <strong>3,303 万元</strong>。原因是参股公司（成都天府兴新鑫农牧，实控人为成都市国资委）短期流动性缺口。公司已就兴新鑫未履行替代担保责任提起违约诉讼（2026-10-29 立案）。<span class="warn">金额本身不大，但连续 4 笔代偿是子公司与参股公司资金链紧张的实证信号</span>。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">④ 研发投入与激励</div>
+      <div class="fin-val warn">强度偏低</div>
+      <div class="fin-comment">2026H1 研发投入 0.91 亿元（同比 -3.80%），占营收仅 0.16%；2025 年「希望转 2」转股价因 2022 年限制性股票授予与 2024 年度权益分配两次调整（现 10.59 元），说明历史上实施过股权激励，但激励规模相对公司体量有限。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">⑤ 关联交易规模</div>
+      <div class="fin-val warn">134.9 亿元/年</div>
+      <div class="fin-comment">2026 年度预计向各关联人及下属企业购买肉制品 / 养殖设备 / 饲料原料不超过 41.80 亿元，接受劳务不超过 5.70 亿元，承租不超过 0.10 亿元，出租不超过 0.25 亿元，<strong>销售饲料 / 肉制品等不超过 93.11 亿元</strong>。另有原料采购货款担保上限 76.28 亿元（= 最近一期经审计归母净资产的 34.36%）。关联方包括新希望乳业（董事长控制）、草根知本、山东中新食品、兴源环境等，<span class="warn">治理复杂度偏高，需持续关注定价公允性</span>。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">⑥ 分红政策</div>
+      <div class="fin-val danger">已中断</div>
+      <div class="fin-comment">2024 年度派现 0.2412 元/股（除权 2025-07-25）；<strong>2025 年度亏损未分配</strong>；2026 中期明确「不派发现金红利、不送红股、不以公积金转增股本」。<span class="danger">在 PB 1.67、股息率 0.36% 的定价下，持有回报完全依赖股价</span>。</div>
+    </div>
+  </div>
+  <div class="section-title">🌐 八、行业与周期定位（马克斯 + 达里奥）</div>
+  <div class="section-subtitle">结论：周期底部机会（左侧），但反转的「时点」与「幅度」都尚未被报表确认</div>
+
+  <div class="table-card">
+    <div class="table-title">🌐 周期定位四子项</div>
+    <table class="compare-table">
+      <thead><tr><th>子项</th><th>读数 / 判断</th><th>依据</th></tr></thead>
+      <tbody>
+        <tr><td>① 周期阶段</td><td class="ok">深度底部（左侧）</td><td>全国生猪价格 11 月上旬一度跌至 8.52 元/公斤（近十年新低），行业进入全面亏损；能繁母猪存栏 2026Q2 末 3,780 万头（同比 -263 万头 / -6.5%），Q3 末进一步降至 <strong>3,602 万头</strong>，较 2024 年高点去化约 12%。</td></tr>
+        <tr><td>② 政策环境</td><td class="warn">中性偏鼓励（但见效慢）</td><td>2026 年生猪政策调控制度化升级（控制母猪单产、避免库存积压与出栏踩踏）；2026 年第二批中央储备冻猪肉收储于 4 月启动。政策定调支持产能去化，但收储托价属短周期工具，<span class="warn">不能替代产能真实出清</span>。</td></tr>
+        <tr><td>③ 未来 3–5 年增长空间</td><td class="mid">总量见顶、结构分化</td><td>2026H1 全国生猪出栏量同比仍 +1.7%，猪价长期运行在行业成本线下方；能繁去化 6.5% 但被全行业生产效率提升部分抵消。公司判断「真正传导到商品猪环节的价格回升，还有待产能的进一步去化」。</td></tr>
+        <tr><td>④ 产业链位置</td><td class="ok">中游偏上（饲料 + 养殖一体）</td><td>上游原料（玉米 / 豆粕 2026H1 回落，成本管控窗口有利）→ 中游饲料（2026H1 全国工业饲料总产量 +3.9%，猪料 +7.9%）→ 自有养殖 + 屠宰（屠宰 196.04 万头）。产业链一体化使其在猪价低位时受益于上游销量与下游成本。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-card">
+    <div class="table-title">🐖 公司月度商品猪销售：价格是唯一的胜负手（2026 年 1–10 月，公司销售简报）</div>
+    <table class="compare-table">
+      <thead><tr><th>月份</th><th>商品猪(万头)</th><th>累计(万头)</th><th>收入(亿元)</th><th>累计(亿元)</th><th>均价(元/kg)</th><th>均价环比</th></tr></thead>
+      <tbody>
+        <tr><td>2026-01</td><td>112.18</td><td>112.18</td><td>16.28</td><td>16.28</td><td>12.48</td><td class="mid">—</td></tr>
+        <tr><td>2026-02</td><td>98.22</td><td>210.40</td><td>13.27</td><td>29.55</td><td>11.45</td><td class="warn">-8.3%</td></tr>
+        <tr><td>2026-03</td><td>130.47</td><td>340.87</td><td>15.47</td><td>45.02</td><td class="danger">9.74</td><td class="danger">-14.9%</td></tr>
+        <tr><td>2026-04</td><td>120.99</td><td>461.86</td><td>13.12</td><td>58.14</td><td>9.15</td><td class="danger">-6.1%</td></tr>
+        <tr><td>2026-05</td><td>123.34</td><td>585.20</td><td>13.86</td><td>72.00</td><td>9.48</td><td class="ok">+3.6%</td></tr>
+        <tr><td>2026-06</td><td>125.44</td><td>710.64</td><td>13.84</td><td>85.84</td><td>9.35</td><td class="warn">-1.4%</td></tr>
+        <tr><td>2026-07</td><td>122.56</td><td>833.20</td><td>15.05</td><td>100.89</td><td class="ok">10.42</td><td class="ok">+11.4%</td></tr>
+        <tr><td>2026-08</td><td>120.61</td><td>953.81</td><td>15.05</td><td>115.94</td><td>10.46</td><td class="ok">+0.4%</td></tr>
+        <tr><td>2026-09</td><td>113.97</td><td>1,067.78</td><td>13.82</td><td>129.75</td><td class="warn">10.34</td><td class="warn">-1.1%</td></tr>
+        <tr><td>2026-10</td><td class="ok">128.69</td><td class="ok">1,196.47</td><td>14.81</td><td class="ok">144.56</td><td class="danger">9.54</td><td class="danger">-7.7%</td></tr>
+      </tbody>
+    </table>
+    <div class="data-note" style="margin-top:14px; margin-bottom:0;">
+      <strong>📌 关键读数：</strong>① 10 月销售 128.69 万头（环比 +12.92%、同比 -4.87%），收入 14.81 亿元（同比 -18.02%），均价 9.54 元/公斤（同比 -15.43%）；② 1-10 月累计商品猪 1,196.47 万头、收入 144.56 亿元；③ <strong>出栏量不降反升、均价持续下探</strong> —— 这正是亏损扩大的机制：量在补、价在跌；④ 公司 2026 年计划出栏量已主动下调至 1,600 万头（2025 年实际 1,755 万头），若兑现则 2027 年猪价弹性更大、但绝对收入与利润基数更低；⑤ 10 月另销售仔猪 0.94 万头、种猪 4.45 万头。<br>
+      <strong>口径提示：</strong>公司商品猪均价（10 月 9.54 元/公斤）与农业农村部全国周度价（11 月第三周 9.95 元/公斤）时点不同、且销售区域与体重结构不同，<span class="warn">两者不可直接相减</span>；10 月全国均价应高于 11 月第三周，本项对比仅作趋势参考。
+    </div>
+  </div>
+
+  <div class="section-title">📡 九、技术面与资金流（凯恩斯 + 索罗斯）</div>
+  <div class="section-subtitle">结论：弱势（长期均线下方 + 主力资金持续净流出），但已接近超卖区</div>
+
+  <div class="dashboard">
+    <div class="index-card danger">
+      <div class="name">现价 vs MA5</div>
+      <div class="value">-2.9%</div>
+      <div class="change">MA5 = 6.828</div>
+      <div class="label">6.63 / 6.828</div>
+    </div>
+    <div class="index-card danger">
+      <div class="name">现价 vs MA20</div>
+      <div class="value">-4.5%</div>
+      <div class="change">MA20 = 6.941</div>
+      <div class="label">6.63 / 6.941</div>
+    </div>
+    <div class="index-card danger">
+      <div class="name">现价 vs MA60</div>
+      <div class="value">-5.6%</div>
+      <div class="change">MA60 = 7.020</div>
+      <div class="label">6.63 / 7.020</div>
+    </div>
+    <div class="index-card danger">
+      <div class="name">现价 vs MA120</div>
+      <div class="value">-4.5%</div>
+      <div class="change">MA120 = 6.945</div>
+      <div class="label">6.63 / 6.945</div>
+    </div>
+    <div class="index-card danger">
+      <div class="name">现价 vs MA250</div>
+      <div class="value">-16.1%</div>
+      <div class="change">MA250 = 7.905</div>
+      <div class="label">长期趋势向下，尚未修复</div>
+    </div>
+    <div class="index-card warn">
+      <div class="name">主力资金（近 20 日）</div>
+      <div class="value">-1.85 亿</div>
+      <div class="change">近 5 日 -0.14 亿</div>
+      <div class="label">近 10 日 -0.65 亿<br>11-26 单日 -0.27 亿</div>
+    </div>
+    <div class="index-card warn">
+      <div class="name">成交量趋势</div>
+      <div class="value">-23.4%</div>
+      <div class="change">5 日均 28.7 万手</div>
+      <div class="label">60 日均 37.5 万手<br>缩量下跌</div>
+    </div>
+    <div class="index-card mid">
+      <div class="name">股东户数</div>
+      <div class="value">223,000 户</div>
+      <div class="change">2026-10-10</div>
+      <div class="label">户均持股 22,252 股<br>户均市值约 15.29 万元</div>
+    </div>
+  </div>
+
+  <div class="fin-table">
+    <div class="fin-row header">
+      <div>技术面子项</div><div>读数</div><div>解读</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">① 均线位置</div>
+      <div class="fin-val danger">全部均线下方</div>
+      <div class="fin-comment">6.63 元低于 MA5/20/60/120/250 全部均线，且距 MA250 有 -16.1% 的距离。<strong>中长期趋势仍是下降通道</strong>，均线本身尚未走平，属于典型的「左侧位置」而非「右侧启动」。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">② 北向资金近 30 日</div>
+      <div class="fin-val warn">数据缺口</div>
+      <div class="fin-comment">北向个股持股自 2024-08 起改为季度披露，<span class="warn">「近 30 日北向净流入」指标已不可获取</span>，不拼凑二手新闻。可得信息：香港中央结算有限公司 2026-09-30 持股占流通 1.43%。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">③ 公募 / 社保 / ETF 持仓</div>
+      <div class="fin-val mid">被动资金为主</div>
+      <div class="fin-comment">2026-09-30 十大股东中：国泰中证畜牧养殖 ETF 1.36%、招商中证畜牧养殖 ETF 0.41%、<strong>全国社保基金一一八组合 1.21%</strong>、香港中央结算 1.43%。机构持仓明细接口未返回完整字段，<span class="warn">环比变化幅度未能独立核验</span>。定增 26 名发行对象中包含财通基金（9,739 万股）、诺德基金（7,912 万股）、中央企业乡村产业投资基金（4,064 万股）、欠发达地区产业发展基金等国资背景机构 —— 长期资金在 5.66 元定价参与。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">④ 成交量趋势（3 个月）</div>
+      <div class="fin-val warn">缩量阴跌</div>
+      <div class="fin-comment">近 5 日均量 28.74 万手，较近 60 日均量 37.54 万手缩量 23.4%。<span class="warn">缩量下跌说明抛压在减轻但增量资金同样缺席</span>；11/23 猪价反弹当周（11-23 主力 +0.16 亿、11-24 +0.05 亿）资金回流微弱，11-26 即转为 -0.27 亿净流出（近 20 日最大单日净流出）。</div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-name">⑤ 关键支撑 / 压力位</div>
+      <div class="fin-val mid">支撑 5.82–6.00 / 压力 7.02–7.23</div>
+      <div class="fin-comment">支撑：52 周低点 5.82 元、120 日低点 5.82 元、近 20/60 日低点 6.43 元、定增发行价 5.66 元；压力：MA60 7.02 元、MA20/MA120 6.94 元、近 20 日高点 7.23 元、近 60 日高点 8.02 元。<span class="info">6.43 是最近一个有效短线支撑，5.82 是中期生死线。</span></div>
+    </div>
+  </div>
+  <div class="section-title">🧠 十、多方法论视角下的最终评级</div>
+  <div class="section-subtitle">11 种方法论独立打分 · 权重：格雷厄姆/邓普顿/马克斯/巴菲特各 15%，费雪/林奇各 10%，其余 5 项各 5%（合计 105%，加权后归一化 ÷1.05）</div>
+
+  <div class="score-table">
+    <div class="score-item">
+      <div class="score-num bad">2.5</div>
+      <div class="score-name">格雷厄姆 · 深度价值</div>
+      <div class="score-bar"><div class="score-fill bad" style="width:25%"></div></div>
+      <div class="score-out">深度价值 / 10</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num warn">4.5</div>
+      <div class="score-name">费雪 · 成长投资</div>
+      <div class="score-bar"><div class="score-fill warn" style="width:45%"></div></div>
+      <div class="score-out">成长投资 / 10</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num bad">3.0</div>
+      <div class="score-name">林奇 · PEG</div>
+      <div class="score-bar"><div class="score-fill bad" style="width:30%"></div></div>
+      <div class="score-out">PEG 价值 / 10</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num good">6.5</div>
+      <div class="score-name">邓普顿 · 逆向投资</div>
+      <div class="score-bar"><div class="score-fill good" style="width:65%"></div></div>
+      <div class="score-out">逆向投资 / 10</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num warn">4.0</div>
+      <div class="score-name">博格 · 指数投资</div>
+      <div class="score-bar"><div class="score-fill warn" style="width:40%"></div></div>
+      <div class="score-out">指数投资 / 10</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num good">6.5</div>
+      <div class="score-name">马克斯 · 周期投资</div>
+      <div class="score-bar"><div class="score-fill good" style="width:65%"></div></div>
+      <div class="score-out">周期投资 / 10</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num warn">4.0</div>
+      <div class="score-name">西蒙斯 · 量化</div>
+      <div class="score-bar"><div class="score-fill warn" style="width:40%"></div></div>
+      <div class="score-out">量化因子 / 10</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num warn">4.5</div>
+      <div class="score-name">达里奥 · 全天候</div>
+      <div class="score-bar"><div class="score-fill warn" style="width:45%"></div></div>
+      <div class="score-out">资产配置 / 10</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num mid">5.5</div>
+      <div class="score-name">凯恩斯 · 选美博弈</div>
+      <div class="score-bar"><div class="score-fill mid" style="width:55%"></div></div>
+      <div class="score-out">市场博弈 / 10</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num mid">5.0</div>
+      <div class="score-name">索罗斯 · 反身性</div>
+      <div class="score-bar"><div class="score-fill mid" style="width:50%"></div></div>
+      <div class="score-out">反身性 / 10</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num warn">4.5</div>
+      <div class="score-name">巴菲特 · 护城河</div>
+      <div class="score-bar"><div class="score-fill warn" style="width:45%"></div></div>
+      <div class="score-out">护城河 / 10</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num warn">4.67</div>
+      <div class="score-name">加权综合（÷1.05 归一化）</div>
+      <div class="score-bar"><div class="score-fill warn" style="width:47%"></div></div>
+      <div class="score-out">持有观察 · 仓位 ≤3%</div>
+    </div>
+  </div>
+
+  <div class="method-grid">
+    <div class="method-card best">
+      <div class="method-name">邓普顿 · 逆向投资</div>
+      <div class="method-author">在「最大悲观点」买入，且公司能活到反转那天</div>
+      <div class="method-score good">6.5 / 10</div>
+      <div class="method-desc">外部：猪价创近十年新低（8.52 元/公斤）、行业全面亏损、能繁母猪去化 6.5% 至 3,602 万头 —— 这是教科书式的「最大悲观点」。<br>内部：饲料业务半年历史最好（销量 1,625 万吨、毛利率 5.23%）、海外 +18.61%、经营现金流 1-9 月 +26.00 亿、授信 800 亿用信率 55%、定增 25.85 亿净额到账 —— <strong>活到反转的条件成立</strong>。<br>扣分项：出栏量行业第三意味着猪价再跌时受伤更重；控股股东 68.15% 质押；连续 4 笔参股公司担保代偿。</div>
+    </div>
+    <div class="method-card best">
+      <div class="method-name">马克斯 · 周期投资</div>
+      <div class="method-author">当前处在周期周期的什么位置</div>
+      <div class="method-score good">6.5 / 10</div>
+      <div class="method-desc">行业供给端已连续去化：能繁母猪 2024 年高点 → 2026Q3 末 3,602 万头；猪价 11 月初触底（8.52）后反弹至 9.95 元/公斤（周度环比 +1.4%），标肥价差走扩确认阶段性底部；机构普遍预期 2027 年迎猪价拐点。<br>扣分项：<strong>生产效率提升正在抵消去化</strong>（公司自述「真正传导到商品猪环节的价格回升，还有待产能的进一步去化」），且公司报表尚未反映任何价格弹性 —— Q3 单季仍亏 8.66 亿。周期位置判断对，但时点不确定。</div>
+    </div>
+    <div class="method-card mid">
+      <div class="method-name">凯恩斯 · 选美博弈</div>
+      <div class="method-author">市场情绪与资金流：这是不是当下最拥挤的交易</div>
+      <div class="method-score mid">5.5 / 10</div>
+      <div class="method-desc">它是 A 股「猪周期反弹」的核心叙事载体之一：出栏第三、饲料第一梯队、社保 118 组合与两只畜牧养殖 ETF 均为十大股东。<br>但博弈面偏弱：11 月股价反弹中主力资金持续净流出（近 20 日 -1.85 亿，11-26 单日 -0.27 亿为区间最大），股价仍在全部均线下方，2027-03-01 定增解禁是明确的供给压力。<strong>「有故事、缺资金」</strong>。</div>
+    </div>
+    <div class="method-card weak">
+      <div class="method-name">巴菲特 · 护城河</div>
+      <div class="method-author">持久竞争优势与资本回报</div>
+      <div class="method-score warn">4.5 / 10</div>
+      <div class="method-desc">饲料端护城河真实（规模 8.7% 份额、海外 14 国 60+ 子公司多国前四、产业链一体化对冲），但生猪端是彻底的同质化商品生意，无品牌、无转换成本、无成本领先（公司仍在以 1.5 元/kg 为目标压降成本）。<br>更关键的是 <strong>ROIC / ROE 全面为负</strong>（2026 前三季加权 ROE -13.89%），不满足「资本能创造回报」这一前提。<span class="warn">护城河不足以抵消养殖端的资本消耗。</span></div>
+    </div>
+    <div class="method-card weak">
+      <div class="method-name">格雷厄姆 · 深度价值</div>
+      <div class="method-author">价格是否显著低于内在价值</div>
+      <div class="method-score bad">2.5 / 10</div>
+      <div class="method-desc">全部经典安全边际检验均不通过：PE 三个口径皆负；PB 1.67（普通股 BPS 3.93 元）已高于净资产；流动比率 0.755、速动比率 0.334、净营运资本 -152.56 亿元；粗算清算价值仅约 2.7–3.3 元/股，<strong>较现价折价 50% 以上</strong>；无稳定股息（股息率 0.36%）。</div>
+    </div>
+    <div class="method-card weak">
+      <div class="method-name">林奇 · PEG + 费雪成长 + 博格指数 + 西蒙斯 + 达里奥 + 索罗斯</div>
+      <div class="method-author">其余 6 项方法论摘要</div>
+      <div class="method-score warn">3.0 – 5.0</div>
+      <div class="method-desc">林奇 3.0（基期为负，PEG 不可用）；费雪 4.5（营收在增但利润与回报在倒退，研发强度仅 0.16%，无复利证据）；博格 4.0（非宽基指数标的，仅被动资金敞口）；西蒙斯 4.0（长期均线下方、下行趋势、缩量）；达里奥 4.5（高杠杆 + 强周期 + 重固定成本，属组合中的高贝塔暴露，在「增长收缩 + 通胀」象限需减配）；索罗斯 5.0（股价下跌 → 定增 5.66 元融资 → 撑过周期 → 等待产能出清的反馈环尚未转正）。</div>
+    </div>
+  </div>
+
+  <div class="conclusion">
+    <div class="conclusion-title">📌 方法论冲突处理与最终倾向（3 条）</div>
+    <div class="conclusion-item">
+      <span class="num">1</span>
+      <p><strong>冲突点：</strong>周期派（邓普顿 6.5 / 马克斯 6.5 / 凯恩斯 5.5 / 索罗斯 5.0）与价值派（格雷厄姆 2.5 / 林奇 3.0 / 巴菲特 4.5）结论严重背离 —— 一方说「底部已现、赔率在改善」，另一方说「PB 1.67、安全边际为负、资本回报为负」。</p>
+    </div>
+    <div class="conclusion-item">
+      <span class="num">2</span>
+      <p><strong>分析原因：</strong>背离源于标的属性 —— 新希望是<strong>「带看涨期权的重资产周期股」</strong>：向下有 549 亿有息负债与 12.7 亿/季的减值在拖，向上有 1,600 万头出栏量 × 猪价弹性的杠杆在放大。以 PB 定价会把「未来正常化盈利」的期权价值全部漏掉（周期股 PE 失效时必须用「正常化盈利 × 合理 PE」定价）；但只用周期弹性又会忽略当下报表仍在恶化、且出清尚未完成。</p>
+    </div>
+    <div class="conclusion-item">
+      <span class="num">3</span>
+      <p><strong>最终倾向：</strong><strong>采纳周期派判断、但按纪律分档执行</strong> —— 承认「2027 年猪价拐点概率不低、公司大概率活得到那天」这一事实，因此<strong>不给出「减持/卖出」的结论</strong>；但由于加权分 4.67 未过 5.0 的「谨慎买入」门槛、概率加权目标价 5.75 元低于现价、安全边际为负，故<strong>评级落在「持有观察」，仓位上限 3%，且必须以 5.82 元（52 周低点）为硬止损</strong>。<br>明确说明：<strong>这是「周期左侧观察标的」，不是「价值投资标的」</strong>。未持仓者不追高建仓；已持仓者可保留小仓位并把止损位上移至 5.82 元。<strong>只有在「猪价站上 11 元/公斤并连续 4 周」+「单季头均亏损收窄」两个条件同时出现时，才建议把评级上调至「谨慎买入」并把仓位提至 5%。</strong></p>
+    </div>
+  </div>
+
+  <div class="section-title">🧭 十一、操作策略与建议</div>
+  <div class="section-subtitle">7 子项 · 单股仓位上限 3%（凯恩斯 + 博格原则）</div>
+
+  <div class="strategy-grid">
+    <div class="strategy-card position">
+      <div class="strategy-title">💼 ① 建议仓位</div>
+      <div class="strategy-content">
+        <strong>综合评级「持有观察」对应单股仓位 ≤3%（占总投资组合）</strong>，建议实际配置 <span class="hl-warn">2%–3%</span> 作为周期观察仓。<br>
+        按投资者类型分档：<br>
+        · <span class="hl-ok">已有持仓者</span>：可保留 2%–3% 观察仓，止损位上移至 5.82 元，不加仓；<br>
+        · <span class="hl-warn">未持仓者</span>：<strong>不建议在现价 6.63 元建仓</strong>，等待「猪价站上 11 元/公斤连续 4 周 + 单季头均亏损收窄」双确认；<br>
+        · <span class="hl-danger">杠杆资金 / 短线交易资金</span>：本标的波动大、主力资金持续净流出，不适合作为博弈品种参与。
+      </div>
+    </div>
+    <div class="strategy-card target">
+      <div class="strategy-title">🎯 ② 目标价（三情景）</div>
+      <div class="strategy-content">
+        <strong>12 个月（至 2027-11）</strong><br>
+        · 悲观（概率 30%）：猪价均值 ≤10.5 元/kg，继续亏损 → <span class="hl-danger">3.00 元</span>（PB 0.90 × 2026E BPS 约 3.33 元）<br>
+        · 中性（概率 45%）：猪价均值 12.5 元/kg，养殖微亏、饲料与海外覆盖 → <span class="hl-warn">5.00 元</span>（PB 1.30 × 2026E BPS 约 3.85 元）<br>
+        · 乐观（概率 25%）：猪价均值 15 元/kg，归母约 52 亿、EPS 约 1.05 元 → <span class="hl-ok">10.40 元</span>（PE 10×）<br>
+        · <strong>概率加权 5.75 元，较现价 6.63 元低约 13%</strong><br><br>
+        <strong>24 个月（至 2028-11）</strong><br>
+        · 悲观 3.00 元 / 中性 7.00 元 / 乐观 12.50 元，概率加权约 <strong>7.18 元</strong><br>
+        <span class="hl-info">以上 2026E BPS、2027 归母与目标倍数均为基于公告数据的推算值，非公司指引或券商一致预期。</span>
+      </div>
+    </div>
+    <div class="strategy-card stop">
+      <div class="strategy-title">🛑 ③ 止损位</div>
+      <div class="strategy-content">
+        <strong>硬止损：5.80 元</strong>（较现价 -12.5%）—— 对应 52 周低点与 120 日低点 5.82 元，跌破即意味着「周期底部」判断被市场证伪，立即清仓离场，不做摊平。<br>
+        <strong>减仓位：6.20 元</strong> —— 跌破近 20/60 日低点 6.43 元后的确认位，若日线连续 3 日收于其下且主力资金继续净流出，减仓一半。<br>
+        <strong>时间止损：2027-03-01</strong> —— 若定增解禁前后猪价仍未回到 11 元/kg 之上，或出现解禁后集中减持与量能异常放大，无论价格如何均减仓。<br>
+        <span class="hl-danger">不建议使用「越跌越买」摊平：2025 年 9 月至 2026 年 3 月期间股价已从 9.48 元跌至 5.82 元（-38.6%），摊平者在反弹前已承受 3 次季度性亏损公告。</span>
+      </div>
+    </div>
+    <div class="strategy-card cycle">
+      <div class="strategy-title">🔄 ④ 买入策略（分 4 批，间隔 2–4 周）</div>
+      <div class="strategy-content">
+        仅在以下条件满足时才启动建仓：<span class="hl-info">猪价站上 11 元/公斤且连续 4 周 + 单季头均亏损环比收窄 + 无新增担保代偿</span>。<br>
+        · 第 1 批：6.00–6.30 元（20% 计划仓）<br>
+        · 第 2 批：5.70–6.00 元（30%，接近定增价 5.66 元）<br>
+        · 第 3 批：5.40–5.70 元（30%，52 周低点下方）<br>
+        · 第 4 批：确认反转后右侧追入（20%，需站上 MA60 7.02 元且单季转正）<br>
+        每批间隔 2–4 周，<strong>总仓位不超过 3%</strong>；若第 1 批买入后即跌破 5.80 元，后续批次全部取消。
+      </div>
+    </div>
+    <div class="strategy-card monitor">
+      <div class="strategy-title">📡 ⑤ 关键监测指标（每季度 3 项）</div>
+      <div class="strategy-content">
+        ① <strong>猪价（周频）</strong>：农业农村部全国周度生猪价格是否站上 11 元/公斤并连续 4 周；配合外三元出栏均价与标肥价差。<br>
+        ② <strong>月度销售简报（月频）</strong>：商品猪销售均价、头均亏损（= 当期养殖端盈亏 ÷ 出栏量）、出栏量是否兑现 1,600 万头下调计划。<br>
+        ③ <strong>资产负债表与融资（季频）</strong>：资产负债率能否降至 65% 以下、有息负债与授信使用率（当前约 55%）、<strong>希望转 2（余额 81.43 亿、转股价 10.59 元、转股期至 2027-11-01）的兑付或转股安排</strong>。<br>
+        附加监控：控股股东质押比例（当前其持股的 68.15%）、担保代偿公告频次、2027-03-01 定增解禁后的减持动向。
+      </div>
+    </div>
+    <div class="strategy-card stop">
+      <div class="strategy-title">🔔 ⑥ 卖出信号（3 个明确触发条件）</div>
+      <div class="strategy-content">
+        ① <strong>基本面恶化触发</strong>：连续 2 个季度归母净利亏损且亏损额环比扩大，或单季计提减值超过 8 亿元 —— 立即减仓至 0。<br>
+        ② <strong>信用与质押触发</strong>：控股股东质押比例继续上升至 80% 以上，或新增单笔担保代偿超过 2 亿元，或被担保参股公司出现实质性违约/重整 —— 无条件清仓。<br>
+        ③ <strong>供给与解禁触发</strong>：2027-03-01 定增解禁后出现发行对象集中减持且成交量异常放大；或 2027-11-01 希望转 2 到期时未落实兑付资金安排而被迫折价再融资 —— 减仓至 0。<br>
+        ④ <span class="hl-info">技术补充</span>：日线有效跌破 5.80 元并伴随主力资金连续 3 日净流出超过 1 亿元。
+      </div>
+    </div>
+    <div class="strategy-card cycle">
+      <div class="strategy-title">🗓 ⑦ 持有周期与博弈属性</div>
+      <div class="strategy-content">
+        <strong>本标的属中线（3–12 个月）周期观察仓，不适合短线与长线持有者</strong>。<br>
+        · 短线（&lt;3 月）：<span class="hl-danger">不适用</span>。主力资金净流出、无量能、均线空头排列，短线胜率低。<br>
+        · 中线（3–12 月）：<span class="hl-warn">适用</span>。核心是等待 2027 年猪价拐点与 Q4 / 2027Q1 头均亏损收窄的验证，中线是唯一合理的持有方式。<br>
+        · 长线（&gt;12 月）：<span class="hl-info">有条件适用</span>，但需以 2–3 年维度看待「饲料 + 海外 + 民生银行权益法收益」的稳定器作用，并接受期间连续 4 个季度的亏损公告。<br>
+        <strong>定位结论：这是博弈与价值之间的「半博弈标的」</strong> —— 不具备价值投资的确定性，但比纯题材股多了饲料与海外的实质支撑。
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">⚠️ 十二、核心风险揭示（5 条）</div>
+  <div class="section-subtitle">每条含触发条件 / 影响幅度 / 应对策略</div>
+
+  <div class="risk-grid">
+    <div class="risk-card">
+      <div class="risk-title">🔻 1. 猪价二次探底 / 反转推迟</div>
+      <div class="risk-desc">
+        <strong>触发条件：</strong>能繁母猪去化停滞（2027 年上半年存栏重新回升）或行业生产效率提升继续抵消去化；2027 年上半年猪价均值 &lt; 10.5 元/公斤。<br>
+        <strong>影响幅度：</strong>公司完全成本（估算 12.0–12.2 元/公斤）无法随价格下行同步压缩，头均亏损将从当前约 207–240 元扩大至 350 元以上；2026 全年归母可能达 -30 亿～-35 亿，普通股 BPS 从 3.93 元降至 3.3 元以下，PB 被动抬升至 2.0 以上，估值不跌反"贵"。<br>
+        <strong>应对策略：</strong>严格以 5.80 元为硬止损；猪价若在 2027 年 3 月前未站上 11 元/公斤，视为周期假设失效，撤销全部建仓计划。
+      </div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-title">🔻 2. 高杠杆与再融资链条</div>
+      <div class="risk-desc">
+        <strong>触发条件：</strong>有息负债约 548.97 亿元、资产负债率 69.71%、流动比率 0.755、速动比率 0.334、净营运资本 -152.56 亿元；叠加希望转 2 余额 81.43 亿元于 2027-11-01 到期（转股价 10.59 元，现价 6.63 元，转股概率低）与 2027-03-01 定增 4.59 亿股解禁。<br>
+        <strong>影响幅度：</strong>若被迫折价融资或下修转股价，PB 承压至 1.0 以下并摊薄每股收益；极端情形下授信收缩（当前用信率约 55%）会直接压制饲料放量节奏 —— 而饲料正是当前唯一的利润来源。<br>
+        <strong>应对策略：</strong>跟踪季度授信使用率、有息负债绝对额与可转债兑付方案的公告；一旦出现下修转股价公告，减仓至观察仓以下。
+      </div>
+    </div>
+    <div class="risk-card warn">
+      <div class="risk-title">⚠️ 3. 存货与消耗性生物资产持续减值</div>
+      <div class="risk-desc">
+        <strong>触发条件：</strong>猪价低于 10.5 元/公斤且持续超过一个季度（存货 126.51 亿元，其中消耗性生物资产需按可变现净值重估）。<br>
+        <strong>影响幅度：</strong>2026 年 1-9 月已计提存货跌价准备 12.43 亿元（合计减值 13.03 亿元），Q4 若猪价仍在 9.5 元/公斤附近，再计提 3–5 亿元并非不可能；按 1,600 万头年出栏、120 公斤均重估算，<strong>猪价每变动 1 元/公斤对应约 16 亿元的减值敏感度</strong>，直接吞噬净资产与归母利润。<br>
+        <strong>应对策略：</strong>逐季跟踪减值公告与存货余额变化；单季减值超 8 亿元即触发卖出信号 ①。
+      </div>
+    </div>
+    <div class="risk-card warn">
+      <div class="risk-title">⚠️ 4. 控股股东高质押 + 参股公司担保代偿</div>
+      <div class="risk-desc">
+        <strong>触发条件：</strong>新希望集团质押 7.70 亿股（占其持股 68.15%、占总股本 15.52%），且 2026 年 11 月 19/20/23/24 日已连续 4 次为参股公司（安岳、荣县、兴新鑫农牧）履行担保代偿合计约 3,303 万元；公司已于 2026-10-29 就兴新鑫违约提起诉讼。<br>
+        <strong>影响幅度：</strong>股价持续下行时，质押平仓与被动减持会形成负反馈；担保代偿若从「数百万元级」放大到「亿元级」，将直接侵蚀经营现金流并可能触发信用评级关注。公司 2026 年度对外原料采购货款担保上限 76.28 亿元（占归母净资产 34.36%），敞口不小。<br>
+        <strong>应对策略：</strong>逐条核对担保代偿公告与诉讼进展；质押比例升至 80% 以上或单笔代偿超 2 亿元，执行卖出信号 ② 无条件清仓。
+      </div>
+    </div>
+    <div class="risk-card info">
+      <div class="risk-title">ℹ️ 5. 关联交易、治理复杂度与自然灾害</div>
+      <div class="risk-desc">
+        <strong>触发条件：</strong>2026 年度关联采购上限 41.80 亿元、关联销售上限 93.11 亿元（合计约 134.9 亿元），关联方涵盖新希望乳业（董事长刘畅控制）、草根知本、山东中新食品、兴源环境等；另 2026 年公司下属子公司遭受洪水灾害，固定资产毁损转入在建工程维修改造（在建工程较年初 +32.43%），营业外支出同比 +32.42%。<br>
+        <strong>影响幅度：</strong>大额关联交易使利润质量与定价公允性更难外部验证（利润总额中 -54.8% 由非主营的投资收益贡献）；自然灾害带来的资产毁损会进一步转化为减值与非常损失，2026H1 资产减值损失已达 9.29 亿元。<br>
+        <strong>应对策略：</strong>关注年度关联交易额度审议与执行差异披露；跟踪减值与在建工程转固节奏；将「利润质量」而非单一净利润作为季度跟踪口径。
+      </div>
+    </div>
+  </div>
+
+  <div class="data-note" style="margin-top:24px;">
+    <strong>📌 数据来源与复核记录（快照时点）：</strong><br>
+    · 行情 / 估值：腾讯行情接口（qt.gtimg.cn）与东方财富行情接口（push2.eastmoney.com），2026-11-26 收盘 + 2026-11-27 09:57 盘中双源交叉验证<br>
+    · K 线与均线 / 区间统计：腾讯前复权日 K 接口（web.ifzq.gtimg.cn），321 根 K 线样本（截至 2026-11-26 完整收盘 + 11-27 盘中未计入）<br>
+    · 财务数据：巨潮资讯《2026 年第三季度报告》（2026-10-31）、《2026 年半年度报告》（2026-08-29）、《关于计提资产减值准备的公告》（2026-10-31）；东方财富 F10 主要财务指标 / 资产负债表 / 现金流量表接口交叉核验<br>
+    · 经营数据：《2026 年 10 月销售情况简报》（2026-11-07）、《2026 年 9 月销售情况简报》（2026-10-14）<br>
+    · 融资与治理：《向特定对象发行股票上市公告书》（2026-08-29）、《关于履行部分担保责任的公告》（2026-11-24 / 11-26）、《关于控股股东拟非公开发行 2026 年可交换公司债券办理完成持有股份质押登记的公告》（2026-11-24）<br>
+    · 行业数据：农业农村部（能繁母猪存栏、周度生猪价格），经新华社 / 21 世纪经济报道 / 饲料市场 / 农业行业观察转载，2026 年 11 月<br>
+    · 同业对比：腾讯行情接口同一时点快照（牧原 002714 / 温氏 300498 / 神农 605296 / 巨星 603477 / 华统 002840 / 唐人神 002567）<br>
+    · <span class="warn">未独立核验项</span>：机构持仓环比变化明细、券商一致盈利预测与目标价、2026 年末每股净资产、2027 年各情景盈利与目标倍数 —— 均已在正文中标注为估算或数据缺口
+  </div>
+
+  <div class="footer">
+    新希望六和股份有限公司（000876）｜报告数据截止 2026-11-26（周四）收盘 · 盘中快照 2026-11-27 09:57｜11 方法论交叉验证 × 12 模块标准输出<br>
+    证据优先 · 缺口显式披露 · 不编造数据 · 不构成个性化投资建议<br>
+    数据源：公司公告（巨潮资讯网）+ 东方财富 F10 + 腾讯行情 + 农业农村部（经公开媒体转载）+ 同花顺 F10 公开摘要
+  </div>
+</div>
+</body>
+</html>
